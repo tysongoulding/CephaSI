@@ -452,6 +452,187 @@
       color: #9898a3;
     }
 
+    /* ================= TENTACLE FLEET STATUS STATES (WORKING / BLUE DOT / ORANGE DOT) ================= */
+    .sidebar-status-legend {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      margin: 0 6px 8px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 10px;
+      color: #9ca3af;
+      white-space: nowrap;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4.5px;
+      font-weight: 500;
+    }
+    .legend-working-icon {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1.5px solid #22d3ee;
+      border-top-color: transparent;
+      animation: spinWorkingRing 1s linear infinite;
+    }
+    @keyframes spinWorkingRing {
+      to { transform: rotate(360deg); }
+    }
+
+    /* 1. Working on a Task: Moving Tentacle + Orbital Pulse Aura */
+    .bot-list-item.is-working {
+      background: linear-gradient(90deg, rgba(34, 211, 238, 0.07), rgba(16, 185, 129, 0.02) 80%);
+      border: 1px solid rgba(34, 211, 238, 0.16);
+    }
+    .bot-list-item.is-working .bot-item-avatar,
+    .pinned-bot-card.is-working .pinned-avatar-wrap {
+      position: relative;
+      border-radius: 50%;
+    }
+    .bot-list-item.is-working .bot-item-avatar::after,
+    .pinned-bot-card.is-working .pinned-avatar-wrap::after {
+      content: "";
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(34, 211, 238, 0.65);
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.32);
+      animation: spinWorkingRing 3.2s linear infinite;
+      pointer-events: none;
+    }
+    .bot-list-item.is-working .bot-item-avatar svg.tentacle-svg,
+    .pinned-bot-card.is-working .pinned-avatar-wrap svg.tentacle-svg {
+      animation: sidebarTentacleWorkingDance 1.05s ease-in-out infinite !important;
+      filter: drop-shadow(0 0 6px var(--t-glow, #22d3ee)) !important;
+    }
+    @keyframes sidebarTentacleWorkingDance {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg) scale(1.04);
+      }
+      25% {
+        transform: translateY(-2.2px) rotate(-9deg) scale(1.12, 0.94);
+      }
+      50% {
+        transform: translateY(0.8px) rotate(4deg) scale(0.95, 1.1);
+      }
+      75% {
+        transform: translateY(-1.8px) rotate(9deg) scale(1.1, 0.96);
+      }
+    }
+    .bot-list-item.is-working .bot-item-preview {
+      color: #38bdf8;
+      font-weight: 500;
+    }
+    .working-wave-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      flex-shrink: 0;
+      padding-left: 2px;
+    }
+    .working-wave-indicator span {
+      width: 2.5px;
+      height: 9px;
+      border-radius: 2px;
+      background: #22d3ee;
+      box-shadow: 0 0 5px rgba(34, 211, 238, 0.7);
+      animation: workingBarBounce 0.85s ease-in-out infinite;
+    }
+    .working-wave-indicator span:nth-child(2) {
+      animation-delay: 0.16s;
+      height: 12px;
+    }
+    .working-wave-indicator span:nth-child(3) {
+      animation-delay: 0.32s;
+    }
+    @keyframes workingBarBounce {
+      0%, 100% { transform: scaleY(0.45); opacity: 0.55; }
+      50% { transform: scaleY(1.15); opacity: 1; }
+    }
+
+    /* 2. Blue Dot: Done working, pending new unread message */
+    .unread-dot,
+    .status-dot.blue-dot {
+      width: 8px;
+      height: 8px;
+      min-width: 8px;
+      border-radius: 50%;
+      background: #3b82f6;
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.85);
+      flex-shrink: 0;
+      display: inline-block;
+    }
+
+    /* 3. Orange Dot: Blocked by Human-in-the-Loop (HITL) or Guardrail */
+    .blocked-dot,
+    .status-dot.orange-dot {
+      width: 8.5px;
+      height: 8.5px;
+      min-width: 8.5px;
+      border-radius: 50%;
+      background: #f97316;
+      box-shadow: 0 0 9px rgba(249, 115, 22, 0.92), 0 0 0 2px rgba(249, 115, 22, 0.2);
+      flex-shrink: 0;
+      display: inline-block;
+      animation: orangeBlockedPulse 1.6s ease-in-out infinite;
+    }
+    @keyframes orangeBlockedPulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 7px rgba(249, 115, 22, 0.8), 0 0 0 1.5px rgba(249, 115, 22, 0.18);
+      }
+      50% {
+        transform: scale(1.18);
+        box-shadow: 0 0 12px rgba(249, 115, 22, 1), 0 0 0 3px rgba(249, 115, 22, 0.32);
+      }
+    }
+
+    /* Pinned Bot Card Corner Status Dots */
+    .pinned-status-dot {
+      position: absolute;
+      top: -1px;
+      right: 1px;
+      z-index: 3;
+    }
+
+    /* HITL / Guardrail Blocked Banner inside Chat Stream */
+    .hitl-guardrail-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.13), rgba(234, 88, 12, 0.06));
+      border: 1px solid rgba(249, 115, 22, 0.42);
+      color: #fed7aa;
+      font-size: 12.5px;
+      line-height: 1.4;
+    }
+    .hitl-approve-btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(249, 115, 22, 0.6);
+      background: #ea580c;
+      color: #ffffff;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+      transition: background 0.14s, transform 0.1s;
+    }
+    .hitl-approve-btn:hover {
+      background: #f97316;
+    }
+
     /* Sidebar Bottom User Bar */
     .sidebar-footer {
       height: 50px;
@@ -4800,9 +4981,11 @@
         name: "Atlas",
         group: "OC - General",
         pinned: false,
+        blocked: true,
+        blockedReason: "Human-in-the-Loop: Waiting on your approval to apply CephaSI's profile update & 02-Knowledge folder",
         tentacleId: 8, // Cosmic
         colorId: -1,
-        preview: "I applied the update. My docs..."
+        preview: "Waiting on approval: 02-Knowledge..."
       },
       {
         id: "oracle",
@@ -4819,9 +5002,10 @@
         name: "Carrier/Portal",
         group: "Important - Droplets",
         pinned: false,
+        working: true,
         tentacleId: 5, // Bioluminescent
         colorId: -1,
-        preview: "Level Parking LLC is in NetSui...",
+        preview: "Working: Querying Lattigo SIMs...",
         searchSnippet: "Level Parking LLC is in NetSuite as customer 754980, and it's active. Its modern, ..."
       },
       {
@@ -4839,6 +5023,7 @@
         name: "Sentry",
         group: "Important - Droplets",
         pinned: false,
+        unread: true,
         tentacleId: 3, // Spiky
         colorId: -1,
         preview: "Both changes are on my profil...",
@@ -4858,9 +5043,11 @@
         name: "jAWS",
         group: "Important - Droplets",
         pinned: false,
+        blocked: true,
+        blockedReason: "Guardrail: Live AWS / CA sign-in action blocked — requires human authorization",
         tentacleId: 10, // Molten
         colorId: -1,
-        preview: "Done. The new lines are in my..."
+        preview: "Guardrail: CA sign-in approval..."
       },
       {
         id: "slacky",
@@ -4934,9 +5121,10 @@
         name: "Builder",
         group: "Unassigned",
         pinned: false,
+        working: true,
         tentacleId: 12, // Cybernetic
         colorId: -1,
-        preview: "CephaSI asked me to update ..."
+        preview: "Working: Building ACL script..."
       }
     ];
 
@@ -5009,6 +5197,25 @@
       const accentColor = getBotAccentColor(bot);
       const spec = TENTACLE_CATALOG[bot.tentacleId] || TENTACLE_CATALOG[1];
 
+      let blockedBannerHtml = "";
+      if (bot.blocked) {
+        blockedBannerHtml = `
+          <div class="hitl-guardrail-banner" data-blocked-banner="${bot.id}">
+            <div class="hitl-banner-icon" title="Orange Dot — Blocked by Human-in-the-Loop or Guardrail">🛡️</div>
+            <div class="hitl-banner-body">
+              <div class="hitl-banner-title">Blocked by Human-in-the-Loop / Guardrail</div>
+              <div class="hitl-banner-desc">${escapeHtmlText(
+                bot.blockedReason ||
+                  `${bot.name} is paused at a policy guardrail awaiting human approval from Tyson before continuing.`
+              )}</div>
+            </div>
+            <button type="button" class="hitl-approve-btn" data-unblock-bot="${bot.id}">
+              ✓ Approve &amp; Unblock
+            </button>
+          </div>
+        `;
+      }
+
       const completedHtml = exchanges
         .map(
           (ex) => `
@@ -5047,7 +5254,7 @@
         `;
       }
 
-      return completedHtml + thinkingHtml;
+      return blockedBannerHtml + completedHtml + thinkingHtml;
     }
 
     function buildSimulatedReplyHtml(bot, promptText) {
@@ -5099,6 +5306,10 @@
       state.thinkingState.statusText = "Putting it together";
       state.thinkingState.remainingMs = durationMs;
 
+      // Mark the tentacle as actively working in the sidebar so it visibly moves while thinking
+      activeBot.working = true;
+      activeBot.unread = false;
+      renderSidebar();
       renderChatStream();
 
       state.thinkingState.intervalId = setInterval(() => {
@@ -5128,6 +5339,10 @@
         state.thinkingState.active = false;
         state.thinkingState.remainingMs = 0;
 
+        // Task finished: stop tentacle working movement and show Blue Dot (pending new message)
+        activeBot.working = false;
+        activeBot.unread = true;
+
         if (!state.customExchanges[activeBot.id]) {
           state.customExchanges[activeBot.id] = [];
         }
@@ -5142,6 +5357,7 @@
           demoBtn.innerHTML = `<span class="bolt">⚡</span><span>Demo 5s Thinking Prompt</span>`;
         }
 
+        renderSidebar();
         renderChatStream();
         const streamEl = document.getElementById("chat-stream");
         if (streamEl) streamEl.scrollTop = streamEl.scrollHeight;
@@ -5215,6 +5431,16 @@
           <span>${bot.unread ? "Mark as Read" : "Mark as Unread"}</span>
         </button>
 
+        <button type="button" class="ctx-menu-item" data-bot-action="toggle-working">
+          <span class="ctx-icon" style="color:#38bdf8;">⚡</span>
+          <span>${bot.working ? "Stop Working Animation" : "Set Working (Moving Tentacle)"}</span>
+        </button>
+
+        <button type="button" class="ctx-menu-item" data-bot-action="toggle-blocked">
+          <span class="ctx-icon" style="color:#f97316;">🛡️</span>
+          <span>${bot.blocked ? "Unblock HITL / Guardrail" : "Block: HITL / Guardrail (Orange Dot)"}</span>
+        </button>
+
         <div class="ctx-menu-divider"></div>
 
         <button type="button" class="ctx-menu-item" data-bot-action="rename">
@@ -5265,8 +5491,8 @@
       `;
 
       menuEl.classList.remove("hidden");
-      const x = Math.min(event.clientX || 120, window.innerWidth - 235);
-      const y = Math.min(event.clientY || 180, window.innerHeight - 310);
+      const x = Math.min(event.clientX || 120, window.innerWidth - 245);
+      const y = Math.min(event.clientY || 180, window.innerHeight - 360);
       menuEl.style.left = `${Math.max(10, x)}px`;
       menuEl.style.top = `${Math.max(10, y)}px`;
 
@@ -5293,8 +5519,34 @@
             renderAll();
           } else if (action === "unread") {
             bot.unread = !bot.unread;
+            if (bot.unread) {
+              bot.working = false;
+              bot.blocked = false;
+            }
             closeAllContextMenus();
             renderSidebar();
+            showToast(bot.unread ? `${bot.name}: Blue Dot (Pending new message)` : `${bot.name}: Marked as Read`);
+          } else if (action === "toggle-working") {
+            bot.working = !bot.working;
+            if (bot.working) {
+              bot.unread = false;
+              bot.blocked = false;
+            }
+            closeAllContextMenus();
+            renderSidebar();
+            showToast(bot.working ? `${bot.name} is now Working (Moving Tentacle)` : `${bot.name} stopped working`);
+          } else if (action === "toggle-blocked") {
+            bot.blocked = !bot.blocked;
+            if (bot.blocked) {
+              bot.working = false;
+              if (!bot.blockedReason) {
+                bot.blockedReason = `HITL / Guardrail: ${bot.name} requires Tyson's approval before executing privileged action.`;
+              }
+            }
+            closeAllContextMenus();
+            renderSidebar();
+            if (state.activeBotId === bot.id) renderChatStream();
+            showToast(bot.blocked ? `${bot.name}: Orange Dot (Blocked by HITL / Guardrail)` : `${bot.name}: Unblocked`);
           } else if (action === "rename") {
             closeAllContextMenus();
             openBotEditor("edit", bot.id);
@@ -5558,7 +5810,15 @@
       const brandLogoEl = document.getElementById("sidebar-brand-logo");
       const brandTitleEl = document.getElementById("sidebar-brand-title");
       if (brandLogoEl && primaryBot) {
-        brandLogoEl.innerHTML = renderTentacleSVG(primaryBot.tentacleId, getColorHex(primaryBot.colorId), 34);
+        const isPrimaryWorking = Boolean(
+          primaryBot.working || (state.thinkingState.active && state.thinkingState.botId === primaryBot.id)
+        );
+        brandLogoEl.innerHTML = renderTentacleSVG(
+          primaryBot.tentacleId,
+          getColorHex(primaryBot.colorId),
+          34,
+          isPrimaryWorking
+        );
       }
       if (brandTitleEl && primaryBot) {
         if (primaryBot.name === "CephaSI") {
@@ -5574,15 +5834,27 @@
       pinnedContainer.innerHTML = pinnedBots
         .map((bot) => {
           const isActive = bot.id === state.activeBotId;
-          const svg = renderTentacleSVG(bot.tentacleId, getColorHex(bot.colorId), 48);
+          const isWorking = Boolean(
+            bot.working || (state.thinkingState.active && state.thinkingState.botId === bot.id)
+          );
+          const svg = renderTentacleSVG(bot.tentacleId, getColorHex(bot.colorId), 48, isWorking);
           const starHtml = bot.starred
             ? `<div class="star-badge" title="Main AI Orchestrator (Core Main AI)">★</div>`
             : "";
+          let pinnedDotHtml = "";
+          if (!isWorking && bot.blocked) {
+            pinnedDotHtml = `<span class="pinned-status-dot orange-dot" title="${escapeHtmlText(
+              bot.blockedReason || "Blocked by Human-in-the-Loop or Guardrail"
+            )}"></span>`;
+          } else if (!isWorking && bot.unread) {
+            pinnedDotHtml = `<span class="pinned-status-dot blue-dot" title="Done working — Pending new message"></span>`;
+          }
           return `
-            <div class="pinned-bot-card ${isActive ? "active" : ""}" data-bot-id="${bot.id}">
+            <div class="pinned-bot-card ${isActive ? "active" : ""} ${isWorking ? "is-working" : ""}" data-bot-id="${bot.id}">
               <div class="pinned-avatar-wrap">
                 ${svg}
                 ${starHtml}
+                ${pinnedDotHtml}
               </div>
               <div class="pinned-bot-name">${bot.name}</div>
             </div>
@@ -5598,22 +5870,74 @@
 
       const groups = state.sections;
       const groupsContainer = document.getElementById("sidebar-groups-container");
-      groupsContainer.innerHTML = groups
+
+      const statusLegendHtml = `
+        <div class="sidebar-status-legend" id="sidebar-status-legend" title="Tentacle Sidebar Activity States">
+          <span class="legend-chip" title="Tentacle actively moving while working on a task">
+            <span class="working-wave-indicator" style="margin-left:0;"><span></span><span></span><span></span></span>
+            <span>Working</span>
+          </span>
+          <span class="legend-chip" title="Blue Dot: Done working, pending new message">
+            <span class="legend-dot blue"></span>
+            <span>New Msg</span>
+          </span>
+          <span class="legend-chip" title="Orange Dot: Blocked by Human-in-the-Loop (HITL) or Guardrail">
+            <span class="legend-dot orange"></span>
+            <span>HITL / Guardrail</span>
+          </span>
+        </div>
+      `;
+
+      const sectionsHtml = groups
         .map((groupName) => {
           const groupBots = state.bots.filter((b) => !b.pinned && !b.hiddenFromSidebar && b.group === groupName);
           if (!groupBots.length && groupName !== "Unassigned") return "";
           const itemsHtml = groupBots
             .map((bot) => {
               const isActive = bot.id === state.activeBotId;
-              const svg = renderTentacleSVG(bot.tentacleId, getColorHex(bot.colorId), 28);
+              const isWorking = Boolean(
+                bot.working || (state.thinkingState.active && state.thinkingState.botId === bot.id)
+              );
+              const svg = renderTentacleSVG(bot.tentacleId, getColorHex(bot.colorId), 28, isWorking);
+
+              let statusRightHtml = "";
+              if (isWorking) {
+                statusRightHtml = `
+                  <span class="working-wave-indicator" title="${escapeHtmlText(
+                    bot.workingTask || `${bot.name} is actively working on a task`
+                  )}">
+                    <span></span><span></span><span></span>
+                  </span>
+                `;
+              } else if (bot.blocked) {
+                statusRightHtml = `
+                  <span class="blocked-dot orange-dot" title="${escapeHtmlText(
+                    bot.blockedReason || "Blocked by Human-in-the-Loop or Guardrail"
+                  )}"></span>
+                `;
+              } else if (bot.unread) {
+                statusRightHtml = `
+                  <span class="unread-dot blue-dot" title="Done working — Pending new message"></span>
+                `;
+              }
+
+              const stateClasses = [
+                isActive ? "active" : "",
+                isWorking ? "is-working" : "",
+                !isWorking && bot.blocked ? "is-blocked" : "",
+                !isWorking && !bot.blocked && bot.unread ? "is-unread" : ""
+              ]
+                .filter(Boolean)
+                .join(" ");
+
               return `
-                <div class="bot-list-item ${isActive ? "active" : ""}" data-bot-id="${bot.id}">
+                <div class="bot-list-item ${stateClasses}" data-bot-id="${bot.id}">
                   <div class="bot-item-avatar">${svg}</div>
                   <div class="bot-item-text">
                     <div class="bot-item-name">${bot.name}</div>
                     <div class="bot-item-preview">${bot.preview}</div>
                   </div>
-                  ${bot.unread ? `<span class="unread-dot" title="Unread activity"></span>` : ""}
+                  ${statusRightHtml}
                 </div>
               `;
             })
@@ -5629,6 +5953,8 @@
           `;
         })
         .join("");
+
+      groupsContainer.innerHTML = statusLegendHtml + sectionsHtml;
 
       const hiddenBots = state.bots.filter((b) => b.hiddenFromSidebar);
       if (hiddenBots.length) {
@@ -6073,6 +6399,18 @@ write memory</pre>
 
       streamEl.querySelectorAll(".bot-mention-chip[data-jump-bot]").forEach((chip) => {
         chip.addEventListener("click", () => selectBot(chip.dataset.jumpBot));
+      });
+      streamEl.querySelectorAll(".hitl-approve-btn[data-unblock-bot]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetBot = getBotById(btn.dataset.unblockBot);
+          if (targetBot) {
+            targetBot.blocked = false;
+            targetBot.working = true;
+            renderSidebar();
+            renderChatStream();
+            showToast(`Approved & unblocked ${targetBot.name} — Tentacle resumed working`);
+          }
+        });
       });
       if (state.thinkingState.active && state.thinkingState.botId === activeBot.id) {
         streamEl.scrollTop = streamEl.scrollHeight;

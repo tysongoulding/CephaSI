@@ -421,8 +421,28 @@ async function runVerification() {
   assert.equal(unassignedStillPresent, 1, "Unassigned section must never be deleted");
   console.log("✔ View 30 verified: Section Context Menu (Rename, Move up, Move down, Delete) & Unassigned Deletion Guardrail.");
 
+  // 31. View 31: Active Working Tentacle Movement + Blue Dot (Done Working / Pending New Message) + Orange Dot (Blocked by HITL / Guardrail)
+  await page.keyboard.press("Escape");
+  const workingBotsCount = await page.locator(".bot-list-item.is-working").count();
+  const workingWaveIndicators = await page.locator(".bot-list-item.is-working .working-wave-indicator").count();
+  const blueDotsCount = await page.locator(".bot-list-item .unread-dot.blue-dot").count();
+  const orangeDotsCount = await page.locator(".bot-list-item .blocked-dot.orange-dot").count();
+  const doctorHasBlueDotAfter5s = await page.locator('.bot-list-item[data-bot-id="doctor"] .unread-dot.blue-dot').count();
+
+  assert(workingBotsCount >= 2, "At least 2 tentacles (Carrier/Portal, Builder) must be actively moving in .is-working state");
+  assert.equal(workingWaveIndicators, workingBotsCount, "Every working tentacle row must show the .working-wave-indicator");
+  assert(blueDotsCount >= 3, "Blue dots (.unread-dot.blue-dot) must appear for done-working / pending new message bots (Sentry, Overwatch, Doctor)");
+  assert.equal(doctorHasBlueDotAfter5s, 1, "Doctor must automatically receive a Blue Dot (.unread-dot.blue-dot) after finishing its 5s thinking task");
+  assert(orangeDotsCount >= 2, "Orange dots (.blocked-dot.orange-dot) must appear for HITL / Guardrail blocked bots (Atlas, jAWS)");
+
+  // Select Atlas (blocked by HITL/Guardrail) so the HITL banner is also visible in chat alongside the sidebar states
+  await page.click('.bot-list-item[data-bot-id="atlas"]');
+  await page.waitForSelector('.hitl-guardrail-banner[data-blocked-banner="atlas"]');
+  await page.screenshot({ path: path.join(SCRATCH_DIR, "view_31_tentacle_working_blue_orange_dots.png") });
+  console.log("✔ View 31 verified: Working Tentacle Movement (.is-working) + Blue Dot (.unread-dot.blue-dot) + Orange Dot (.blocked-dot.orange-dot) & HITL Banner.");
+
   await browser.close();
-  console.log("\nALL 30 E2E VERIFICATION CHECKS PASSED SUCCESSFULLY!");
+  console.log("\nALL 31 E2E VERIFICATION CHECKS PASSED SUCCESSFULLY!");
 }
 
 runVerification().catch((err) => {
