@@ -482,8 +482,36 @@ async function runVerification() {
   await page.screenshot({ path: path.join(SCRATCH_DIR, "view_32b_settings_font_styles.png") });
   console.log("✔ View 32 verified: Ubuntu Font Default + GrokBot Icon/Font Sizes (62px/38px icons, 14.5px chat) + 12 Major Font Styles in Settings.");
 
+  // 33. View 33: Typing in Composer dynamically switches Voice Chat button (#composer-wave-btn) to Enter / Send Arrow (#composer-send-icon)
+  await page.click("#btn-close-settings");
+  await page.waitForSelector("#modal-settings.hidden", { state: "hidden" });
+
+  const initialMode = await page.getAttribute("#composer-wave-btn", "data-mode");
+  const initialWaveIconCount = await page.locator("#composer-wave-btn #composer-wave-icon").count();
+  assert.equal(initialMode, "voice", "Composer button must start in voice mode when input is empty");
+  assert.equal(initialWaveIconCount, 1, "Composer button must show voice waveform icon when input is empty");
+
+  // Type "hello" into the composer input
+  await page.fill("#chat-composer-input", "hello");
+  const typingMode = await page.getAttribute("#composer-wave-btn", "data-mode");
+  const sendArrowIconCount = await page.locator("#composer-wave-btn #composer-send-icon").count();
+  assert.equal(typingMode, "send", "Composer button must switch to send/enter mode as soon as user starts typing");
+  assert.equal(sendArrowIconCount, 1, "Composer button must display upward Enter/Send arrow (#composer-send-icon) while typing");
+
+  await page.screenshot({ path: path.join(SCRATCH_DIR, "view_33_composer_typing_enter_arrow.png") });
+
+  // Clicking the Enter/Send arrow button submits the message and reverts button back to voice mode
+  await page.click("#composer-wave-btn");
+  const afterSendMode = await page.getAttribute("#composer-wave-btn", "data-mode");
+  const inputAfterSend = await page.inputValue("#chat-composer-input");
+  const thinkingTriggered = await page.locator("#bot-thinking-indicator").count();
+  assert.equal(afterSendMode, "voice", "Composer button must revert to voice mode after sending message");
+  assert.equal(inputAfterSend, "", "Composer input must clear after clicking Enter/Send button");
+  assert.equal(thinkingTriggered, 1, "Clicking the Enter/Send button must trigger the bot prompt reply");
+  console.log("✔ View 33 verified: Typing in composer switches Voice Chat button to Enter/Send arrow (↑) and sends on click.");
+
   await browser.close();
-  console.log("\nALL 32 E2E VERIFICATION CHECKS PASSED SUCCESSFULLY!");
+  console.log("\nALL 33 E2E VERIFICATION CHECKS PASSED SUCCESSFULLY!");
 }
 
 runVerification().catch((err) => {

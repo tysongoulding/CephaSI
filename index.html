@@ -6186,22 +6186,75 @@
       });
     }
 
+    function updateComposerActionButton() {
+      const activeBot = getBotById(state.activeBotId);
+      const composerInput = document.getElementById("chat-composer-input");
+      const waveBtn = document.getElementById("composer-wave-btn");
+      if (!waveBtn) return;
+
+      const hasText = Boolean(composerInput && composerInput.value.trim().length > 0);
+      const accentColor = getBotAccentColor(activeBot);
+
+      if (hasText) {
+        waveBtn.dataset.mode = "send";
+        waveBtn.classList.add("is-send-mode");
+        waveBtn.title = "Send message (Enter)";
+        waveBtn.style.background = accentColor;
+        waveBtn.style.color = "#ffffff";
+        waveBtn.innerHTML = `
+          <svg id="composer-send-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+          </svg>
+        `;
+      } else {
+        waveBtn.dataset.mode = "voice";
+        waveBtn.classList.remove("is-send-mode");
+        waveBtn.title = "Start voice chat";
+        if (activeBot.id === "atlas") {
+          waveBtn.classList.add("blue-accent");
+          waveBtn.style.background = "#2563eb";
+          waveBtn.style.color = "#ffffff";
+        } else if (activeBot.id === "doctor") {
+          waveBtn.classList.remove("blue-accent");
+          waveBtn.style.background = "#dc2626";
+          waveBtn.style.color = "#ffffff";
+        } else {
+          waveBtn.classList.remove("blue-accent");
+          waveBtn.style.background = "#ffffff";
+          waveBtn.style.color = "#111111";
+        }
+
+        if (state.voiceCallActive) {
+          waveBtn.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="2" width="6" height="11" rx="3"></rect>
+              <path d="M5 10a7 7 0 0 0 14 0M12 17v4M8 21h8"></path>
+            </svg>
+          `;
+        } else {
+          waveBtn.innerHTML = `
+            <svg id="composer-wave-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+              <line x1="6" y1="9" x2="6" y2="15"></line>
+              <line x1="10" y1="5" x2="10" y2="19"></line>
+              <line x1="14" y1="8" x2="14" y2="16"></line>
+              <line x1="18" y1="10" x2="18" y2="14"></line>
+            </svg>
+          `;
+        }
+      }
+    }
+
     function renderTopHeaderAndComposer() {
       const activeBot = getBotById(state.activeBotId);
       const pillIcon = document.getElementById("top-pill-icon");
       const pillName = document.getElementById("top-pill-name");
       const composerInput = document.getElementById("chat-composer-input");
-      const waveBtn = document.getElementById("composer-wave-btn");
 
       pillIcon.innerHTML = renderTentacleSVG(activeBot.tentacleId, getColorHex(activeBot.colorId), 22);
       pillName.textContent = activeBot.name;
       composerInput.placeholder = `Message ${activeBot.name}`;
-
-      if (activeBot.id === "atlas") {
-        waveBtn.classList.add("blue-accent");
-      } else {
-        waveBtn.classList.remove("blue-accent");
-      }
+      updateComposerActionButton();
     }
 
     function renderChatStream() {
@@ -9503,6 +9556,7 @@ copy running-config startup-config</pre>
           const composerInput = document.getElementById("chat-composer-input");
           const customText = composerInput && composerInput.value.trim() ? composerInput.value.trim() : "";
           if (composerInput) composerInput.value = "";
+          updateComposerActionButton();
           run5sThinkingDemo(customText);
         });
       }
@@ -9513,10 +9567,14 @@ copy running-config startup-config</pre>
       });
       const chatComposerInput = document.getElementById("chat-composer-input");
       if (chatComposerInput) {
+        chatComposerInput.addEventListener("input", () => {
+          updateComposerActionButton();
+        });
         chatComposerInput.addEventListener("keydown", (e) => {
           if (e.key === "Enter" && chatComposerInput.value.trim()) {
             const text = chatComposerInput.value.trim();
             chatComposerInput.value = "";
+            updateComposerActionButton();
             run5sThinkingDemo(text);
           }
         });
@@ -9559,25 +9617,12 @@ copy running-config startup-config</pre>
           voiceCallHud.classList.remove("hidden");
           dictateTooltip.classList.remove("hidden");
           composerMicBtn.classList.add("hidden");
-          composerWaveBtn.innerHTML = `
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="9" y="2" width="6" height="11" rx="3"></rect>
-              <path d="M5 10a7 7 0 0 0 14 0M12 17v4M8 21h8"></path>
-            </svg>
-          `;
         } else {
           voiceCallHud.classList.add("hidden");
           dictateTooltip.classList.add("hidden");
           composerMicBtn.classList.remove("hidden");
-          composerWaveBtn.innerHTML = `
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
-              <line x1="6" y1="9" x2="6" y2="15"></line>
-              <line x1="10" y1="5" x2="10" y2="19"></line>
-              <line x1="14" y1="8" x2="14" y2="16"></line>
-              <line x1="18" y1="10" x2="18" y2="14"></line>
-            </svg>
-          `;
         }
+        updateComposerActionButton();
         renderChatStream();
         if (state.voiceCallActive) {
           const streamEl = document.getElementById("chat-stream");
@@ -9587,6 +9632,13 @@ copy running-config startup-config</pre>
 
       composerWaveBtn.addEventListener("click", (e) => {
         e.stopPropagation();
+        if (chatComposerInput && chatComposerInput.value.trim().length > 0) {
+          const text = chatComposerInput.value.trim();
+          chatComposerInput.value = "";
+          updateComposerActionButton();
+          run5sThinkingDemo(text);
+          return;
+        }
         state.voiceCallActive = !state.voiceCallActive;
         updateVoiceCallUI();
       });
