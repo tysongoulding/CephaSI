@@ -381,8 +381,48 @@ async function runVerification() {
   assert.equal(replyCardCount, 1, "Simulated reply card must appear after 5 seconds");
   console.log("✔ View 28b verified: 5-second made-up prompt completed and rendered reply card.");
 
+  // 29. View 29: Right-Click a Tentacle / Bot in the Sidebar (Screenshot 1: Pin, Move to, Mark as Unread, Rename Bot, Copy conversation ID, Hide from sidebar, Delete)
+  await page.click('.bot-list-item[data-bot-id="dojo"]', { button: "right" });
+  await page.waitForSelector("#bot-context-menu:not(.hidden)");
+  const botMenuText = await page.textContent("#bot-context-menu");
+  assert(
+    botMenuText.includes("Pin") &&
+      botMenuText.includes("Move to") &&
+      botMenuText.includes("Mark as Unread") &&
+      botMenuText.includes("Rename Bot") &&
+      botMenuText.includes("Copy conversation ID") &&
+      botMenuText.includes("Hide from sidebar") &&
+      botMenuText.includes("Delete"),
+    "Tentacle right-click menu must include all 7 items from Screenshot 1"
+  );
+  await page.screenshot({ path: path.join(SCRATCH_DIR, "view_29_tentacle_right_click_menu.png") });
+  console.log("✔ View 29 verified: Tentacle Right-Click Context Menu (Pin, Move to, Mark as Unread, Rename Bot, Copy conversation ID, Hide from sidebar, Delete).");
+
+  // 30. View 30: Select a Section Header (Screenshot 2: Rename, Move up, Move down, Delete) & Verify 'Unassigned' CANNOT be deleted
+  await page.click('.bot-group-header[data-section-name="Important - Droplets"]');
+  await page.waitForSelector("#section-context-menu:not(.hidden)");
+  const secMenuText = await page.textContent("#section-context-menu");
+  assert(
+    secMenuText.includes("Rename") &&
+      secMenuText.includes("Move up") &&
+      secMenuText.includes("Move down") &&
+      secMenuText.includes("Delete"),
+    "Section context menu must include Rename, Move up, Move down, and Delete"
+  );
+  await page.screenshot({ path: path.join(SCRATCH_DIR, "view_30_section_context_menu.png") });
+
+  // Verify Unassigned section cannot be deleted
+  await page.click('.bot-group-header[data-section-name="Unassigned"]');
+  await page.waitForSelector("#section-context-menu:not(.hidden)");
+  const unassignedDeleteDisabled = await page.locator('#section-context-menu [data-section-action="delete"][data-disabled="true"]').count();
+  assert.equal(unassignedDeleteDisabled, 1, "Delete must be disabled on the Unassigned section");
+  await page.click('#section-context-menu [data-section-action="delete"]');
+  const unassignedStillPresent = await page.locator('.bot-group-header[data-section-name="Unassigned"]').count();
+  assert.equal(unassignedStillPresent, 1, "Unassigned section must never be deleted");
+  console.log("✔ View 30 verified: Section Context Menu (Rename, Move up, Move down, Delete) & Unassigned Deletion Guardrail.");
+
   await browser.close();
-  console.log("\nALL 28 E2E VERIFICATION CHECKS PASSED SUCCESSFULLY!");
+  console.log("\nALL 30 E2E VERIFICATION CHECKS PASSED SUCCESSFULLY!");
 }
 
 runVerification().catch((err) => {

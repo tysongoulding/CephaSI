@@ -275,8 +275,123 @@
       font-size: 11px;
       font-weight: 500;
       color: var(--text-muted);
-      padding: 8px 8px 3px;
+      padding: 6px 8px 4px;
+      margin-top: 2px;
+      border-radius: 7px;
       letter-spacing: 0.01em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.14s, color 0.14s;
+    }
+    .bot-group-header:hover,
+    .bot-group-header.ctx-active {
+      background: rgba(255, 255, 255, 0.055);
+      color: #d4d4dc;
+    }
+    .bot-group-header .sec-more-dots {
+      opacity: 0;
+      font-size: 12px;
+      color: #8e8e98;
+      transition: opacity 0.14s;
+    }
+    .bot-group-header:hover .sec-more-dots,
+    .bot-group-header.ctx-active .sec-more-dots {
+      opacity: 1;
+    }
+
+    /* Floating Context Menus (Right-Click Tentacle & Select Section) */
+    .ctx-floating-menu {
+      position: fixed;
+      z-index: 450;
+      background: #1d1d21;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 14px;
+      padding: 6px;
+      min-width: 214px;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(16px);
+      user-select: none;
+    }
+    .ctx-floating-menu.section-menu {
+      min-width: 176px;
+    }
+    .ctx-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 8px 11px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #ededf2;
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+      position: relative;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+    }
+    .ctx-menu-item:hover:not(.disabled) {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+    }
+    .ctx-menu-item .ctx-icon {
+      width: 16px;
+      height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #a1a1aa;
+      flex-shrink: 0;
+    }
+    .ctx-menu-item:hover:not(.disabled) .ctx-icon {
+      color: #e4e4ec;
+    }
+    .ctx-menu-item .ctx-chevron {
+      margin-left: auto;
+      color: #8e8e98;
+      font-size: 14px;
+      line-height: 1;
+    }
+    .ctx-menu-item.danger {
+      color: #ef4444;
+    }
+    .ctx-menu-item.danger .ctx-icon {
+      color: #ef4444;
+    }
+    .ctx-menu-item.danger:hover:not(.disabled) {
+      background: rgba(239, 68, 68, 0.14);
+      color: #f87171;
+    }
+    .ctx-menu-item.disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+    }
+    .ctx-menu-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      margin: 5px 6px;
+    }
+    .ctx-toast-banner {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 500;
+      background: #1f1f24;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #f4f4f6;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 500;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
     }
 
     .bot-list-item {
@@ -3996,6 +4111,33 @@
     </div>
   </div>
 
+  <!-- ================= TENTACLE / BOT RIGHT-CLICK CONTEXT MENU (Screenshot 1) ================= -->
+  <div id="bot-context-menu" class="ctx-floating-menu hidden" onclick="event.stopPropagation()"></div>
+  <div id="bot-move-to-submenu" class="ctx-floating-menu hidden" style="min-width: 190px; z-index: 460;" onclick="event.stopPropagation()"></div>
+
+  <!-- ================= SECTION HEADER CONTEXT MENU (Screenshot 2) ================= -->
+  <div id="section-context-menu" class="ctx-floating-menu section-menu hidden" onclick="event.stopPropagation()"></div>
+
+  <!-- ================= RENAME / NEW SECTION MODAL ================= -->
+  <div id="modal-rename-section" class="modal-backdrop hidden" style="z-index: 470;">
+    <div class="invite-modal-card" style="width: 340px;" onclick="event.stopPropagation()">
+      <div class="modal-header-bar" style="border-bottom: none; padding-bottom: 4px;">
+        <div id="rename-section-modal-title" class="modal-title">Rename section</div>
+        <button id="btn-close-rename-section" class="modal-close-x">✕</button>
+      </div>
+      <div style="padding: 8px 16px 16px;">
+        <input id="rename-section-input" type="text" class="bot-name-input" placeholder="Section name..." />
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px;">
+          <button id="btn-cancel-rename-section" type="button" class="btn-pill-secondary">Cancel</button>
+          <button id="btn-save-rename-section" type="button" class="btn-pill-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TOAST NOTIFICATION ================= -->
+  <div id="ctx-toast" class="ctx-toast-banner hidden"></div>
+
   <script>
     // =========================================================================
     // 1. 12 COLOR SWATCHES (Default Style Original + 11 Custom Colors in 6 + 6)
@@ -4772,6 +4914,7 @@
     // =========================================================================
     const state = {
       bots: JSON.parse(JSON.stringify(INITIAL_BOTS)),
+      sections: ["OC - General", "Important - Droplets", "Unassigned"],
       activeBotId: "cephasi",
       inspectorOpen: false,
       inspectorTab: "Library",
@@ -4783,6 +4926,9 @@
       editorColorId: -1,
       editorCategory: "all", // 'all' | 'core' | 'thematic' | 'elemental'
       editorName: "",
+      sectionModalMode: "rename", // 'rename' | 'create-and-move'
+      sectionModalTarget: null,
+      sectionModalBotId: null,
       customExchanges: {},
       thinkingState: {
         active: false,
@@ -4972,8 +5118,410 @@
     }
 
     // =========================================================================
-    // 5. RENDER SIDEBAR, TOP PILL, CHAT STREAM & INSPECTOR
+    // 5. RENDER SIDEBAR, CONTEXT MENUS, TOP PILL, CHAT STREAM & INSPECTOR
     // =========================================================================
+    let toastTimer = null;
+    function showToast(msg) {
+      const toastEl = document.getElementById("ctx-toast");
+      if (!toastEl) return;
+      toastEl.textContent = msg;
+      toastEl.classList.remove("hidden");
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toastEl.classList.add("hidden");
+      }, 2400);
+    }
+
+    function closeAllContextMenus() {
+      const botMenu = document.getElementById("bot-context-menu");
+      const moveMenu = document.getElementById("bot-move-to-submenu");
+      const secMenu = document.getElementById("section-context-menu");
+      if (botMenu) botMenu.classList.add("hidden");
+      if (moveMenu) moveMenu.classList.add("hidden");
+      if (secMenu) secMenu.classList.add("hidden");
+      document.querySelectorAll(".bot-group-header.ctx-active").forEach((el) => el.classList.remove("ctx-active"));
+    }
+
+    // 1st Pic: Right-Click a Tentacle / Bot in the Sidebar
+    function openBotContextMenu(botId, event) {
+      event.preventDefault();
+      event.stopPropagation();
+      closeAllContextMenus();
+
+      const bot = getBotById(botId);
+      if (!bot) return;
+      const isMain = Boolean(bot.isMainAI || bot.id === "cephasi");
+      const menuEl = document.getElementById("bot-context-menu");
+
+      menuEl.innerHTML = `
+        <button type="button" class="ctx-menu-item" data-bot-action="pin">
+          <span class="ctx-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="17" x2="12" y2="22"></line>
+              <path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"></path>
+            </svg>
+          </span>
+          <span>${bot.pinned ? "Unpin" : "Pin"}</span>
+        </button>
+
+        <button type="button" class="ctx-menu-item" data-bot-action="move-to" id="ctx-item-move-to">
+          <span class="ctx-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </span>
+          <span>Move to</span>
+          <span class="ctx-chevron">›</span>
+        </button>
+
+        <button type="button" class="ctx-menu-item" data-bot-action="unread">
+          <span class="ctx-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </span>
+          <span>${bot.unread ? "Mark as Read" : "Mark as Unread"}</span>
+        </button>
+
+        <div class="ctx-menu-divider"></div>
+
+        <button type="button" class="ctx-menu-item" data-bot-action="rename">
+          <span class="ctx-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </span>
+          <span>Rename Bot</span>
+        </button>
+
+        <div class="ctx-menu-divider"></div>
+
+        <button type="button" class="ctx-menu-item" data-bot-action="copy-id">
+          <span class="ctx-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </span>
+          <span>Copy conversation ID</span>
+        </button>
+
+        <div class="ctx-menu-divider"></div>
+
+        <button type="button" class="ctx-menu-item ${isMain ? "disabled" : ""}" data-bot-action="hide" ${isMain ? 'title="Main AI cannot be hidden"' : ""}>
+          <span class="ctx-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+            </svg>
+          </span>
+          <span>Hide from sidebar</span>
+        </button>
+
+        <button type="button" class="ctx-menu-item danger ${isMain ? "disabled" : ""}" data-bot-action="delete" ${isMain ? 'title="Main AI (CephaSI) cannot be deleted"' : ""}>
+          <span class="ctx-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+          </span>
+          <span>Delete</span>
+        </button>
+      `;
+
+      menuEl.classList.remove("hidden");
+      const x = Math.min(event.clientX || 120, window.innerWidth - 235);
+      const y = Math.min(event.clientY || 180, window.innerHeight - 310);
+      menuEl.style.left = `${Math.max(10, x)}px`;
+      menuEl.style.top = `${Math.max(10, y)}px`;
+
+      const moveToBtn = document.getElementById("ctx-item-move-to");
+      if (moveToBtn) {
+        moveToBtn.addEventListener("mouseenter", () => openMoveToSubmenu(bot, moveToBtn));
+        moveToBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          openMoveToSubmenu(bot, moveToBtn);
+        });
+      }
+
+      menuEl.querySelectorAll(".ctx-menu-item[data-bot-action]").forEach((btn) => {
+        const action = btn.dataset.botAction;
+        if (action === "move-to") return;
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (action === "pin") {
+            bot.pinned = !bot.pinned;
+            if (!bot.pinned && (!bot.group || bot.group === "pinned")) {
+              bot.group = state.sections[0] || "Unassigned";
+            }
+            closeAllContextMenus();
+            renderAll();
+          } else if (action === "unread") {
+            bot.unread = !bot.unread;
+            closeAllContextMenus();
+            renderSidebar();
+          } else if (action === "rename") {
+            closeAllContextMenus();
+            openBotEditor("edit", bot.id);
+          } else if (action === "copy-id") {
+            const convId = `conv_${bot.id}_2026`;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(convId).catch(() => {});
+            }
+            closeAllContextMenus();
+            showToast(`Copied conversation ID: ${convId}`);
+          } else if (action === "hide") {
+            if (isMain) {
+              showToast("Main AI (CephaSI) cannot be hidden");
+              return;
+            }
+            bot.hiddenFromSidebar = true;
+            closeAllContextMenus();
+            renderSidebar();
+            showToast(`${bot.name} hidden from sidebar`);
+          } else if (action === "delete") {
+            if (isMain) {
+              showToast("Main AI (CephaSI) cannot be deleted");
+              return;
+            }
+            state.bots = state.bots.filter((b) => b.id !== bot.id);
+            if (state.activeBotId === bot.id) {
+              state.activeBotId = "cephasi";
+            }
+            closeAllContextMenus();
+            renderAll();
+            showToast(`Deleted ${bot.name}`);
+          }
+        });
+      });
+    }
+
+    function openMoveToSubmenu(bot, anchorEl) {
+      const subEl = document.getElementById("bot-move-to-submenu");
+      const rect = anchorEl.getBoundingClientRect();
+
+      subEl.innerHTML = `
+        ${state.sections
+          .map((sec) => {
+            const isCurrent = !bot.pinned && bot.group === sec;
+            return `
+              <button type="button" class="ctx-menu-item" data-move-sec="${sec}">
+                <span class="ctx-icon">${isCurrent ? "✓" : "📁"}</span>
+                <span>${sec}</span>
+              </button>
+            `;
+          })
+          .join("")}
+        <div class="ctx-menu-divider"></div>
+        <button type="button" class="ctx-menu-item" id="btn-move-to-new-sec">
+          <span class="ctx-icon">＋</span>
+          <span>New section...</span>
+        </button>
+      `;
+
+      subEl.classList.remove("hidden");
+      const leftPos = Math.min(rect.right + 6, window.innerWidth - 205);
+      const topPos = Math.min(rect.top - 6, window.innerHeight - 210);
+      subEl.style.left = `${leftPos}px`;
+      subEl.style.top = `${Math.max(10, topPos)}px`;
+
+      subEl.querySelectorAll(".ctx-menu-item[data-move-sec]").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          bot.pinned = false;
+          bot.group = btn.dataset.moveSec;
+          closeAllContextMenus();
+          renderSidebar();
+          showToast(`Moved ${bot.name} to ${btn.dataset.moveSec}`);
+        });
+      });
+
+      const newSecBtn = document.getElementById("btn-move-to-new-sec");
+      if (newSecBtn) {
+        newSecBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          closeAllContextMenus();
+          openRenameSectionModal("create-and-move", "", bot.id);
+        });
+      }
+    }
+
+    // 2nd Pic: Select / Right-Click a Section Header ('Unassigned' CANNOT be deleted)
+    function openSectionContextMenu(sectionName, event, headerEl) {
+      event.preventDefault();
+      event.stopPropagation();
+      closeAllContextMenus();
+
+      if (headerEl) headerEl.classList.add("ctx-active");
+
+      const isUnassigned = sectionName === "Unassigned";
+      const idx = state.sections.indexOf(sectionName);
+      const canMoveUp = idx > 0;
+      const canMoveDown = idx >= 0 && idx < state.sections.length - 1;
+      const menuEl = document.getElementById("section-context-menu");
+
+      menuEl.innerHTML = `
+        <button type="button" class="ctx-menu-item ${isUnassigned ? "disabled" : ""}" data-section-action="rename" ${isUnassigned ? 'data-disabled="true" title="Unassigned section cannot be renamed"' : ""}>
+          <span class="ctx-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+            </svg>
+          </span>
+          <span>Rename</span>
+        </button>
+
+        <button type="button" class="ctx-menu-item ${!canMoveUp ? "disabled" : ""}" data-section-action="move-up" ${!canMoveUp ? 'data-disabled="true"' : ""}>
+          <span class="ctx-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="19" x2="12" y2="5"></line>
+              <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+          </span>
+          <span>Move up</span>
+        </button>
+
+        <button type="button" class="ctx-menu-item ${!canMoveDown ? "disabled" : ""}" data-section-action="move-down" ${!canMoveDown ? 'data-disabled="true"' : ""}>
+          <span class="ctx-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+          </span>
+          <span>Move down</span>
+        </button>
+
+        <div class="ctx-menu-divider"></div>
+
+        <button
+          type="button"
+          class="ctx-menu-item danger ${isUnassigned ? "disabled" : ""}"
+          data-section-action="delete"
+          ${isUnassigned ? 'data-disabled="true" title="The Unassigned section cannot be deleted"' : ""}
+        >
+          <span class="ctx-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+          </span>
+          <span>Delete</span>
+        </button>
+      `;
+
+      menuEl.classList.remove("hidden");
+      const rect = headerEl ? headerEl.getBoundingClientRect() : { left: event.clientX || 60, bottom: event.clientY || 180 };
+      const x = Math.min((event.clientX || rect.left + 64), window.innerWidth - 195);
+      const y = Math.min((event.clientY || rect.bottom + 2), window.innerHeight - 210);
+      menuEl.style.left = `${Math.max(10, x)}px`;
+      menuEl.style.top = `${Math.max(10, y)}px`;
+
+      menuEl.querySelectorAll(".ctx-menu-item[data-section-action]").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const action = btn.dataset.sectionAction;
+
+          if (action === "rename") {
+            if (isUnassigned) {
+              showToast("The Unassigned section cannot be renamed");
+              return;
+            }
+            closeAllContextMenus();
+            openRenameSectionModal("rename", sectionName);
+          } else if (action === "move-up") {
+            if (!canMoveUp) return;
+            const tmp = state.sections[idx - 1];
+            state.sections[idx - 1] = state.sections[idx];
+            state.sections[idx] = tmp;
+            closeAllContextMenus();
+            renderSidebar();
+          } else if (action === "move-down") {
+            if (!canMoveDown) return;
+            const tmp = state.sections[idx + 1];
+            state.sections[idx + 1] = state.sections[idx];
+            state.sections[idx] = tmp;
+            closeAllContextMenus();
+            renderSidebar();
+          } else if (action === "delete") {
+            // Strict Guardrail: Unassigned section can NEVER be deleted
+            if (isUnassigned || sectionName === "Unassigned") {
+              showToast("The Unassigned section cannot be deleted");
+              return;
+            }
+            state.sections = state.sections.filter((s) => s !== sectionName);
+            if (!state.sections.includes("Unassigned")) {
+              state.sections.push("Unassigned");
+            }
+            state.bots.forEach((b) => {
+              if (!b.pinned && b.group === sectionName) {
+                b.group = "Unassigned";
+              }
+            });
+            closeAllContextMenus();
+            renderSidebar();
+            showToast(`Deleted "${sectionName}" — bots moved to Unassigned`);
+          }
+        });
+      });
+    }
+
+    function openRenameSectionModal(mode = "rename", targetSection = "", botId = null) {
+      state.sectionModalMode = mode;
+      state.sectionModalTarget = targetSection;
+      state.sectionModalBotId = botId;
+      const modal = document.getElementById("modal-rename-section");
+      const titleEl = document.getElementById("rename-section-modal-title");
+      const inputEl = document.getElementById("rename-section-input");
+      titleEl.textContent = mode === "rename" ? "Rename section" : "Create new section";
+      inputEl.value = mode === "rename" ? targetSection : "";
+      modal.classList.remove("hidden");
+      inputEl.focus();
+    }
+
+    function saveRenameSectionModal() {
+      const inputEl = document.getElementById("rename-section-input");
+      const val = (inputEl.value || "").trim();
+      if (!val) return;
+
+      if (state.sectionModalMode === "rename" && state.sectionModalTarget) {
+        if (state.sectionModalTarget === "Unassigned") {
+          showToast("The Unassigned section cannot be renamed");
+          return;
+        }
+        const idx = state.sections.indexOf(state.sectionModalTarget);
+        if (idx !== -1) state.sections[idx] = val;
+        state.bots.forEach((b) => {
+          if (b.group === state.sectionModalTarget) b.group = val;
+        });
+        showToast(`Renamed section to "${val}"`);
+      } else if (state.sectionModalMode === "create-and-move") {
+        if (!state.sections.includes(val)) {
+          const unIdx = state.sections.indexOf("Unassigned");
+          if (unIdx !== -1) {
+            state.sections.splice(unIdx, 0, val);
+          } else {
+            state.sections.push(val);
+          }
+        }
+        if (state.sectionModalBotId) {
+          const b = getBotById(state.sectionModalBotId);
+          if (b) {
+            b.pinned = false;
+            b.group = val;
+          }
+        }
+        showToast(`Created section "${val}"`);
+      }
+
+      document.getElementById("modal-rename-section").classList.add("hidden");
+      renderSidebar();
+    }
+
     function renderSidebar() {
       const primaryBot = getBotById("cephasi");
       const brandLogoEl = document.getElementById("sidebar-brand-logo");
@@ -4990,7 +5538,7 @@
       }
 
       const pinnedContainer = document.getElementById("pinned-bots-container");
-      const pinnedBots = state.bots.filter((b) => b.pinned);
+      const pinnedBots = state.bots.filter((b) => b.pinned && !b.hiddenFromSidebar);
 
       pinnedContainer.innerHTML = pinnedBots
         .map((bot) => {
@@ -5014,14 +5562,15 @@
       pinnedContainer.querySelectorAll(".pinned-bot-card").forEach((el) => {
         el.addEventListener("click", () => selectBot(el.dataset.botId));
         el.addEventListener("dblclick", () => openBotEditor("edit", el.dataset.botId));
+        el.addEventListener("contextmenu", (e) => openBotContextMenu(el.dataset.botId, e));
       });
 
-      const groups = ["OC - General", "Important - Droplets", "Unassigned"];
+      const groups = state.sections;
       const groupsContainer = document.getElementById("sidebar-groups-container");
       groupsContainer.innerHTML = groups
         .map((groupName) => {
-          const groupBots = state.bots.filter((b) => !b.pinned && b.group === groupName);
-          if (!groupBots.length) return "";
+          const groupBots = state.bots.filter((b) => !b.pinned && !b.hiddenFromSidebar && b.group === groupName);
+          if (!groupBots.length && groupName !== "Unassigned") return "";
           const itemsHtml = groupBots
             .map((bot) => {
               const isActive = bot.id === state.activeBotId;
@@ -5039,17 +5588,43 @@
             })
             .join("");
           return `
-            <div class="bot-group-section">
-              <div class="bot-group-header">${groupName}</div>
+            <div class="bot-group-section" data-section-block="${groupName}">
+              <div class="bot-group-header" data-section-name="${groupName}" title="Click or right-click to manage section">
+                <span>${groupName}</span>
+                <span class="sec-more-dots">···</span>
+              </div>
               ${itemsHtml}
             </div>
           `;
         })
         .join("");
 
+      const hiddenBots = state.bots.filter((b) => b.hiddenFromSidebar);
+      if (hiddenBots.length) {
+        groupsContainer.insertAdjacentHTML(
+          "beforeend",
+          `<button id="btn-restore-hidden-bots" type="button" class="demo-chip-btn" style="margin: 8px 6px 2px; width: calc(100% - 12px); text-align: center;">
+            👁 Show ${hiddenBots.length} hidden bot${hiddenBots.length > 1 ? "s" : ""}
+          </button>`
+        );
+        const restoreBtn = document.getElementById("btn-restore-hidden-bots");
+        if (restoreBtn) {
+          restoreBtn.addEventListener("click", () => {
+            state.bots.forEach((b) => (b.hiddenFromSidebar = false));
+            renderSidebar();
+          });
+        }
+      }
+
+      groupsContainer.querySelectorAll(".bot-group-header[data-section-name]").forEach((hdr) => {
+        hdr.addEventListener("click", (e) => openSectionContextMenu(hdr.dataset.sectionName, e, hdr));
+        hdr.addEventListener("contextmenu", (e) => openSectionContextMenu(hdr.dataset.sectionName, e, hdr));
+      });
+
       groupsContainer.querySelectorAll(".bot-list-item").forEach((el) => {
         el.addEventListener("click", () => selectBot(el.dataset.botId));
         el.addEventListener("dblclick", () => openBotEditor("edit", el.dataset.botId));
+        el.addEventListener("contextmenu", (e) => openBotContextMenu(el.dataset.botId, e));
       });
     }
 
@@ -8247,10 +8822,34 @@ write memory</pre>
       }
 
       // Backdrop click to close modals
-      ["modal-bot-editor", "modal-search", "modal-settings", "modal-invite", "modal-connect-apps"].forEach((id) => {
+      ["modal-bot-editor", "modal-search", "modal-settings", "modal-invite", "modal-connect-apps", "modal-rename-section"].forEach((id) => {
         const el = document.getElementById(id);
-        el.addEventListener("click", () => el.classList.add("hidden"));
+        if (el) el.addEventListener("click", () => el.classList.add("hidden"));
       });
+
+      // Rename / Create Section Modal controls
+      const closeRenameSecBtn = document.getElementById("btn-close-rename-section");
+      const cancelRenameSecBtn = document.getElementById("btn-cancel-rename-section");
+      const saveRenameSecBtn = document.getElementById("btn-save-rename-section");
+      const renameSecInput = document.getElementById("rename-section-input");
+      if (closeRenameSecBtn) {
+        closeRenameSecBtn.addEventListener("click", () => {
+          document.getElementById("modal-rename-section").classList.add("hidden");
+        });
+      }
+      if (cancelRenameSecBtn) {
+        cancelRenameSecBtn.addEventListener("click", () => {
+          document.getElementById("modal-rename-section").classList.add("hidden");
+        });
+      }
+      if (saveRenameSecBtn) {
+        saveRenameSecBtn.addEventListener("click", saveRenameSectionModal);
+      }
+      if (renameSecInput) {
+        renameSecInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") saveRenameSectionModal();
+        });
+      }
 
       // 5s Thinking Tentacle Demo Controls & Composer Enter Input
       const demo5sBtn = document.getElementById("btn-demo-5s-prompt");
@@ -8353,14 +8952,20 @@ write memory</pre>
         updateVoiceCallUI();
       });
 
-      // Global click to close user popover & composer plus popover
+      // Global click to close user popover, context menus & composer plus popover
       document.addEventListener("click", (e) => {
+        closeAllContextMenus();
         if (!userPopover.contains(e.target) && !supportSubmenu.contains(e.target)) {
           userPopover.classList.add("hidden");
           supportSubmenu.classList.add("hidden");
         }
         if (!composerPlusPopover.contains(e.target) && e.target !== composerPlusBtn) {
           composerPlusPopover.classList.add("hidden");
+        }
+      });
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeAllContextMenus();
         }
       });
     }
