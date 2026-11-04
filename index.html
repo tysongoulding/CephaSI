@@ -6020,17 +6020,46 @@
     const CC_BOT_STATUS_RANK = { Broken: 0, Warning: 1, OK: 2 };
     const CC_RES_STATUS_RANK = { err: 0, warn: 1, neutral: 2, ok: 3 };
 
+    function parseDataTsText(raw) {
+      const clean = raw
+        .replace(/export\s+type\s+[\s\S]*?;\n/g, "")
+        .replace(/export\s+interface\s+[\s\S]*?\}\n/g, "")
+        .replace(/export\s+const\s+GROUPS\s*(?::\s*[^=]+)?\s*=/g, "const GROUPS =")
+        .replace(/export\s+const\s+RES\s*(?::\s*[^=]+)?\s*=/g, "const RES =")
+        .replace(/export\s+const\s+BOTS\s*(?::\s*[^=]+)?\s*=/g, "const BOTS =")
+        .replace(/export\s+const\s+BASE_EDGES[\s\S]*$/g, "");
+      const fn = new Function(`${clean}\nreturn { GROUPS, RES, BOTS };`);
+      return fn();
+    }
+
     async function syncDataFromDataTs() {
+      let payload = null;
       try {
-        const resp = await fetch("/api/data.json", { cache: "no-store" });
-        if (!resp.ok) return;
-        const payload = await resp.json();
+        const resp = await fetch("./api/data.json", { cache: "no-store" });
+        if (resp.ok) {
+          payload = await resp.json();
+        }
+      } catch (_e) {
+        // Ignore and try static ./data.ts next
+      }
+
+      if (!payload) {
+        try {
+          const tsResp = await fetch("./data.ts", { cache: "no-store" });
+          if (tsResp.ok) {
+            const rawTs = await tsResp.text();
+            payload = parseDataTsText(rawTs);
+          }
+        } catch (_e2) {
+          // Fallback to embedded data.ts snapshot
+        }
+      }
+
+      if (payload) {
         if (Array.isArray(payload.GROUPS) && payload.GROUPS.length) ccState.groups = payload.GROUPS;
         if (Array.isArray(payload.RES) && payload.RES.length) ccState.res = payload.RES;
         if (Array.isArray(payload.BOTS) && payload.BOTS.length) ccState.bots = payload.BOTS;
         if (ccState.open) renderCephaConnect();
-      } catch (_e) {
-        // Fallback to embedded data.ts snapshot
       }
     }
 
