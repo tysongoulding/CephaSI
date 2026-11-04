@@ -104,40 +104,44 @@
       background: rgba(34, 211, 238, 0.06);
     }
     .sidebar-brand-logo {
-      width: 28px;
-      height: 26px;
+      width: 34px;
+      height: 31px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.35));
+      filter: drop-shadow(0 0 7px rgba(34, 211, 238, 0.38));
     }
     .sidebar-brand-text {
       display: flex;
       flex-direction: column;
+      align-items: center;
       min-width: 0;
     }
     .sidebar-brand-title {
-      font-size: 13px;
-      font-weight: 800;
+      font-size: 15px;
+      font-weight: 700;
       letter-spacing: 0.01em;
-      line-height: 1.1;
-      color: #489fb5;
+      line-height: 1.05;
+      color: #2f8da3;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .sidebar-brand-title .si-glow {
-      color: #22d3ee;
-      text-shadow: 0 0 8px rgba(34, 211, 238, 0.7);
+      color: #19e6ff;
+      font-weight: 800;
+      text-shadow: 0 0 10px rgba(25, 230, 255, 0.85), 0 0 20px rgba(6, 182, 212, 0.5);
     }
     .sidebar-brand-sub {
-      font-size: 5.4px;
+      font-size: 4.8px;
       font-weight: 700;
-      letter-spacing: 0.06em;
-      color: #5c7a99;
+      letter-spacing: 0.2em;
+      color: #4e6d8c;
       text-transform: uppercase;
-      margin-top: 1px;
+      margin-top: 2px;
+      line-height: 1.25;
+      text-align: center;
       white-space: nowrap;
     }
 
@@ -3592,7 +3596,7 @@
           <div id="sidebar-brand-logo" class="sidebar-brand-logo"></div>
           <div class="sidebar-brand-text">
             <div id="sidebar-brand-title" class="sidebar-brand-title">Cepha<span class="si-glow">SI</span></div>
-            <div class="sidebar-brand-sub">Orchestrated Superintelligence</div>
+            <div class="sidebar-brand-sub">ORCHESTRATED<br/>SUPERINTELLIGENCE</div>
           </div>
         </div>
         <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
@@ -4291,48 +4295,75 @@
       const h = Math.round(size * 0.9);
       const uid = `t_${id}_${Math.random().toString(36).slice(2, 7)}`;
 
-      // 0: CephaSI Sovereign (Main AI Logo — Crowned Neon-Cyan/Blue Octopus with Cute Happy Glowing Eyes & Orb Tips)
+      // 0: CephaSI Sovereign (Main AI Logo — Geometric Double-Ribbon Crowned Octopus with Slanted Almond Teal Eyes & 6 Glowing Pearl Orbs)
       if (id === 0) {
         const mainFill = isDefaultColor ? "#22d3ee" : colorHex;
-        return `<svg class="tentacle-svg${activeClass}" data-tstyle="0" data-tfx="sovereign" style="--t-glow: ${mainFill};" width="${w}" height="${h}" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        const leftTone = isDefaultColor ? "#1d4ed8" : colorHex;
+        const midTone = isDefaultColor ? "#0284c7" : colorHex;
+        const rightTone = isDefaultColor ? "#38bdf8" : colorHex;
+        const tentaclePaths = `
+          M 22.8 24.8 C 16.5 23.5, 16.2 13.5, 11.2 13.8 C 7.8 14.0, 7.6 18.8, 11.2 19.2 C 13.4 19.4, 14.2 17.2, 12.8 16.2
+          M 23.8 27.2 C 15.5 29.0, 9.5 21.5, 4.8 25.8 C 2.0 28.4, 4.5 33.8, 8.8 32.6 C 11.2 31.8, 11.2 29.2, 9.2 28.6
+          M 25.8 29.5 C 18.5 34.5, 10.5 36.2, 10.2 42.2 C 10.0 46.2, 15.8 47.2, 17.6 43.6 C 18.6 41.6, 17.2 39.6, 15.4 40.2
+          M 29.8 27.5 C 28.5 36.5, 19.5 43.5, 22.2 49.8 C 24.2 53.8, 30.2 52.2, 29.4 47.6 C 29.0 45.4, 26.8 45.0, 25.8 46.6
+          M 41.2 24.8 C 47.5 23.5, 47.8 13.5, 52.8 13.8 C 56.2 14.0, 56.4 18.8, 52.8 19.2 C 50.6 19.4, 49.8 17.2, 51.2 16.2
+          M 40.2 27.2 C 48.5 29.0, 54.5 21.5, 59.2 25.8 C 62.0 28.4, 59.5 33.8, 55.2 32.6 C 52.8 31.8, 52.8 29.2, 54.8 28.6
+          M 38.2 29.5 C 45.5 34.5, 53.5 36.2, 53.8 42.2 C 54.0 46.2, 48.2 47.2, 46.4 43.6 C 45.4 41.6, 46.8 39.6, 48.6 40.2
+          M 34.2 27.5 C 35.5 36.5, 44.5 43.5, 41.8 49.8 C 39.8 53.8, 33.8 52.2, 34.6 47.6 C 35.0 45.4, 37.2 45.0, 38.2 46.6
+        `;
+        const headAndBrowPaths = `
+          M 22.8 25.5 C 19.2 21.2, 20.0 11.2, 32 11.2 C 44.0 11.2, 44.8 21.2, 41.2 25.5
+          M 21.8 20.8 C 23.5 17.2, 28.8 18.0, 30.3 23.2 C 30.9 25.2, 30.0 27.8, 28.4 30.2
+          M 42.2 20.8 C 40.5 17.2, 35.2 18.0, 33.7 23.2 C 33.1 25.2, 34.0 27.8, 35.6 30.2
+        `;
+        return `<svg class="tentacle-svg${activeClass}" data-tstyle="0" data-tfx="sovereign" style="--t-glow: ${mainFill};" width="${w}" height="${h}" viewBox="0 0 64 56" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="${uid}" x1="6" y1="4" x2="54" y2="48" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#38bdf8"/>
-              <stop offset="50%" stop-color="${mainFill}"/>
-              <stop offset="100%" stop-color="#1d4ed8"/>
+            <linearGradient id="${uid}" x1="4" y1="48" x2="58" y2="6" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="${leftTone}"/>
+              <stop offset="45%" stop-color="${midTone}"/>
+              <stop offset="100%" stop-color="${rightTone}"/>
             </linearGradient>
+            <linearGradient id="${uid}_eye" x1="23" y1="19" x2="41" y2="25" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#38bdf8"/>
+              <stop offset="100%" stop-color="${mainFill}"/>
+            </linearGradient>
+            <radialGradient id="${uid}_orb" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="55%" stop-color="#a5f3fc"/>
+              <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+            </radialGradient>
           </defs>
           <g class="t-body-motion">
-            <path d="M20.2 20.5 C19.2 11.8, 40.8 11.8, 39.8 20.5 C39.3 24.8, 36.8 27.8, 34 29.5 L30 27.2 L26 29.5 C23.2 27.8, 20.7 24.8, 20.2 20.5 Z" fill="rgba(14,165,233,0.18)" stroke="url(#${uid})" stroke-width="2"/>
-            <ellipse cx="25.2" cy="20.6" rx="2.7" ry="2.9" fill="#082f49" stroke="#38bdf8" stroke-width="1.2"/>
-            <ellipse cx="34.8" cy="20.6" rx="2.7" ry="2.9" fill="#082f49" stroke="#38bdf8" stroke-width="1.2"/>
-            <circle cx="24.5" cy="19.7" r="1.0" fill="#e0f2fe"/>
-            <circle cx="26.0" cy="21.5" r="0.48" fill="#67e8f9"/>
-            <circle cx="34.1" cy="19.7" r="1.0" fill="#e0f2fe"/>
-            <circle cx="35.6" cy="21.5" r="0.48" fill="#67e8f9"/>
-            <ellipse cx="22.0" cy="23.2" rx="1.5" ry="0.9" fill="#38bdf8" fill-opacity="0.45"/>
-            <ellipse cx="38.0" cy="23.2" rx="1.5" ry="0.9" fill="#38bdf8" fill-opacity="0.45"/>
-            <path d="M27.8 23.8 Q30 25.9 32.2 23.8" stroke="#67e8f9" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            <path d="M22 25 C16 24, 15 15, 11 16 C8 17, 8.5 21, 11.5 21" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <path d="M23 27.5 C14 28, 7 23, 5.5 28.5 C4.5 32, 8.5 34.5, 11.5 32.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <path d="M25 29 C17 33, 9 36, 11 41.5 C12.5 44.5, 17.5 43.5, 18.5 40.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <path d="M28 28.5 C25 36, 19 43, 23 47 C26 49, 29 45.5, 27.5 42.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <path d="M38 25 C44 24, 45 15, 49 16 C52 17, 51.5 21, 48.5 21" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <path d="M37 27.5 C46 28, 53 23, 54.5 28.5 C55.5 32, 51.5 34.5, 48.5 32.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <path d="M35 29 C43 33, 51 36, 49 41.5 C47.5 44.5, 42.5 43.5, 41.5 40.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <path d="M32 28.5 C35 36, 41 43, 37 47 C34 49, 31 45.5, 32.5 42.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <!-- Mantle Interior Fill -->
+            <path d="M 22.8 25.5 C 19.2 21.2, 20.0 11.2, 32 11.2 C 44.0 11.2, 44.8 21.2, 41.2 25.5 C 39.2 28.2, 35.5 29.5, 32 29.5 C 28.5 29.5, 24.8 28.2, 22.8 25.5 Z" fill="#071324"/>
+            <!-- Outer Gradient Ribbon for 8 Symmetrical Tentacles -->
+            <path d="${tentaclePaths}" stroke="url(#${uid})" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Inner Dark Channel for Double-Line Ribbon Look -->
+            <path d="${tentaclePaths}" stroke="#071324" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Outer Gradient Ribbon for Head Dome & Brow Arches -->
+            <path d="${headAndBrowPaths}" stroke="url(#${uid})" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="${headAndBrowPaths}" stroke="#071324" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Sleek Slanted Almond Teal Eyes (Matching Reference Image) -->
+            <path d="M 23.8 21.6 C 25.0 19.6, 28.0 20.4, 28.8 23.3 C 27.3 24.5, 24.5 23.7, 23.8 21.6 Z" fill="url(#${uid}_eye)"/>
+            <path d="M 40.2 21.6 C 39.0 19.6, 36.0 20.4, 35.2 23.3 C 36.7 24.5, 39.5 23.7, 40.2 21.6 Z" fill="url(#${uid}_eye)"/>
           </g>
           <g class="t-fx-overlay">
-            <path d="M21.5 11.5 L20 4.8 L25.8 8.5 L30 2.5 L34.2 8.5 L40 4.8 L38.5 11.5 Z" fill="rgba(34,211,238,0.18)" stroke="url(#${uid})" stroke-width="1.6" stroke-linejoin="round"/>
-            <path d="M21.5 11.5 L30 6.2 L38.5 11.5 M25.8 8.5 L30 11.5 L34.2 8.5" stroke="url(#${uid})" stroke-width="1.1" fill="none"/>
-            <circle cx="11.5" cy="21" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-            <circle cx="11.5" cy="32.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-            <circle cx="18.5" cy="40.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-            <circle cx="27.5" cy="42.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-            <circle cx="48.5" cy="21" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-            <circle cx="48.5" cy="32.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-            <circle cx="41.5" cy="40.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-            <circle cx="32.5" cy="42.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
+            <!-- Geometric Faceted Crown -->
+            <path d="M 23.4 11.8 L 21.6 5.2 L 27.2 8.9 L 32 2.4 L 36.8 8.9 L 42.4 5.2 L 40.6 11.8" fill="rgba(14, 116, 144, 0.22)" stroke="url(#${uid})" stroke-width="1.75" stroke-linejoin="round"/>
+            <path d="M 23.4 11.8 L 32 5.8 L 40.6 11.8 M 27.2 8.9 L 32 11.6 L 36.8 8.9" stroke="url(#${uid})" stroke-width="1.2" stroke-linejoin="round" fill="none"/>
+            <!-- 6 Glowing Pearl Orb Nodes Nestled in Outer Curls -->
+            <circle cx="11.4" cy="16.8" r="2.2" fill="url(#${uid}_orb)"/>
+            <circle cx="11.4" cy="16.8" r="1.15" fill="#e0f2fe"/>
+            <circle cx="7.4" cy="29.8" r="2.2" fill="url(#${uid}_orb)"/>
+            <circle cx="7.4" cy="29.8" r="1.15" fill="#e0f2fe"/>
+            <circle cx="14.2" cy="42.4" r="2.2" fill="url(#${uid}_orb)"/>
+            <circle cx="14.2" cy="42.4" r="1.15" fill="#e0f2fe"/>
+            <circle cx="52.6" cy="16.8" r="2.2" fill="url(#${uid}_orb)"/>
+            <circle cx="52.6" cy="16.8" r="1.15" fill="#e0f2fe"/>
+            <circle cx="56.6" cy="29.8" r="2.2" fill="url(#${uid}_orb)"/>
+            <circle cx="56.6" cy="29.8" r="1.15" fill="#e0f2fe"/>
+            <circle cx="49.8" cy="42.4" r="2.2" fill="url(#${uid}_orb)"/>
+            <circle cx="49.8" cy="42.4" r="1.15" fill="#e0f2fe"/>
           </g>
         </svg>`;
       }
@@ -5527,7 +5558,7 @@
       const brandLogoEl = document.getElementById("sidebar-brand-logo");
       const brandTitleEl = document.getElementById("sidebar-brand-title");
       if (brandLogoEl && primaryBot) {
-        brandLogoEl.innerHTML = renderTentacleSVG(primaryBot.tentacleId, getColorHex(primaryBot.colorId), 28);
+        brandLogoEl.innerHTML = renderTentacleSVG(primaryBot.tentacleId, getColorHex(primaryBot.colorId), 34);
       }
       if (brandTitleEl && primaryBot) {
         if (primaryBot.name === "CephaSI") {
