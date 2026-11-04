@@ -1929,11 +1929,304 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: background 0.15s;
+      transition: background 0.15s, border-color 0.15s;
     }
     .customize-bot-btn:hover {
       background: #28282e;
       color: #fff;
+    }
+
+    .advanced-bot-btn {
+      margin-top: 8px;
+      background: #18181c;
+      border: 1px solid rgba(34, 211, 238, 0.22);
+      color: #d8f3fa;
+    }
+    .advanced-bot-btn:hover {
+      background: #20232a;
+      border-color: rgba(34, 211, 238, 0.45);
+      color: #ffffff;
+    }
+    .advanced-bot-btn.open {
+      background: rgba(34, 211, 238, 0.1);
+      border-color: rgba(34, 211, 238, 0.48);
+      color: #22d3ee;
+    }
+
+    /* ================= INSPECTOR ADVANCED PANEL (AGENTS.MD, MEMORY.MD & CONNECTORS) ================= */
+    .inspector-advanced-panel {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      animation: advFadeIn 0.16s ease-out;
+    }
+    @keyframes advFadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .adv-config-card {
+      background: #17171b;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .adv-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .adv-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #f3f4f6;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .adv-edit-modal-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(34, 211, 238, 0.12);
+      border: 1px solid rgba(34, 211, 238, 0.32);
+      color: #22d3ee;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.14s ease;
+    }
+    .adv-edit-modal-btn:hover {
+      background: rgba(34, 211, 238, 0.22);
+      color: #ffffff;
+    }
+    .adv-loc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .adv-loc-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      background: #121215;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: border-color 0.14s ease;
+    }
+    .adv-loc-pill:hover {
+      border-color: rgba(34, 211, 238, 0.4);
+      color: #ffffff;
+    }
+    .adv-loc-path-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+    .adv-loc-remove {
+      background: transparent;
+      border: none;
+      color: #71717a;
+      font-size: 11px;
+      cursor: pointer;
+      padding: 0 2px;
+      line-height: 1;
+    }
+    .adv-loc-remove:hover {
+      color: #f87171;
+    }
+    .adv-loc-input-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .adv-loc-input {
+      flex: 1;
+      min-width: 0;
+      height: 28px;
+      padding: 0 8px;
+      border-radius: 6px;
+      background: #111114;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e4e4ec;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      outline: none;
+    }
+    .adv-loc-input:focus {
+      border-color: rgba(34, 211, 238, 0.45);
+    }
+    .adv-loc-add-btn {
+      height: 28px;
+      padding: 0 8px;
+      border-radius: 6px;
+      background: #232329;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e4e4ec;
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .adv-loc-add-btn:hover {
+      background: #2e2e36;
+      color: #ffffff;
+    }
+    .adv-connector-group-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #8b8b96;
+      margin-top: 4px;
+    }
+    .adv-connector-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .adv-connector-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 6px 8px;
+      border-radius: 7px;
+      background: #121215;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .adv-connector-row.connected {
+      border-color: rgba(16, 185, 129, 0.28);
+      background: rgba(16, 185, 129, 0.04);
+    }
+    .adv-connector-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .adv-connector-info {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #e4e4ec;
+      min-width: 0;
+    }
+    .adv-connector-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+    .adv-connector-toggle-btn {
+      padding: 3px 7px;
+      border-radius: 5px;
+      font-size: 10.5px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #1f1f24;
+      color: #d4d4dc;
+      transition: all 0.14s ease;
+    }
+    .adv-connector-toggle-btn:hover {
+      background: #2b2b33;
+      color: #ffffff;
+    }
+    .adv-connector-toggle-btn.connected {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #34d399;
+    }
+    .adv-connector-uri {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: #71717a;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ================= AGENTS.MD & MEMORY.MD EDITOR MODAL ================= */
+    .bot-md-editor-modal {
+      width: 680px;
+      max-width: 95vw;
+      max-height: 90dvh;
+      background: #18181b;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .bot-md-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      background: #141417;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .bot-md-tab-btn {
+      padding: 5px 11px;
+      border-radius: 7px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: #9ca3af;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .bot-md-tab-btn.active {
+      background: rgba(34, 211, 238, 0.12);
+      border-color: rgba(34, 211, 238, 0.35);
+      color: #22d3ee;
+    }
+    .bot-md-body {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .bot-md-textarea {
+      width: 100%;
+      min-height: 290px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #101013;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e4e4ec;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.55;
+      resize: vertical;
+      outline: none;
+      user-select: text;
+    }
+    .bot-md-textarea:focus {
+      border-color: rgba(34, 211, 238, 0.45);
     }
 
     /* ================= USER POPOVER & SUPPORT SUBMENU ================= */
@@ -4240,7 +4533,8 @@
         <div id="color-picker-grid" class="color-picker-grid"></div>
       </div>
       <div class="bot-editor-footer">
-        <button id="btn-delete-bot-editor" type="button" class="btn-pill-secondary hidden" style="margin-right: auto; color: #f87171; border-color: rgba(239,68,68,0.28);">Delete</button>
+        <button id="btn-delete-bot-editor" type="button" class="btn-pill-secondary hidden" style="color: #f87171; border-color: rgba(239,68,68,0.28);">Delete</button>
+        <button id="btn-open-advanced-from-editor" type="button" class="btn-pill-secondary" style="margin-right: auto; border-color: rgba(34,211,238,0.3); color: #22d3ee;">⚙ Advanced (AGENTS.md &amp; Memory)</button>
         <button id="btn-cancel-bot-editor" class="btn-pill-secondary">Cancel</button>
         <button id="btn-save-bot-editor" class="btn-pill-primary">Create</button>
       </div>
@@ -4410,6 +4704,44 @@
           <button id="btn-cancel-rename-section" type="button" class="btn-pill-secondary">Cancel</button>
           <button id="btn-save-rename-section" type="button" class="btn-pill-primary">Save</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= AGENTS.MD & MEMORY.MD EDITOR MODAL ================= -->
+  <div id="modal-bot-markdown-editor" class="modal-backdrop hidden" style="z-index: 480;">
+    <div class="bot-md-editor-modal" onclick="event.stopPropagation()">
+      <div class="modal-header-bar">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span id="bot-md-editor-avatar" style="display: inline-flex; align-items: center;"></span>
+          <div>
+            <div id="bot-md-editor-title" class="modal-title">Edit AGENTS.md — CephaSI</div>
+            <div id="bot-md-editor-subtitle" style="font-size: 11px; color: #8e8e98; margin-top: 2px;">Agent instructions, guardrails, persistent memory &amp; cloud/VCS sync</div>
+          </div>
+        </div>
+        <button id="btn-close-bot-md-editor" class="modal-close-x" title="Close">✕</button>
+      </div>
+
+      <div class="bot-md-tabs">
+        <button type="button" class="bot-md-tab-btn active" data-md-doc="AGENTS.md">📄 AGENTS.md</button>
+        <button type="button" class="bot-md-tab-btn" data-md-doc="MEMORY.md">🧠 MEMORY.md</button>
+        <div id="bot-md-sync-badges" style="margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 11px; color: #34d399;"></div>
+      </div>
+
+      <div class="bot-md-body">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 11.5px; color: #a1a1aa; font-weight: 500; white-space: nowrap;">File Location:</span>
+          <input id="bot-md-location-input" type="text" class="adv-loc-input" style="height: 30px; font-size: 11.5px;" placeholder="/workspace/agents/cephasi/AGENTS.md" />
+          <button id="btn-modal-add-md-location" type="button" class="adv-loc-add-btn" style="height: 30px;">+ Add Location</button>
+        </div>
+        <div id="bot-md-modal-locations-row" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
+        <textarea id="bot-md-editor-textarea" class="bot-md-textarea" spellcheck="false" placeholder="# AGENTS.md..."></textarea>
+      </div>
+
+      <div class="bot-editor-footer">
+        <button id="btn-reset-bot-md-template" type="button" class="btn-pill-secondary" style="margin-right: auto;">Reset Default Template</button>
+        <button id="btn-cancel-bot-md-editor" type="button" class="btn-pill-secondary">Cancel</button>
+        <button id="btn-save-bot-md-editor" type="button" class="btn-pill-primary">Save Changes</button>
       </div>
     </div>
   </div>
@@ -5338,6 +5670,9 @@
       fontFamilyId: getSavedFontFamilyId(),
       inspectorOpen: false,
       inspectorTab: "Artifacts",
+      inspectorAdvancedOpen: false,
+      mdEditorBotId: "cephasi",
+      mdEditorDocType: "AGENTS.md",
       settingsTab: "General",
       voiceCallActive: false,
       editorMode: "create", // 'create' | 'edit'
@@ -5391,6 +5726,249 @@
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;");
+    }
+
+    function getDefaultAgentsMdContent(bot) {
+      const spec = TENTACLE_CATALOG[bot.tentacleId] || TENTACLE_CATALOG[1];
+      return `# AGENTS.md — ${bot.name} (${spec.name})
+
+## 1. Agent Identity & Role
+- **Bot Name**: ${bot.name} (\`${bot.id}\`)
+- **Section Group**: ${bot.group || "Pinned"}
+- **Archetype**: ${spec.name}
+- **Orchestrator**: CephaSI Sovereign Fleet
+
+## 2. Core Operating Instructions
+- Execute assigned routines and ad-hoc engineering prompts with deterministic verification.
+- Synchronize context and artifacts with \`MEMORY.md\` after each completed task.
+- Respect Human-in-the-Loop (HITL) guardrails before executing destructive infrastructure mutations.
+
+## 3. Tooling & Permissions
+- **VCS**: GitHub (\`gh\`), GitLab (\`glab\`), Bitbucket APIs
+- **Document Storage**: Google Drive, Notion, OneDrive/SharePoint, Dropbox, S3 Vault
+- **Guardrail Policy**: Prompt for approval on production firewall, IAM, or billing modifications.`;
+    }
+
+    function getDefaultMemoryMdContent(bot) {
+      return `# MEMORY.md — ${bot.name} Persistent Memory
+
+## 1. Active Context & Distilled Knowledge
+- **Primary Workspace**: \`/workspace/agents/${bot.id}\`
+- **Last Synced**: Today via Google Drive & GitHub (\`main\`)
+- **Recent Task Summary**: ${bot.preview || "Ready for orchestrated execution."}
+
+## 2. Connected Storage & Repository Targets
+- **Google Drive**: \`gdrive://CephaSI/Agents/${bot.name}/MEMORY.md\`
+- **GitHub**: \`github.com/tysongoulding/CephaSI/blob/main/agents/${bot.id}/MEMORY.md\`
+- **GitLab**: \`gitlab.com/tysongoulding/cephasi/-/blob/main/agents/${bot.id}/MEMORY.md\`
+- **Bitbucket**: \`bitbucket.org/tysongoulding/cephasi/src/main/agents/${bot.id}/MEMORY.md\`
+
+## 3. Learned Guardrails & Preferences
+- Always log artifact outputs to the Right Inspector \`Artifacts\` drawer.
+- Maintain strict separation between \`AGENTS.md\` (behavioral rules) and \`MEMORY.md\` (stateful memory).`;
+    }
+
+    function getBotAdvancedConfig(botId) {
+      const bot = getBotById(botId || state.activeBotId);
+      if (!bot.advancedConfig) {
+        bot.advancedConfig = {
+          agentsLocations: [
+            `/workspace/agents/${bot.id}/AGENTS.md`,
+            `~/.cephasi/agents/${bot.id}/AGENTS.md`
+          ],
+          agentsActiveLocation: `/workspace/agents/${bot.id}/AGENTS.md`,
+          agentsContent: getDefaultAgentsMdContent(bot),
+          memoryLocations: [
+            `/workspace/agents/${bot.id}/MEMORY.md`,
+            `gdrive://CephaSI/Agents/${bot.name}/MEMORY.md`
+          ],
+          memoryActiveLocation: `/workspace/agents/${bot.id}/MEMORY.md`,
+          memoryContent: getDefaultMemoryMdContent(bot),
+          connectors: [
+            // Document Storage Connectors
+            {
+              id: "google-drive",
+              name: "Google Drive",
+              category: "Document Storage",
+              icon: "📁",
+              connected: true,
+              uri: `gdrive://CephaSI/Agents/${bot.name}/MEMORY.md`
+            },
+            {
+              id: "notion",
+              name: "Notion Workspace",
+              category: "Document Storage",
+              icon: "📝",
+              connected: false,
+              uri: `notion://workspace/CephaSI/${bot.id}/MEMORY.md`
+            },
+            {
+              id: "onedrive",
+              name: "OneDrive / SharePoint",
+              category: "Document Storage",
+              icon: "☁️",
+              connected: false,
+              uri: `onedrive://CephaSI/Agents/${bot.id}/MEMORY.md`
+            },
+            {
+              id: "dropbox",
+              name: "Dropbox Vault",
+              category: "Document Storage",
+              icon: "📦",
+              connected: false,
+              uri: `dropbox://Apps/CephaSI/${bot.id}/MEMORY.md`
+            },
+            {
+              id: "s3-obsidian",
+              name: "S3 / Obsidian Doc Storage",
+              category: "Document Storage",
+              icon: "🗄️",
+              connected: true,
+              uri: `s3://cephasi-memory-vault/${bot.id}/MEMORY.md`
+            },
+            // Git / VCS Connectors
+            {
+              id: "github",
+              name: "GitHub",
+              category: "Git & VCS",
+              icon: "🐙",
+              connected: true,
+              uri: `github.com/tysongoulding/CephaSI/blob/main/agents/${bot.id}/MEMORY.md`
+            },
+            {
+              id: "gitlab",
+              name: "GitLab",
+              category: "Git & VCS",
+              icon: "🦊",
+              connected: false,
+              uri: `gitlab.com/tysongoulding/cephasi/-/blob/main/agents/${bot.id}/MEMORY.md`
+            },
+            {
+              id: "bitbucket",
+              name: "Bitbucket",
+              category: "Git & VCS",
+              icon: "🪣",
+              connected: false,
+              uri: `bitbucket.org/tysongoulding/cephasi/src/main/agents/${bot.id}/MEMORY.md`
+            }
+          ]
+        };
+      }
+      return bot.advancedConfig;
+    }
+
+    function openBotMarkdownEditor(botId, docType = "AGENTS.md", locationOverride = null) {
+      const bot = getBotById(botId || state.activeBotId);
+      const cfg = getBotAdvancedConfig(bot.id);
+      state.mdEditorBotId = bot.id;
+      state.mdEditorDocType = docType === "MEMORY.md" ? "MEMORY.md" : "AGENTS.md";
+      if (locationOverride) {
+        if (state.mdEditorDocType === "AGENTS.md") {
+          cfg.agentsActiveLocation = locationOverride;
+        } else {
+          cfg.memoryActiveLocation = locationOverride;
+        }
+      }
+      renderBotMarkdownEditorModal();
+      const modal = document.getElementById("modal-bot-markdown-editor");
+      if (modal) modal.classList.remove("hidden");
+    }
+
+    function renderBotMarkdownEditorModal() {
+      const bot = getBotById(state.mdEditorBotId || state.activeBotId);
+      const cfg = getBotAdvancedConfig(bot.id);
+      const isAgents = state.mdEditorDocType === "AGENTS.md";
+
+      const avatarEl = document.getElementById("bot-md-editor-avatar");
+      if (avatarEl) {
+        avatarEl.innerHTML = renderTentacleSVG(bot.tentacleId, getColorHex(bot.colorId), 28);
+      }
+      const titleEl = document.getElementById("bot-md-editor-title");
+      if (titleEl) {
+        titleEl.textContent = `Edit ${state.mdEditorDocType} — ${bot.name}`;
+      }
+
+      document.querySelectorAll("#modal-bot-markdown-editor .bot-md-tab-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.mdDoc === state.mdEditorDocType);
+      });
+
+      const syncBadgesEl = document.getElementById("bot-md-sync-badges");
+      if (syncBadgesEl) {
+        const activeConnectors = cfg.connectors.filter((c) => c.connected);
+        syncBadgesEl.innerHTML = activeConnectors
+          .map((c) => `<span style="padding:2px 6px;border-radius:5px;background:rgba(16,185,129,0.14);border:1px solid rgba(16,185,129,0.3);">${c.icon} ${c.name}</span>`)
+          .join("");
+      }
+
+      const locInput = document.getElementById("bot-md-location-input");
+      const locations = isAgents ? cfg.agentsLocations : cfg.memoryLocations;
+      const activeLoc = isAgents ? cfg.agentsActiveLocation : cfg.memoryActiveLocation;
+      if (locInput) {
+        locInput.value = activeLoc || locations[0] || "";
+        locInput.placeholder = isAgents
+          ? `/workspace/agents/${bot.id}/AGENTS.md`
+          : `/workspace/agents/${bot.id}/MEMORY.md`;
+      }
+
+      const locsRow = document.getElementById("bot-md-modal-locations-row");
+      if (locsRow) {
+        locsRow.innerHTML = locations
+          .map(
+            (loc) => `
+              <button
+                type="button"
+                class="adv-loc-pill modal-loc-chip"
+                data-loc="${escapeHtmlText(loc)}"
+                style="padding:3px 8px;border-color:${loc === activeLoc ? "rgba(34,211,238,0.55)" : "rgba(255,255,255,0.08)"};color:${loc === activeLoc ? "#22d3ee" : "#cbd5e1"};"
+              >
+                <span>📍 ${escapeHtmlText(loc)}</span>
+              </button>
+            `
+          )
+          .join("");
+        locsRow.querySelectorAll(".modal-loc-chip").forEach((chip) => {
+          chip.addEventListener("click", () => {
+            const chosen = chip.dataset.loc;
+            if (isAgents) cfg.agentsActiveLocation = chosen;
+            else cfg.memoryActiveLocation = chosen;
+            if (locInput) locInput.value = chosen;
+            renderBotMarkdownEditorModal();
+          });
+        });
+      }
+
+      const textarea = document.getElementById("bot-md-editor-textarea");
+      if (textarea) {
+        textarea.value = isAgents ? cfg.agentsContent : cfg.memoryContent;
+      }
+    }
+
+    function saveBotMarkdownEditorModal() {
+      const bot = getBotById(state.mdEditorBotId || state.activeBotId);
+      const cfg = getBotAdvancedConfig(bot.id);
+      const isAgents = state.mdEditorDocType === "AGENTS.md";
+      const locInput = document.getElementById("bot-md-location-input");
+      const textarea = document.getElementById("bot-md-editor-textarea");
+      const newLoc = locInput ? locInput.value.trim() : "";
+
+      if (isAgents) {
+        if (newLoc) {
+          cfg.agentsActiveLocation = newLoc;
+          if (!cfg.agentsLocations.includes(newLoc)) cfg.agentsLocations.push(newLoc);
+        }
+        if (textarea) cfg.agentsContent = textarea.value;
+      } else {
+        if (newLoc) {
+          cfg.memoryActiveLocation = newLoc;
+          if (!cfg.memoryLocations.includes(newLoc)) cfg.memoryLocations.push(newLoc);
+        }
+        if (textarea) cfg.memoryContent = textarea.value;
+      }
+
+      const modal = document.getElementById("modal-bot-markdown-editor");
+      if (modal) modal.classList.add("hidden");
+      renderInspector();
+      showToast(`Saved ${state.mdEditorDocType} for ${bot.name}`);
     }
 
     function renderDynamicThinkingAndExchanges(bot) {
@@ -6772,7 +7350,60 @@ copy running-config startup-config</pre>
           auditMapItem.addEventListener("click", () => openCephaConnect("graph"));
         }
       } else if (state.inspectorTab === "Details") {
-        // Screenshot 5: Details Tab
+        // Screenshot 5: Details Tab + Advanced Button (AGENTS.md, MEMORY.md & Connectors)
+        const advCfg = getBotAdvancedConfig(activeBot.id);
+        const docStorageConnectors = advCfg.connectors.filter((c) => c.category === "Document Storage");
+        const gitVcsConnectors = advCfg.connectors.filter((c) => c.category === "Git & VCS");
+
+        const agentsLocPillsHtml = advCfg.agentsLocations
+          .map(
+            (loc, idx) => `
+              <div class="adv-loc-pill" data-open-md="AGENTS.md" data-loc="${escapeHtmlText(loc)}" title="Click to edit AGENTS.md at ${escapeHtmlText(loc)}">
+                <span class="adv-loc-path-text">📍 ${escapeHtmlText(loc)}</span>
+                ${
+                  advCfg.agentsLocations.length > 1
+                    ? `<button type="button" class="adv-loc-remove" data-remove-agents-idx="${idx}" title="Remove location">✕</button>`
+                    : ""
+                }
+              </div>
+            `
+          )
+          .join("");
+
+        const memoryLocPillsHtml = advCfg.memoryLocations
+          .map(
+            (loc, idx) => `
+              <div class="adv-loc-pill" data-open-md="MEMORY.md" data-loc="${escapeHtmlText(loc)}" title="Click to edit MEMORY.md at ${escapeHtmlText(loc)}">
+                <span class="adv-loc-path-text">📍 ${escapeHtmlText(loc)}</span>
+                ${
+                  advCfg.memoryLocations.length > 1
+                    ? `<button type="button" class="adv-loc-remove" data-remove-memory-idx="${idx}" title="Remove location">✕</button>`
+                    : ""
+                }
+              </div>
+            `
+          )
+          .join("");
+
+        const renderConnectorRowHtml = (c) => `
+          <div class="adv-connector-row ${c.connected ? "connected" : ""}" data-connector-row="${c.id}">
+            <div class="adv-connector-top">
+              <div class="adv-connector-info">
+                <span class="adv-connector-icon">${c.icon}</span>
+                <span>${c.name}</span>
+              </div>
+              <button
+                type="button"
+                class="adv-connector-toggle-btn ${c.connected ? "connected" : ""}"
+                data-toggle-connector="${c.id}"
+              >
+                ${c.connected ? "✓ Connected" : "Connect"}
+              </button>
+            </div>
+            <div class="adv-connector-uri" title="${escapeHtmlText(c.uri)}">${escapeHtmlText(c.uri)}</div>
+          </div>
+        `;
+
         contentEl.innerHTML = `
           <div class="routines-empty-note">
             Routines are recurring tasks this Bot runs on a schedule. Ask it in chat to set one up.
@@ -6798,11 +7429,191 @@ copy running-config startup-config</pre>
             <span>✎</span>
             <span>Rename / Customize Bot</span>
           </button>
+
+          <button id="btn-advanced-from-details" class="customize-bot-btn advanced-bot-btn ${state.inspectorAdvancedOpen ? "open" : ""}">
+            <span>⚙</span>
+            <span>Advanced</span>
+            <span style="margin-left: 2px; font-size: 10px;">${state.inspectorAdvancedOpen ? "▴" : "▾"}</span>
+          </button>
+
+          <div id="inspector-advanced-panel" class="inspector-advanced-panel ${state.inspectorAdvancedOpen ? "" : "hidden"}">
+            <!-- AGENTS.md Configuration -->
+            <div class="adv-config-card">
+              <div class="adv-card-header">
+                <span class="adv-card-title">
+                  <span>📄</span>
+                  <span>AGENTS.md</span>
+                </span>
+                <button id="btn-edit-agents-md" type="button" class="adv-edit-modal-btn" title="Open modal to edit AGENTS.md">
+                  <span>✎</span>
+                  <span>Edit AGENTS.md</span>
+                </button>
+              </div>
+              <div id="agents-md-loc-list" class="adv-loc-list">
+                ${agentsLocPillsHtml}
+              </div>
+              <div class="adv-loc-input-row">
+                <input
+                  id="input-agents-location"
+                  type="text"
+                  class="adv-loc-input"
+                  placeholder="Add AGENTS.md path or URI..."
+                />
+                <button id="btn-add-agents-location" type="button" class="adv-loc-add-btn">+ Add Location</button>
+              </div>
+            </div>
+
+            <!-- MEMORY.md & Storage / VCS Connectors -->
+            <div class="adv-config-card">
+              <div class="adv-card-header">
+                <span class="adv-card-title">
+                  <span>🧠</span>
+                  <span>MEMORY.md</span>
+                </span>
+                <button id="btn-edit-memory-md" type="button" class="adv-edit-modal-btn" title="Open modal to edit MEMORY.md">
+                  <span>✎</span>
+                  <span>Edit MEMORY.md</span>
+                </button>
+              </div>
+              <div id="memory-md-loc-list" class="adv-loc-list">
+                ${memoryLocPillsHtml}
+              </div>
+              <div class="adv-loc-input-row">
+                <input
+                  id="input-memory-location"
+                  type="text"
+                  class="adv-loc-input"
+                  placeholder="Add MEMORY.md path or URI..."
+                />
+                <button id="btn-add-memory-location" type="button" class="adv-loc-add-btn">+ Add Location</button>
+              </div>
+
+              <div class="adv-connector-group-label">Document Storage Connectors</div>
+              <div class="adv-connector-list">
+                ${docStorageConnectors.map(renderConnectorRowHtml).join("")}
+              </div>
+
+              <div class="adv-connector-group-label">Git &amp; VCS Connectors</div>
+              <div class="adv-connector-list">
+                ${gitVcsConnectors.map(renderConnectorRowHtml).join("")}
+              </div>
+            </div>
+          </div>
         `;
         const customizeBtn = document.getElementById("btn-customize-from-details");
         if (customizeBtn) {
           customizeBtn.addEventListener("click", () => openBotEditor("edit", state.activeBotId));
         }
+
+        const advancedBtn = document.getElementById("btn-advanced-from-details");
+        if (advancedBtn) {
+          advancedBtn.addEventListener("click", () => {
+            state.inspectorAdvancedOpen = !state.inspectorAdvancedOpen;
+            renderInspector();
+          });
+        }
+
+        const editAgentsBtn = document.getElementById("btn-edit-agents-md");
+        if (editAgentsBtn) {
+          editAgentsBtn.addEventListener("click", () => openBotMarkdownEditor(activeBot.id, "AGENTS.md"));
+        }
+
+        const editMemoryBtn = document.getElementById("btn-edit-memory-md");
+        if (editMemoryBtn) {
+          editMemoryBtn.addEventListener("click", () => openBotMarkdownEditor(activeBot.id, "MEMORY.md"));
+        }
+
+        contentEl.querySelectorAll(".adv-loc-pill[data-open-md]").forEach((pill) => {
+          pill.addEventListener("click", (e) => {
+            if (e.target.closest(".adv-loc-remove")) return;
+            openBotMarkdownEditor(activeBot.id, pill.dataset.openMd, pill.dataset.loc);
+          });
+        });
+
+        contentEl.querySelectorAll("[data-remove-agents-idx]").forEach((rmBtn) => {
+          rmBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const idx = Number(rmBtn.dataset.removeAgentsIdx);
+            if (advCfg.agentsLocations.length > 1) {
+              advCfg.agentsLocations.splice(idx, 1);
+              advCfg.agentsActiveLocation = advCfg.agentsLocations[0];
+              renderInspector();
+            }
+          });
+        });
+
+        contentEl.querySelectorAll("[data-remove-memory-idx]").forEach((rmBtn) => {
+          rmBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const idx = Number(rmBtn.dataset.removeMemoryIdx);
+            if (advCfg.memoryLocations.length > 1) {
+              advCfg.memoryLocations.splice(idx, 1);
+              advCfg.memoryActiveLocation = advCfg.memoryLocations[0];
+              renderInspector();
+            }
+          });
+        });
+
+        const addAgentsLocBtn = document.getElementById("btn-add-agents-location");
+        const agentsLocInput = document.getElementById("input-agents-location");
+        const handleAddAgentsLoc = () => {
+          const val = agentsLocInput ? agentsLocInput.value.trim() : "";
+          if (!val) {
+            openBotMarkdownEditor(activeBot.id, "AGENTS.md");
+            return;
+          }
+          if (!advCfg.agentsLocations.includes(val)) {
+            advCfg.agentsLocations.push(val);
+          }
+          advCfg.agentsActiveLocation = val;
+          agentsLocInput.value = "";
+          renderInspector();
+          showToast(`Added AGENTS.md location: ${val}`);
+        };
+        if (addAgentsLocBtn) addAgentsLocBtn.addEventListener("click", handleAddAgentsLoc);
+        if (agentsLocInput) {
+          agentsLocInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") handleAddAgentsLoc();
+          });
+        }
+
+        const addMemoryLocBtn = document.getElementById("btn-add-memory-location");
+        const memoryLocInput = document.getElementById("input-memory-location");
+        const handleAddMemoryLoc = () => {
+          const val = memoryLocInput ? memoryLocInput.value.trim() : "";
+          if (!val) {
+            openBotMarkdownEditor(activeBot.id, "MEMORY.md");
+            return;
+          }
+          if (!advCfg.memoryLocations.includes(val)) {
+            advCfg.memoryLocations.push(val);
+          }
+          advCfg.memoryActiveLocation = val;
+          memoryLocInput.value = "";
+          renderInspector();
+          showToast(`Added MEMORY.md location: ${val}`);
+        };
+        if (addMemoryLocBtn) addMemoryLocBtn.addEventListener("click", handleAddMemoryLoc);
+        if (memoryLocInput) {
+          memoryLocInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") handleAddMemoryLoc();
+          });
+        }
+
+        contentEl.querySelectorAll("[data-toggle-connector]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const cid = btn.dataset.toggleConnector;
+            const conn = advCfg.connectors.find((c) => c.id === cid);
+            if (conn) {
+              conn.connected = !conn.connected;
+              if (conn.connected && !advCfg.memoryLocations.includes(conn.uri)) {
+                advCfg.memoryLocations.push(conn.uri);
+              }
+              renderInspector();
+              showToast(`${conn.name} ${conn.connected ? "connected to" : "disconnected from"} ${activeBot.name} MEMORY.md`);
+            }
+          });
+        });
       } else {
         // Computer Tab
         contentEl.innerHTML = `
@@ -9520,10 +10331,87 @@ copy running-config startup-config</pre>
       }
 
       // Backdrop click to close modals
-      ["modal-bot-editor", "modal-search", "modal-settings", "modal-invite", "modal-connect-apps", "modal-rename-section"].forEach((id) => {
+      ["modal-bot-editor", "modal-search", "modal-settings", "modal-invite", "modal-connect-apps", "modal-rename-section", "modal-bot-markdown-editor"].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.addEventListener("click", () => el.classList.add("hidden"));
       });
+
+      // AGENTS.md & MEMORY.md Editor Modal controls
+      const closeMdEditorBtn = document.getElementById("btn-close-bot-md-editor");
+      const cancelMdEditorBtn = document.getElementById("btn-cancel-bot-md-editor");
+      const saveMdEditorBtn = document.getElementById("btn-save-bot-md-editor");
+      const resetMdTemplateBtn = document.getElementById("btn-reset-bot-md-template");
+      const modalAddMdLocBtn = document.getElementById("btn-modal-add-md-location");
+      const openAdvFromEditorBtn = document.getElementById("btn-open-advanced-from-editor");
+
+      if (closeMdEditorBtn) {
+        closeMdEditorBtn.addEventListener("click", () => {
+          document.getElementById("modal-bot-markdown-editor").classList.add("hidden");
+        });
+      }
+      if (cancelMdEditorBtn) {
+        cancelMdEditorBtn.addEventListener("click", () => {
+          document.getElementById("modal-bot-markdown-editor").classList.add("hidden");
+        });
+      }
+      if (saveMdEditorBtn) {
+        saveMdEditorBtn.addEventListener("click", saveBotMarkdownEditorModal);
+      }
+      if (resetMdTemplateBtn) {
+        resetMdTemplateBtn.addEventListener("click", () => {
+          const bot = getBotById(state.mdEditorBotId || state.activeBotId);
+          const textarea = document.getElementById("bot-md-editor-textarea");
+          if (textarea) {
+            textarea.value =
+              state.mdEditorDocType === "AGENTS.md"
+                ? getDefaultAgentsMdContent(bot)
+                : getDefaultMemoryMdContent(bot);
+          }
+        });
+      }
+      if (modalAddMdLocBtn) {
+        modalAddMdLocBtn.addEventListener("click", () => {
+          const bot = getBotById(state.mdEditorBotId || state.activeBotId);
+          const cfg = getBotAdvancedConfig(bot.id);
+          const locInput = document.getElementById("bot-md-location-input");
+          const val = locInput ? locInput.value.trim() : "";
+          if (!val) return;
+          if (state.mdEditorDocType === "AGENTS.md") {
+            if (!cfg.agentsLocations.includes(val)) cfg.agentsLocations.push(val);
+            cfg.agentsActiveLocation = val;
+          } else {
+            if (!cfg.memoryLocations.includes(val)) cfg.memoryLocations.push(val);
+            cfg.memoryActiveLocation = val;
+          }
+          renderBotMarkdownEditorModal();
+          renderInspector();
+          showToast(`Added ${state.mdEditorDocType} location: ${val}`);
+        });
+      }
+      document.querySelectorAll("#modal-bot-markdown-editor .bot-md-tab-btn").forEach((tabBtn) => {
+        tabBtn.addEventListener("click", () => {
+          const bot = getBotById(state.mdEditorBotId || state.activeBotId);
+          const cfg = getBotAdvancedConfig(bot.id);
+          const textarea = document.getElementById("bot-md-editor-textarea");
+          if (textarea) {
+            if (state.mdEditorDocType === "AGENTS.md") cfg.agentsContent = textarea.value;
+            else cfg.memoryContent = textarea.value;
+          }
+          state.mdEditorDocType = tabBtn.dataset.mdDoc;
+          renderBotMarkdownEditorModal();
+        });
+      });
+      if (openAdvFromEditorBtn) {
+        openAdvFromEditorBtn.addEventListener("click", () => {
+          const targetId = state.editorTargetBotId || state.activeBotId;
+          document.getElementById("modal-bot-editor").classList.add("hidden");
+          state.inspectorOpen = true;
+          state.inspectorTab = "Details";
+          state.inspectorAdvancedOpen = true;
+          renderInspector();
+          openBotMarkdownEditor(targetId, "AGENTS.md");
+        });
+      }
 
       // Rename / Create Section Modal controls
       const closeRenameSecBtn = document.getElementById("btn-close-rename-section");

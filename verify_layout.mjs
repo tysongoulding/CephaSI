@@ -512,8 +512,64 @@ async function runVerification() {
   assert.equal(thinkingTriggered, 1, "Clicking the Enter/Send button must trigger the bot prompt reply");
   console.log("✔ View 33 verified: Typing in composer switches Voice Chat button to Enter/Send arrow (↑) and sends on click.");
 
+  // 34. View 34: Advanced Button below Rename / Customize Bot (AGENTS.md Modal Editor, MEMORY.md & Cloud/VCS Connectors)
+  const inspectorHidden = await page.evaluate(() =>
+    document.getElementById("right-inspector").classList.contains("hidden")
+  );
+  if (inspectorHidden) {
+    await page.click("#btn-toggle-inspector");
+    await page.waitForSelector("#right-inspector:not(.hidden)");
+  }
+  await page.click('.inspector-tab-btn[data-inspector-tab="Details"]');
+  await page.waitForSelector("#btn-customize-from-details");
+  await page.waitForSelector("#btn-advanced-from-details");
+
+  // Click Advanced button below Rename / Customize Bot
+  await page.click("#btn-advanced-from-details");
+  await page.waitForSelector("#inspector-advanced-panel:not(.hidden)");
+
+  // Add a custom AGENTS.md location
+  await page.fill("#input-agents-location", "/etc/cephasi/custom/AGENTS.md");
+  await page.click("#btn-add-agents-location");
+  const agentsLocText = await page.textContent("#agents-md-loc-list");
+  assert(agentsLocText.includes("/etc/cephasi/custom/AGENTS.md"), "Added AGENTS.md location must appear in the list");
+
+  // Add a custom MEMORY.md location
+  await page.fill("#input-memory-location", "gdrive://TeamDrive/CephaSI/MEMORY.md");
+  await page.click("#btn-add-memory-location");
+  const memoryLocText = await page.textContent("#memory-md-loc-list");
+  assert(memoryLocText.includes("gdrive://TeamDrive/CephaSI/MEMORY.md"), "Added MEMORY.md location must appear in the list");
+
+  // Verify Document Storage & Git/VCS Connectors exist (Google Drive, Notion, OneDrive, Dropbox, GitHub, GitLab, Bitbucket)
+  const advPanelText = await page.textContent("#inspector-advanced-panel");
+  for (const provider of ["Google Drive", "Notion", "OneDrive", "Dropbox", "GitHub", "GitLab", "Bitbucket"]) {
+    assert(advPanelText.includes(provider), `Advanced panel must include ${provider} connector`);
+  }
+
+  // Toggle GitLab connector
+  await page.click('[data-toggle-connector="gitlab"]');
+  const gitlabConnected = await page.evaluate(() =>
+    document.querySelector('[data-toggle-connector="gitlab"]').classList.contains("connected")
+  );
+  assert(gitlabConnected, "Clicking Connect on GitLab must mark it as Connected");
+
+  await page.screenshot({ path: path.join(SCRATCH_DIR, "view_34a_inspector_advanced_panel.png") });
+
+  // Open the AGENTS.md Editor Modal via #btn-edit-agents-md
+  await page.click("#btn-edit-agents-md");
+  await page.waitForSelector("#modal-bot-markdown-editor:not(.hidden)");
+  const modalTitle = await page.textContent("#bot-md-editor-title");
+  assert(modalTitle.includes("Edit AGENTS.md"), "AGENTS.md editor modal must open with Edit AGENTS.md title");
+
+  await page.screenshot({ path: path.join(SCRATCH_DIR, "view_34b_agents_md_editor_modal.png") });
+
+  // Save & close the AGENTS.md Editor Modal
+  await page.click("#btn-save-bot-md-editor");
+  await page.waitForSelector("#modal-bot-markdown-editor.hidden", { state: "hidden" });
+  console.log("✔ View 34 verified: Advanced button below Rename / Customize Bot with AGENTS.md modal editor, MEMORY.md & Google Drive/Docs/GitHub/GitLab/Bitbucket connectors.");
+
   await browser.close();
-  console.log("\nALL 33 E2E VERIFICATION CHECKS PASSED SUCCESSFULLY!");
+  console.log("\nALL 34 E2E VERIFICATION CHECKS PASSED SUCCESSFULLY!");
 }
 
 runVerification().catch((err) => {
