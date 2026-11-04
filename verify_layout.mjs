@@ -336,8 +336,53 @@ async function runVerification() {
   await page.screenshot({ path: path.join(SCRATCH_DIR, "view_27_cephaconnect_resources_light_theme.png") });
   console.log("✔ View 27 verified: CephaConnect Resources Table + Light Theme + Resource Side Panel.");
 
+  // 28. View 28: Elemental Tentacle Hover Loops + 5-Second Thinking Tentacle Demo ('Doctor' -> 'hello' -> 'Putting it together')
+  await page.click("#btn-close-cephaconnect");
+  await page.waitForSelector("#cephaconnect-view", { state: "hidden" });
+
+  // Verify tentacle SVGs carry data-tfx elemental animation archetypes & motion groups
+  const tfxCount = await page.locator("svg.tentacle-svg[data-tfx] g.t-body-motion").count();
+  assert(tfxCount >= 18, "All sidebar tentacles must render with data-tfx elemental loop attributes and .t-body-motion");
+
+  // Select Doctor (matching user reference screenshot)
+  await page.click('.bot-list-item[data-bot-id="doctor"]');
+  const doctorStreamText = await page.textContent("#chat-stream");
+  assert(
+    doctorStreamText.includes("The California routers need one extra step") &&
+      doctorStreamText.includes("ip access-list standard SNMP_ACCESS"),
+    "Doctor thread must display the California routers SNMP_ACCESS card"
+  );
+
+  // Hover over Doctor's sidebar tentacle & top pill tentacle to trigger elemental hover state
+  await page.hover('.bot-list-item[data-bot-id="doctor"]');
+
+  // Trigger the 5-second Thinking Prompt Demo ('hello' on Doctor)
+  await page.click("#btn-demo-5s-prompt");
+  await page.waitForSelector("#bot-thinking-indicator");
+  await page.waitForTimeout(600);
+
+  const thinkingTentacleActive = await page.locator("#bot-thinking-indicator .thinking-tentacle-stage svg.tentacle-svg.thinking-active").count();
+  const thinkingDotsCount = await page.locator("#bot-thinking-indicator .thinking-dots span").count();
+  const thinkingStatusText = await page.textContent("#thinking-status-text");
+  const thinkingTimerText = await page.textContent("#thinking-timer-badge");
+  assert.equal(thinkingTentacleActive, 1, "Animated tentacle must appear with .thinking-active inside #bot-thinking-indicator");
+  assert.equal(thinkingDotsCount, 3, "Three pulsing dots must appear next to the thinking tentacle");
+  assert(thinkingStatusText.includes("Putting it together"), "Thinking indicator must display 'Putting it together'");
+  assert(thinkingTimerText.endsWith("s"), "5-second countdown badge must display remaining seconds");
+
+  await page.screenshot({ path: path.join(SCRATCH_DIR, "view_28_tentacle_thinking_5s_demo.png") });
+  console.log("✔ View 28a verified: Active 5s Thinking Tentacle Animation ('Putting it together' + pulsing dots + countdown).");
+
+  // Wait for the 5-second demo prompt to finish and verify the reply card appears
+  await page.waitForTimeout(4700);
+  const thinkingAfter5s = await page.locator("#bot-thinking-indicator").count();
+  const replyCardCount = await page.locator(".demo-reply-card").count();
+  assert.equal(thinkingAfter5s, 0, "Thinking indicator must clear after 5 seconds");
+  assert.equal(replyCardCount, 1, "Simulated reply card must appear after 5 seconds");
+  console.log("✔ View 28b verified: 5-second made-up prompt completed and rendered reply card.");
+
   await browser.close();
-  console.log("\nALL 27 E2E VERIFICATION CHECKS PASSED SUCCESSFULLY!");
+  console.log("\nALL 28 E2E VERIFICATION CHECKS PASSED SUCCESSFULLY!");
 }
 
 runVerification().catch((err) => {

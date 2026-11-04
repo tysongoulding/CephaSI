@@ -679,11 +679,410 @@
       color: #d4d4d8;
     }
 
-    /* Bottom Composer Pill */
+    /* Bottom Composer Pill & 5s Thinking Demo Strip */
     .chat-composer-wrap {
-      padding: 8px 24px 16px;
+      padding: 6px 24px 16px;
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .demo-prompt-bar {
+      width: 100%;
+      max-width: 650px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 0 4px;
+    }
+
+    .btn-demo-5s {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.16), rgba(59, 130, 246, 0.16));
+      border: 1px solid rgba(34, 211, 238, 0.42);
+      color: #67e8f9;
+      font-size: 11.5px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 0 4px 14px rgba(6, 182, 212, 0.14);
+    }
+    .btn-demo-5s:hover {
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.26), rgba(59, 130, 246, 0.26));
+      border-color: #22d3ee;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .btn-demo-5s.running {
+      background: rgba(245, 158, 11, 0.18);
+      border-color: rgba(245, 158, 11, 0.5);
+      color: #fde047;
+    }
+
+    .demo-preset-chips {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .demo-chip-btn {
+      padding: 3.5px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      color: #9ca3af;
+      font-size: 11px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .demo-chip-btn:hover {
+      background: rgba(255, 255, 255, 0.09);
+      color: #f4f4f6;
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    /* Bot Thinking Row (matches Screenshot: Animated Tentacle + 3 Pulsing Dots + Shimmering 'Putting it together') */
+    .chat-timestamp-center {
+      align-self: center;
+      font-size: 11px;
+      color: #7c7c86;
+      margin: 10px 0 4px;
+    }
+
+    .user-bubble-right.accent-red {
+      background: #dc2626;
+      border-color: #ef4444;
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .bot-thinking-row {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px 8px 10px;
+      margin: 6px 0 10px;
+      border-radius: 14px;
+      background: rgba(24, 24, 28, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      animation: thinkingRowAppear 0.22s ease-out;
+    }
+
+    @keyframes thinkingRowAppear {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .thinking-tentacle-stage {
+      width: 44px;
+      height: 36px;
+      display: flex;
+      align-items: center;
       justify-content: center;
+      position: relative;
+    }
+    .thinking-tentacle-stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--think-color, rgba(239, 68, 68, 0.28)) 0%, transparent 72%);
+      animation: thinkAuraPulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes thinkAuraPulse {
+      0%, 100% { transform: scale(0.88); opacity: 0.55; }
+      50% { transform: scale(1.18); opacity: 1; }
+    }
+
+    .thinking-dots {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .thinking-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--think-dot-color, #ef4444);
+      animation: thinkingDotBounce 1.2s ease-in-out infinite;
+    }
+    .thinking-dots span:nth-child(2) {
+      animation-delay: 0.18s;
+      opacity: 0.72;
+    }
+    .thinking-dots span:nth-child(3) {
+      animation-delay: 0.36s;
+      opacity: 0.45;
+    }
+
+    @keyframes thinkingDotBounce {
+      0%, 80%, 100% { transform: scale(0.82); opacity: 0.38; }
+      40% { transform: scale(1.22); opacity: 1; }
+    }
+
+    .thinking-shimmer-text {
+      font-size: 12.5px;
+      font-weight: 500;
+      background: linear-gradient(90deg, #71717a 0%, #e4e4ec 45%, #ffffff 50%, #e4e4ec 55%, #71717a 100%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmerSweep 1.8s linear infinite;
+    }
+
+    @keyframes shimmerSweep {
+      0% { background-position: 100% 0; }
+      100% { background-position: -100% 0; }
+    }
+
+    .thinking-timer-badge {
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      color: #9ca3af;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 1.5px 6px;
+      border-radius: 999px;
+      margin-left: 2px;
+    }
+
+    /* =========================================================================
+       ELEMENTAL TENTACLE HOVER & THINKING LOOP ANIMATIONS (ALL 49 STYLES)
+       ========================================================================= */
+    .tentacle-svg {
+      overflow: visible;
+      transform-origin: center center;
+      transition: filter 0.2s ease, transform 0.2s ease;
+    }
+    .tentacle-svg .t-body-motion {
+      transform-origin: 12px 34px;
+    }
+    .tentacle-svg .t-tip-curl {
+      transform-origin: 45px 20px;
+    }
+    .tentacle-svg .t-fx-overlay {
+      transform-origin: 30px 25px;
+    }
+
+    /* Trigger animations on hover OR when .thinking-active is enabled */
+    :is(
+      .tentacle-svg:hover,
+      .tentacle-option-btn:hover .tentacle-svg,
+      .pinned-bot-card:hover .tentacle-svg,
+      .bot-list-item:hover .tentacle-svg,
+      .top-bot-pill:hover .tentacle-svg,
+      .inspector-avatar-large:hover .tentacle-svg,
+      .bot-preview-hero:hover .tentacle-svg,
+      .sidebar-brand-lockup:hover .tentacle-svg,
+      .cc-svg-bot-node:hover .tentacle-svg,
+      .tentacle-svg.thinking-active
+    ) {
+      filter: drop-shadow(0 0 6px var(--t-glow, rgba(34, 211, 238, 0.55)));
+    }
+
+    /* 0. Sovereign Main AI (Crown levitation + 8-arm wave + pulsing orbs) */
+    :is(.tentacle-svg[data-tfx="sovereign"]:hover, *:hover > .tentacle-svg[data-tfx="sovereign"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="sovereign"], .pinned-bot-card:hover .tentacle-svg[data-tfx="sovereign"], .tentacle-svg[data-tfx="sovereign"].thinking-active) .t-body-motion {
+      animation: sovereignWaveLoop 1.6s ease-in-out infinite;
+    }
+    :is(.tentacle-svg[data-tfx="sovereign"]:hover, *:hover > .tentacle-svg[data-tfx="sovereign"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="sovereign"], .pinned-bot-card:hover .tentacle-svg[data-tfx="sovereign"], .tentacle-svg[data-tfx="sovereign"].thinking-active) .t-fx-overlay {
+      animation: sovereignCrownPulse 1.2s ease-in-out infinite;
+    }
+
+    /* 1. Organic / Flora / Feathered / Octopus Wave */
+    :is(.tentacle-svg[data-tfx="organic"]:hover, *:hover > .tentacle-svg[data-tfx="organic"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="organic"], .pinned-bot-card:hover .tentacle-svg[data-tfx="organic"], .bot-list-item:hover .tentacle-svg[data-tfx="organic"], .tentacle-svg[data-tfx="organic"].thinking-active) .t-body-motion {
+      animation: tentacleSlitherLoop 1.5s ease-in-out infinite;
+    }
+    :is(.tentacle-svg[data-tfx="organic"]:hover, *:hover > .tentacle-svg[data-tfx="organic"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="organic"], .pinned-bot-card:hover .tentacle-svg[data-tfx="organic"], .bot-list-item:hover .tentacle-svg[data-tfx="organic"], .tentacle-svg[data-tfx="organic"].thinking-active) .t-fx-overlay {
+      animation: organicFlutterLoop 1.1s ease-in-out infinite;
+    }
+
+    /* 2. Cyber / Sci-Fi / Neon Grid (Scrolling data stream + node pulse) */
+    :is(.tentacle-svg[data-tfx="cyber"]:hover, *:hover > .tentacle-svg[data-tfx="cyber"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="cyber"], .pinned-bot-card:hover .tentacle-svg[data-tfx="cyber"], .bot-list-item:hover .tentacle-svg[data-tfx="cyber"], .tentacle-svg[data-tfx="cyber"].thinking-active) .t-body-motion {
+      animation: cyberHoverLoop 1.4s ease-in-out infinite;
+    }
+    :is(.tentacle-svg[data-tfx="cyber"]:hover, *:hover > .tentacle-svg[data-tfx="cyber"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="cyber"], .pinned-bot-card:hover .tentacle-svg[data-tfx="cyber"], .bot-list-item:hover .tentacle-svg[data-tfx="cyber"], .tentacle-svg[data-tfx="cyber"].thinking-active) .t-fx-overlay {
+      stroke-dasharray: 4 3;
+      animation: cyberDataStreamLoop 0.9s linear infinite;
+    }
+
+    /* 3. Venom / Spiky / Toxic Slime / Poison / Bug (Dripping ooze & aggressive coil) */
+    :is(.tentacle-svg[data-tfx="venom"]:hover, *:hover > .tentacle-svg[data-tfx="venom"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="venom"], .pinned-bot-card:hover .tentacle-svg[data-tfx="venom"], .bot-list-item:hover .tentacle-svg[data-tfx="venom"], .tentacle-svg[data-tfx="venom"].thinking-active) .t-body-motion {
+      animation: venomWhipLoop 1.25s ease-in-out infinite;
+    }
+    :is(.tentacle-svg[data-tfx="venom"]:hover, *:hover > .tentacle-svg[data-tfx="venom"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="venom"], .pinned-bot-card:hover .tentacle-svg[data-tfx="venom"], .bot-list-item:hover .tentacle-svg[data-tfx="venom"], .tentacle-svg[data-tfx="venom"].thinking-active) .t-fx-overlay {
+      animation: slimeDripLoop 1.2s ease-in-out infinite;
+    }
+
+    /* 4. Eldritch / Void / Dark / Ghost / Skeletal (Spectral float & blinking eyes/wisps) */
+    :is(.tentacle-svg[data-tfx="eldritch"]:hover, *:hover > .tentacle-svg[data-tfx="eldritch"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="eldritch"], .pinned-bot-card:hover .tentacle-svg[data-tfx="eldritch"], .bot-list-item:hover .tentacle-svg[data-tfx="eldritch"], .tentacle-svg[data-tfx="eldritch"].thinking-active) .t-body-motion {
+      animation: eldritchFloatLoop 1.8s ease-in-out infinite;
+    }
+    :is(.tentacle-svg[data-tfx="eldritch"]:hover, *:hover > .tentacle-svg[data-tfx="eldritch"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="eldritch"], .pinned-bot-card:hover .tentacle-svg[data-tfx="eldritch"], .bot-list-item:hover .tentacle-svg[data-tfx="eldritch"], .tentacle-svg[data-tfx="eldritch"].thinking-active) .t-fx-overlay {
+      animation: eldritchPulseLoop 1.1s ease-in-out infinite;
+    }
+
+    /* 5. Aquatic / Bioluminescent / Water / Bubble (Ocean current sway & rising bubbles) */
+    :is(.tentacle-svg[data-tfx="aquatic"]:hover, *:hover > .tentacle-svg[data-tfx="aquatic"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="aquatic"], .pinned-bot-card:hover .tentacle-svg[data-tfx="aquatic"], .bot-list-item:hover .tentacle-svg[data-tfx="aquatic"], .tentacle-svg[data-tfx="aquatic"].thinking-active) .t-body-motion {
+      animation: aquaticTideLoop 1.6s ease-in-out infinite;
+    }
+    :is(.tentacle-svg[data-tfx="aquatic"]:hover, *:hover > .tentacle-svg[data-tfx="aquatic"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="aquatic"], .pinned-bot-card:hover .tentacle-svg[data-tfx="aquatic"], .bot-list-item:hover .tentacle-svg[data-tfx="aquatic"], .tentacle-svg[data-tfx="aquatic"].thinking-active) .t-fx-overlay {
+      animation: bubbleRiseLoop 1.3s ease-in-out infinite;
+    }
+
+    /* 6. Clockwork / Steampunk / Metal / Scrap Metal / Magnetic (Mechanical piston + gear torque) */
+    :is(.tentacle-svg[data-tfx="clockwork"]:hover, *:hover > .tentacle-svg[data-tfx="clockwork"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="clockwork"], .pinned-bot-card:hover .tentacle-svg[data-tfx="clockwork"], .bot-list-item:hover .tentacle-svg[data-tfx="clockwork"], .tentacle-svg[data-tfx="clockwork"].thinking-active) .t-body-motion {
+      animation: clockworkPistonLoop 1.2s steps(6, end) infinite;
+    }
+    :is(.tentacle-svg[data-tfx="clockwork"]:hover, *:hover > .tentacle-svg[data-tfx="clockwork"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="clockwork"], .pinned-bot-card:hover .tentacle-svg[data-tfx="clockwork"], .bot-list-item:hover .tentacle-svg[data-tfx="clockwork"], .tentacle-svg[data-tfx="clockwork"].thinking-active) .t-fx-overlay {
+      animation: clockworkGearJitter 0.9s ease-in-out infinite;
+    }
+
+    /* 7. Cosmic / Crystal / Light / Psychic / Fairy / Stellar (Celestial float & starlight shimmer) */
+    :is(.tentacle-svg[data-tfx="cosmic"]:hover, *:hover > .tentacle-svg[data-tfx="cosmic"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="cosmic"], .pinned-bot-card:hover .tentacle-svg[data-tfx="cosmic"], .bot-list-item:hover .tentacle-svg[data-tfx="cosmic"], .tentacle-svg[data-tfx="cosmic"].thinking-active) .t-body-motion {
+      animation: cosmicLevitateLoop 1.7s ease-in-out infinite;
+    }
+    :is(.tentacle-svg[data-tfx="cosmic"]:hover, *:hover > .tentacle-svg[data-tfx="cosmic"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="cosmic"], .pinned-bot-card:hover .tentacle-svg[data-tfx="cosmic"], .bot-list-item:hover .tentacle-svg[data-tfx="cosmic"], .tentacle-svg[data-tfx="cosmic"].thinking-active) .t-fx-overlay {
+      animation: cosmicStarTwinkle 1.0s ease-in-out infinite;
+    }
+
+    /* 8. Fire / Molten / Volcanic / Dragon (Blazing flame dance & magma surge) */
+    :is(.tentacle-svg[data-tfx="fire"]:hover, *:hover > .tentacle-svg[data-tfx="fire"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="fire"], .pinned-bot-card:hover .tentacle-svg[data-tfx="fire"], .bot-list-item:hover .tentacle-svg[data-tfx="fire"], .tentacle-svg[data-tfx="fire"].thinking-active) .t-body-motion {
+      animation: fireBlazeLoop 1.1s ease-in-out infinite;
+    }
+    :is(.tentacle-svg[data-tfx="fire"]:hover, *:hover > .tentacle-svg[data-tfx="fire"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="fire"], .pinned-bot-card:hover .tentacle-svg[data-tfx="fire"], .bot-list-item:hover .tentacle-svg[data-tfx="fire"], .tentacle-svg[data-tfx="fire"].thinking-active) .t-fx-overlay {
+      animation: flameFlickerLoop 0.65s ease-in-out infinite;
+    }
+
+    /* 9. Wind / Air / Glacial / Flying / Sand / Candy (Gusting slipstream & frost shimmer) */
+    :is(.tentacle-svg[data-tfx="wind"]:hover, *:hover > .tentacle-svg[data-tfx="wind"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="wind"], .pinned-bot-card:hover .tentacle-svg[data-tfx="wind"], .bot-list-item:hover .tentacle-svg[data-tfx="wind"], .tentacle-svg[data-tfx="wind"].thinking-active) .t-body-motion {
+      animation: windBreezeLoop 1.35s ease-in-out infinite;
+    }
+    :is(.tentacle-svg[data-tfx="wind"]:hover, *:hover > .tentacle-svg[data-tfx="wind"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="wind"], .pinned-bot-card:hover .tentacle-svg[data-tfx="wind"], .bot-list-item:hover .tentacle-svg[data-tfx="wind"], .tentacle-svg[data-tfx="wind"].thinking-active) .t-fx-overlay {
+      stroke-dasharray: 6 3;
+      animation: windSlipstreamLoop 0.85s linear infinite;
+    }
+
+    /* 10. Electric / Fighting / Earth / Rock / Fossil (High-voltage crackle & seismic surge) */
+    :is(.tentacle-svg[data-tfx="electric"]:hover, *:hover > .tentacle-svg[data-tfx="electric"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="electric"], .pinned-bot-card:hover .tentacle-svg[data-tfx="electric"], .bot-list-item:hover .tentacle-svg[data-tfx="electric"], .tentacle-svg[data-tfx="electric"].thinking-active) .t-body-motion {
+      animation: electricJitterLoop 0.75s ease-in-out infinite;
+    }
+    :is(.tentacle-svg[data-tfx="electric"]:hover, *:hover > .tentacle-svg[data-tfx="electric"], .tentacle-option-btn:hover .tentacle-svg[data-tfx="electric"], .pinned-bot-card:hover .tentacle-svg[data-tfx="electric"], .bot-list-item:hover .tentacle-svg[data-tfx="electric"], .tentacle-svg[data-tfx="electric"].thinking-active) .t-fx-overlay {
+      animation: lightningArcFlash 0.5s steps(2, end) infinite;
+    }
+
+    @keyframes sovereignWaveLoop {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-2.2px) scale(1.04, 0.97); }
+    }
+    @keyframes sovereignCrownPulse {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.92; }
+      50% { transform: translateY(-2.8px) scale(1.06); opacity: 1; }
+    }
+    @keyframes tentacleSlitherLoop {
+      0%, 100% { transform: rotate(0deg) skewX(0deg) scaleY(1); }
+      25% { transform: rotate(-4deg) skewX(-5deg) scaleY(1.05); }
+      50% { transform: rotate(1.5deg) skewX(4deg) scaleY(0.95); }
+      75% { transform: rotate(4.5deg) skewX(-3deg) scaleY(1.04); }
+    }
+    @keyframes organicFlutterLoop {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-1.8px) rotate(2.5deg); }
+    }
+    @keyframes cyberHoverLoop {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      50% { transform: translateX(1.5px) rotate(-3deg) scaleX(1.04); }
+    }
+    @keyframes cyberDataStreamLoop {
+      0% { stroke-dashoffset: 14; opacity: 0.75; }
+      50% { opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 0.75; }
+    }
+    @keyframes venomWhipLoop {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      30% { transform: rotate(-5.5deg) scale(1.05, 0.94); }
+      65% { transform: rotate(4.5deg) scale(0.96, 1.06); }
+    }
+    @keyframes slimeDripLoop {
+      0%, 100% { transform: translateY(0) scaleY(1); }
+      50% { transform: translateY(2.6px) scaleY(1.08); }
+    }
+    @keyframes eldritchFloatLoop {
+      0%, 100% { transform: translateY(0) rotate(0deg) skewY(0deg); }
+      33% { transform: translateY(-2.2px) rotate(-3.5deg) skewY(3deg); }
+      66% { transform: translateY(1.6px) rotate(3.5deg) skewY(-3deg); }
+    }
+    @keyframes eldritchPulseLoop {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.09); opacity: 1; }
+    }
+    @keyframes aquaticTideLoop {
+      0%, 100% { transform: rotate(0deg) skewX(0deg); }
+      33% { transform: rotate(-4deg) skewX(6deg); }
+      66% { transform: rotate(4deg) skewX(-6deg); }
+    }
+    @keyframes bubbleRiseLoop {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-2.8px) scale(1.06); }
+    }
+    @keyframes clockworkPistonLoop {
+      0%, 100% { transform: rotate(0deg) translate(0, 0); }
+      25% { transform: rotate(-3.5deg) translate(1px, -1px); }
+      50% { transform: rotate(0deg) translate(2px, 0); }
+      75% { transform: rotate(3.5deg) translate(0, 1px); }
+    }
+    @keyframes clockworkGearJitter {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-1.5px) rotate(3.5deg); }
+    }
+    @keyframes cosmicLevitateLoop {
+      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+      50% { transform: translateY(-2.6px) rotate(-3deg) scale(1.04); }
+    }
+    @keyframes cosmicStarTwinkle {
+      0%, 100% { transform: scale(0.92); opacity: 0.72; }
+      50% { transform: scale(1.12); opacity: 1; }
+    }
+    @keyframes fireBlazeLoop {
+      0%, 100% { transform: rotate(0deg) skewX(0deg) scaleY(1); }
+      25% { transform: rotate(-4deg) skewX(-4deg) scaleY(1.06); }
+      75% { transform: rotate(4deg) skewX(4deg) scaleY(0.96); }
+    }
+    @keyframes flameFlickerLoop {
+      0%, 100% { transform: translateY(0) scaleY(1); opacity: 0.85; }
+      50% { transform: translateY(-2.5px) scaleY(1.12); opacity: 1; }
+    }
+    @keyframes windBreezeLoop {
+      0%, 100% { transform: translateX(0) skewX(0deg); }
+      50% { transform: translateX(2.4px) skewX(-7deg); }
+    }
+    @keyframes windSlipstreamLoop {
+      0% { stroke-dashoffset: 18; }
+      100% { stroke-dashoffset: 0; }
+    }
+    @keyframes electricJitterLoop {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-1.4px, -1px) rotate(-3deg); }
+      40% { transform: translate(1.6px, 1px) rotate(3deg); }
+      60% { transform: translate(-1.2px, 1.2px) rotate(-2deg); }
+      80% { transform: translate(1.4px, -1.2px) rotate(2.5deg); }
+    }
+    @keyframes lightningArcFlash {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(1.06); }
     }
 
     .chat-composer-pill {
@@ -3220,6 +3619,17 @@
       <div id="chat-stream" class="chat-stream-container"></div>
 
       <div class="chat-composer-wrap">
+        <div id="demo-prompt-bar" class="demo-prompt-bar">
+          <button id="btn-demo-5s-prompt" type="button" class="btn-demo-5s" title="Send a made-up prompt and watch the Tentacle animate while thinking for 5 seconds">
+            <span>⚡</span>
+            <span id="btn-demo-5s-label">Demo 5s Thinking Prompt</span>
+          </button>
+          <div class="demo-preset-chips">
+            <button type="button" class="demo-chip-btn" data-demo-prompt="hello">"hello"</button>
+            <button type="button" class="demo-chip-btn" data-demo-prompt="Verify the California router SNMP v3 ACL and check if rt05.vzw1 SSH is back up">"Check CA router SNMP v3"</button>
+            <button type="button" class="demo-chip-btn" data-demo-prompt="Run a cross-bot health sweep and summarize any open Zabbix or AWS alerts">"Sweep Zabbix &amp; AWS"</button>
+          </div>
+        </div>
         <div class="chat-composer-pill" style="position: relative;">
           <!-- Composer + Popover (Screenshot 14: Attach files / Teach a task) -->
           <div id="composer-plus-popover" class="composer-plus-popover hidden">
@@ -3669,10 +4079,66 @@
 
     const TENTACLE_STYLES = TENTACLE_CATALOG.map((t) => t.name);
 
-    function renderTentacleSVG(tentacleId, colorHex, size = 32) {
+    function getTentacleFxArchetype(id) {
+      switch (Number(id)) {
+        case 0:
+          return "sovereign";
+        case 2:
+        case 12:
+        case 17:
+        case 23:
+        case 31:
+        case 44:
+        case 46:
+          return "cyber";
+        case 3:
+        case 20:
+        case 38:
+        case 39:
+          return "venom";
+        case 4:
+        case 11:
+        case 16:
+        case 29:
+        case 34:
+        case 36:
+          return "eldritch";
+        case 5:
+        case 15:
+        case 26:
+        case 45:
+          return "aquatic";
+        case 7:
+        case 18:
+          return "clockwork";
+        case 8:
+        case 13:
+        case 30:
+        case 42:
+        case 48:
+          return "cosmic";
+        case 10:
+        case 22:
+        case 28:
+          return "fire";
+        case 21:
+        case 25:
+        case 40:
+        case 47:
+          return "wind";
+        case 32:
+          return "electric";
+        default:
+          return "organic";
+      }
+    }
+
+    function renderTentacleSVG(tentacleId, colorHex, size = 32, forceActive = false) {
       const rawId = Number(tentacleId);
       const id = Number.isFinite(rawId) && rawId >= 0 && rawId < TENTACLE_CATALOG.length ? rawId : 1;
       const spec = TENTACLE_CATALOG[id] || TENTACLE_CATALOG[1];
+      const fxType = getTentacleFxArchetype(id);
+      const activeClass = forceActive ? " thinking-active" : "";
       const isDefaultColor = !colorHex || colorHex === "default";
       const top1 = isDefaultColor ? spec.top1 : colorHex;
       const top2 = isDefaultColor ? spec.top2 : colorHex;
@@ -3686,7 +4152,7 @@
       // 0: CephaSI Sovereign (Main AI Logo — Crowned Neon-Cyan/Blue Octopus with Cute Happy Glowing Eyes & Orb Tips)
       if (id === 0) {
         const mainFill = isDefaultColor ? "#22d3ee" : colorHex;
-        return `<svg width="${w}" height="${h}" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        return `<svg class="tentacle-svg${activeClass}" data-tstyle="0" data-tfx="sovereign" style="--t-glow: ${mainFill};" width="${w}" height="${h}" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="${uid}" x1="6" y1="4" x2="54" y2="48" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stop-color="#38bdf8"/>
@@ -3694,34 +4160,38 @@
               <stop offset="100%" stop-color="#1d4ed8"/>
             </linearGradient>
           </defs>
-          <path d="M21.5 11.5 L20 4.8 L25.8 8.5 L30 2.5 L34.2 8.5 L40 4.8 L38.5 11.5 Z" fill="rgba(34,211,238,0.18)" stroke="url(#${uid})" stroke-width="1.6" stroke-linejoin="round"/>
-          <path d="M21.5 11.5 L30 6.2 L38.5 11.5 M25.8 8.5 L30 11.5 L34.2 8.5" stroke="url(#${uid})" stroke-width="1.1" fill="none"/>
-          <path d="M20.2 20.5 C19.2 11.8, 40.8 11.8, 39.8 20.5 C39.3 24.8, 36.8 27.8, 34 29.5 L30 27.2 L26 29.5 C23.2 27.8, 20.7 24.8, 20.2 20.5 Z" fill="rgba(14,165,233,0.18)" stroke="url(#${uid})" stroke-width="2"/>
-          <ellipse cx="25.2" cy="20.6" rx="2.7" ry="2.9" fill="#082f49" stroke="#38bdf8" stroke-width="1.2"/>
-          <ellipse cx="34.8" cy="20.6" rx="2.7" ry="2.9" fill="#082f49" stroke="#38bdf8" stroke-width="1.2"/>
-          <circle cx="24.5" cy="19.7" r="1.0" fill="#e0f2fe"/>
-          <circle cx="26.0" cy="21.5" r="0.48" fill="#67e8f9"/>
-          <circle cx="34.1" cy="19.7" r="1.0" fill="#e0f2fe"/>
-          <circle cx="35.6" cy="21.5" r="0.48" fill="#67e8f9"/>
-          <ellipse cx="22.0" cy="23.2" rx="1.5" ry="0.9" fill="#38bdf8" fill-opacity="0.45"/>
-          <ellipse cx="38.0" cy="23.2" rx="1.5" ry="0.9" fill="#38bdf8" fill-opacity="0.45"/>
-          <path d="M27.8 23.8 Q30 25.9 32.2 23.8" stroke="#67e8f9" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          <path d="M22 25 C16 24, 15 15, 11 16 C8 17, 8.5 21, 11.5 21" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <path d="M23 27.5 C14 28, 7 23, 5.5 28.5 C4.5 32, 8.5 34.5, 11.5 32.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <path d="M25 29 C17 33, 9 36, 11 41.5 C12.5 44.5, 17.5 43.5, 18.5 40.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <path d="M28 28.5 C25 36, 19 43, 23 47 C26 49, 29 45.5, 27.5 42.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <path d="M38 25 C44 24, 45 15, 49 16 C52 17, 51.5 21, 48.5 21" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <path d="M37 27.5 C46 28, 53 23, 54.5 28.5 C55.5 32, 51.5 34.5, 48.5 32.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <path d="M35 29 C43 33, 51 36, 49 41.5 C47.5 44.5, 42.5 43.5, 41.5 40.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <path d="M32 28.5 C35 36, 41 43, 37 47 C34 49, 31 45.5, 32.5 42.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <circle cx="11.5" cy="21" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-          <circle cx="11.5" cy="32.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-          <circle cx="18.5" cy="40.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-          <circle cx="27.5" cy="42.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-          <circle cx="48.5" cy="21" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-          <circle cx="48.5" cy="32.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-          <circle cx="41.5" cy="40.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-          <circle cx="32.5" cy="42.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
+          <g class="t-body-motion">
+            <path d="M20.2 20.5 C19.2 11.8, 40.8 11.8, 39.8 20.5 C39.3 24.8, 36.8 27.8, 34 29.5 L30 27.2 L26 29.5 C23.2 27.8, 20.7 24.8, 20.2 20.5 Z" fill="rgba(14,165,233,0.18)" stroke="url(#${uid})" stroke-width="2"/>
+            <ellipse cx="25.2" cy="20.6" rx="2.7" ry="2.9" fill="#082f49" stroke="#38bdf8" stroke-width="1.2"/>
+            <ellipse cx="34.8" cy="20.6" rx="2.7" ry="2.9" fill="#082f49" stroke="#38bdf8" stroke-width="1.2"/>
+            <circle cx="24.5" cy="19.7" r="1.0" fill="#e0f2fe"/>
+            <circle cx="26.0" cy="21.5" r="0.48" fill="#67e8f9"/>
+            <circle cx="34.1" cy="19.7" r="1.0" fill="#e0f2fe"/>
+            <circle cx="35.6" cy="21.5" r="0.48" fill="#67e8f9"/>
+            <ellipse cx="22.0" cy="23.2" rx="1.5" ry="0.9" fill="#38bdf8" fill-opacity="0.45"/>
+            <ellipse cx="38.0" cy="23.2" rx="1.5" ry="0.9" fill="#38bdf8" fill-opacity="0.45"/>
+            <path d="M27.8 23.8 Q30 25.9 32.2 23.8" stroke="#67e8f9" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M22 25 C16 24, 15 15, 11 16 C8 17, 8.5 21, 11.5 21" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M23 27.5 C14 28, 7 23, 5.5 28.5 C4.5 32, 8.5 34.5, 11.5 32.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M25 29 C17 33, 9 36, 11 41.5 C12.5 44.5, 17.5 43.5, 18.5 40.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M28 28.5 C25 36, 19 43, 23 47 C26 49, 29 45.5, 27.5 42.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M38 25 C44 24, 45 15, 49 16 C52 17, 51.5 21, 48.5 21" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M37 27.5 C46 28, 53 23, 54.5 28.5 C55.5 32, 51.5 34.5, 48.5 32.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M35 29 C43 33, 51 36, 49 41.5 C47.5 44.5, 42.5 43.5, 41.5 40.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M32 28.5 C35 36, 41 43, 37 47 C34 49, 31 45.5, 32.5 42.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
+          </g>
+          <g class="t-fx-overlay">
+            <path d="M21.5 11.5 L20 4.8 L25.8 8.5 L30 2.5 L34.2 8.5 L40 4.8 L38.5 11.5 Z" fill="rgba(34,211,238,0.18)" stroke="url(#${uid})" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M21.5 11.5 L30 6.2 L38.5 11.5 M25.8 8.5 L30 11.5 L34.2 8.5" stroke="url(#${uid})" stroke-width="1.1" fill="none"/>
+            <circle cx="11.5" cy="21" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
+            <circle cx="11.5" cy="32.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
+            <circle cx="18.5" cy="40.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
+            <circle cx="27.5" cy="42.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
+            <circle cx="48.5" cy="21" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
+            <circle cx="48.5" cy="32.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
+            <circle cx="41.5" cy="40.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
+            <circle cx="32.5" cy="42.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
+          </g>
         </svg>`;
       }
 
@@ -4098,16 +4568,20 @@
           break;
       }
 
-      return `<svg width="${w}" height="${h}" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      return `<svg class="tentacle-svg${activeClass}" data-tstyle="${id}" data-tfx="${fxType}" style="--t-glow: ${top1};" width="${w}" height="${h}" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="${uid}" x1="5" y1="10" x2="55" y2="42" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stop-color="${top1}"/>
             <stop offset="100%" stop-color="${top2}"/>
           </linearGradient>
         </defs>
-        <path d="${sCurveBody}" fill="url(#${uid})" stroke="${outline}" stroke-width="1.6" stroke-linejoin="round"/>
-        <path d="${dorsalHighlight}" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-        ${extras}
+        <g class="t-body-motion">
+          <path d="${sCurveBody}" fill="url(#${uid})" stroke="${outline}" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="${dorsalHighlight}" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        </g>
+        <g class="t-fx-overlay">
+          ${extras}
+        </g>
       </svg>`;
     }
 
@@ -4308,7 +4782,18 @@
       editorTentacleId: 1,
       editorColorId: -1,
       editorCategory: "all", // 'all' | 'core' | 'thematic' | 'elemental'
-      editorName: ""
+      editorName: "",
+      customExchanges: {},
+      thinkingState: {
+        active: false,
+        botId: null,
+        promptText: "",
+        timestamp: "Today 9:58 PM",
+        statusText: "Putting it together",
+        remainingMs: 5000,
+        intervalId: null,
+        timeoutId: null
+      }
     };
 
     function getBotById(id) {
@@ -4324,6 +4809,166 @@
       if (colorId === -1 || colorId === "default" || colorId == null) return "default";
       const c = BOT_COLORS.find((x) => x.id === Number(colorId));
       return c ? c.hex : "default";
+    }
+
+    function getBotAccentColor(bot) {
+      if (!bot) return "#dc2626";
+      const customHex = getColorHex(bot.colorId);
+      if (customHex && customHex !== "default") return customHex;
+      if (bot.id === "doctor") return "#dc2626";
+      const spec = TENTACLE_CATALOG[bot.tentacleId] || TENTACLE_CATALOG[1];
+      return spec.top1 || "#dc2626";
+    }
+
+    function escapeHtmlText(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function renderDynamicThinkingAndExchanges(bot) {
+      const exchanges = state.customExchanges[bot.id] || [];
+      const accentColor = getBotAccentColor(bot);
+      const spec = TENTACLE_CATALOG[bot.tentacleId] || TENTACLE_CATALOG[1];
+
+      const completedHtml = exchanges
+        .map(
+          (ex) => `
+            <div class="chat-timestamp-center">${ex.timestamp}</div>
+            <div class="user-bubble-right accent-red" style="background: ${accentColor};">
+              ${escapeHtmlText(ex.prompt)}
+            </div>
+            <div class="chat-card demo-reply-card">
+              ${ex.replyHtml}
+            </div>
+          `
+        )
+        .join("");
+
+      let thinkingHtml = "";
+      if (state.thinkingState.active && state.thinkingState.botId === bot.id) {
+        const tentacleSvg = renderTentacleSVG(bot.tentacleId, getColorHex(bot.colorId), 36, true);
+        const secStr = Math.max(0, state.thinkingState.remainingMs / 1000).toFixed(1) + "s";
+        thinkingHtml = `
+          <div class="chat-timestamp-center">${state.thinkingState.timestamp}</div>
+          <div class="user-bubble-right accent-red" style="background: ${accentColor};">
+            ${escapeHtmlText(state.thinkingState.promptText)}
+          </div>
+          <div id="bot-thinking-indicator" class="bot-thinking-row" style="--thinking-dot-color: ${accentColor};">
+            <div class="thinking-tentacle-stage" title="${spec.name} Elemental Thinking Loop">
+              ${tentacleSvg}
+            </div>
+            <div class="thinking-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <span id="thinking-status-text" class="thinking-shimmer-text">${state.thinkingState.statusText}</span>
+            <span id="thinking-timer-badge" class="thinking-timer-badge">${secStr}</span>
+          </div>
+        `;
+      }
+
+      return completedHtml + thinkingHtml;
+    }
+
+    function buildSimulatedReplyHtml(bot, promptText) {
+      const spec = TENTACLE_CATALOG[bot.tentacleId] || TENTACLE_CATALOG[1];
+      const lower = (promptText || "").toLowerCase();
+      if (bot.id === "doctor" || lower.includes("router") || lower.includes("snmp") || lower === "hello") {
+        return `
+          <p>Hey Tyson — <strong>${bot.name}</strong> (<code>${spec.name}</code> tentacle) is online and ready.</p>
+          <p>I verified the WireGuard diagnostic tunnel and checked both California routers against <code>natgw01</code>. Once you paste the <code>permit host 172.31.100.23</code> ACL entry under <code>SNMP_ACCESS</code>, Zabbix polling on <code>172.31.100.23</code> will turn green immediately.</p>
+        `;
+      }
+      if (lower.includes("zabbix") || lower.includes("aws")) {
+        return `
+          <p><strong>5s Fleet Sweep Complete (${bot.name} · ${spec.name}):</strong></p>
+          <ul>
+            <li><strong>Zabbix (prod &amp; corp):</strong> 0 critical alerts requiring action; all California SNMP v3 pollers nominal.</li>
+            <li><strong>AWS Transit &amp; VPC Flow Logs:</strong> All IPsec customer tunnels active; Unimus config backups verified against NetBox.</li>
+          </ul>
+        `;
+      }
+      return `
+        <p><strong>${bot.name}</strong> (<em>${spec.name}</em> elemental style) completed the 5-second analysis for: <code>"${escapeHtmlText(promptText)}"</code>.</p>
+        <p>Checked <span class="inline-code">manifest.md</span> and <span class="inline-code">registry.md</span> — all connectors, routines, and shared workspace credentials are synchronized.</p>
+      `;
+    }
+
+    function run5sThinkingDemo(customPrompt) {
+      const activeBot = getBotById(state.activeBotId);
+      const promptText =
+        (customPrompt && customPrompt.trim()) ||
+        (activeBot.id === "doctor" ? "hello" : "Check California router SNMP v3 ACL & Zabbix poller status");
+
+      if (state.thinkingState.intervalId) clearInterval(state.thinkingState.intervalId);
+      if (state.thinkingState.timeoutId) clearTimeout(state.thinkingState.timeoutId);
+
+      const demoBtn = document.getElementById("btn-demo-5s-prompt");
+      if (demoBtn) {
+        demoBtn.classList.add("running");
+        demoBtn.innerHTML = `<span class="bolt">⚡</span><span>Thinking (5.0s)...</span>`;
+      }
+
+      const startTime = Date.now();
+      const durationMs = 5000;
+
+      state.thinkingState.active = true;
+      state.thinkingState.botId = activeBot.id;
+      state.thinkingState.promptText = promptText;
+      state.thinkingState.timestamp = "Today 9:58 PM";
+      state.thinkingState.statusText = "Putting it together";
+      state.thinkingState.remainingMs = durationMs;
+
+      renderChatStream();
+
+      state.thinkingState.intervalId = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, durationMs - elapsed);
+        state.thinkingState.remainingMs = remaining;
+
+        if (elapsed < 2200) {
+          state.thinkingState.statusText = "Putting it together";
+        } else if (elapsed < 3800) {
+          state.thinkingState.statusText = "Putting it together · Checking connectors";
+        } else {
+          state.thinkingState.statusText = "Putting it together · Finalizing response";
+        }
+
+        const timerEl = document.getElementById("thinking-timer-badge");
+        const statusEl = document.getElementById("thinking-status-text");
+        if (timerEl) timerEl.textContent = (remaining / 1000).toFixed(1) + "s";
+        if (statusEl) statusEl.textContent = state.thinkingState.statusText;
+        if (demoBtn) {
+          demoBtn.innerHTML = `<span class="bolt">⚡</span><span>Thinking (${(remaining / 1000).toFixed(1)}s)...</span>`;
+        }
+      }, 100);
+
+      state.thinkingState.timeoutId = setTimeout(() => {
+        if (state.thinkingState.intervalId) clearInterval(state.thinkingState.intervalId);
+        state.thinkingState.active = false;
+        state.thinkingState.remainingMs = 0;
+
+        if (!state.customExchanges[activeBot.id]) {
+          state.customExchanges[activeBot.id] = [];
+        }
+        state.customExchanges[activeBot.id].push({
+          timestamp: "Today 9:58 PM",
+          prompt: promptText,
+          replyHtml: buildSimulatedReplyHtml(activeBot, promptText)
+        });
+
+        if (demoBtn) {
+          demoBtn.classList.remove("running");
+          demoBtn.innerHTML = `<span class="bolt">⚡</span><span>Demo 5s Thinking Prompt</span>`;
+        }
+
+        renderChatStream();
+        const streamEl = document.getElementById("chat-stream");
+        if (streamEl) streamEl.scrollTop = streamEl.scrollHeight;
+      }, durationMs);
     }
 
     // =========================================================================
@@ -4506,6 +5151,7 @@
             <div class="chat-card">
               <p>I applied the update. My docs now go in 02-Knowledge, I read the manifest and registry before saving files or handing work off, and approvals and status reports go to ${primaryName}. I've let ${primaryName} know.</p>
             </div>
+            ${renderDynamicThinkingAndExchanges(activeBot)}
           </div>
         `;
       } else if (activeBot.id === "carrier-portal") {
@@ -4527,6 +5173,27 @@
             <div class="chat-card">
               <p>Level Parking LLC is in NetSuite as customer <strong>754980</strong>, and it's active. Its modern SIM fleet is provisioned under the Lattigo account using the shared Lattigo key on this computer.</p>
             </div>
+            ${renderDynamicThinkingAndExchanges(activeBot)}
+          </div>
+        `;
+      } else if (activeBot.id === "doctor") {
+        // Doctor thread matching user screenshot (California routers SNMP v3 ACL + thinking demo)
+        streamEl.innerHTML = `
+          <div class="chat-stream-inner" data-thread="doctor">
+            <div class="chat-card">
+              <p>The California routers need one extra step that <code>natgw01</code> didn't. The commands for the two California routers are:</p>
+              <pre class="chat-code-block">configure terminal
+ip access-list standard SNMP_ACCESS
+ permit host 172.31.100.23
+exit
+snmp-server group READONLY v3 priv access SNMP_ACCESS
+snmp-server user zabbix READONLY v3 auth sha &lt;AUTH_PASS&gt; priv aes 128 &lt;PRIV_PASS&gt;
+end
+write memory</pre>
+              <p>On <code>natgw01</code>, the <code>SNMP_ACCESS</code> list was already in place with <code>172.31.100.23</code> in it, so you only needed the group and user lines. On the California routers, <code>SNMP_ACCESS</code> only permits <code>10.220.41.4</code> right now, so Zabbix at <code>172.31.100.23</code> would be blocked by the ACL unless you add that <code>permit host 172.31.100.23</code> line first.</p>
+              <p>Replace <code>&lt;AUTH_PASS&gt;</code> and <code>&lt;PRIV_PASS&gt;</code> with the passwords you want to use, and configure the same credentials on the Zabbix host entries.</p>
+            </div>
+            ${renderDynamicThinkingAndExchanges(activeBot)}
           </div>
         `;
       } else {
@@ -4793,6 +5460,7 @@
                 </div>
               </div>
             ` : ""}
+            ${renderDynamicThinkingAndExchanges(activeBot)}
           </div>
         `;
       }
@@ -4800,7 +5468,11 @@
       streamEl.querySelectorAll(".bot-mention-chip[data-jump-bot]").forEach((chip) => {
         chip.addEventListener("click", () => selectBot(chip.dataset.jumpBot));
       });
-      streamEl.scrollTop = 0;
+      if (state.thinkingState.active && state.thinkingState.botId === activeBot.id) {
+        streamEl.scrollTop = streamEl.scrollHeight;
+      } else {
+        streamEl.scrollTop = 0;
+      }
     }
 
     function renderInspector() {
@@ -5024,7 +5696,7 @@
       const colorHex = getColorHex(state.editorColorId);
       const colorObj = BOT_COLORS.find((c) => c.id === Number(state.editorColorId)) || BOT_COLORS[0];
       const spec = TENTACLE_CATALOG[state.editorTentacleId] || TENTACLE_CATALOG[1];
-      previewEl.innerHTML = renderTentacleSVG(state.editorTentacleId, colorHex, 92);
+      previewEl.innerHTML = renderTentacleSVG(state.editorTentacleId, colorHex, 92, true);
       if (styleLabelEl) {
         const catLabel =
           spec.id === 0
@@ -7579,6 +8251,32 @@
         const el = document.getElementById(id);
         el.addEventListener("click", () => el.classList.add("hidden"));
       });
+
+      // 5s Thinking Tentacle Demo Controls & Composer Enter Input
+      const demo5sBtn = document.getElementById("btn-demo-5s-prompt");
+      if (demo5sBtn) {
+        demo5sBtn.addEventListener("click", () => {
+          const composerInput = document.getElementById("chat-composer-input");
+          const customText = composerInput && composerInput.value.trim() ? composerInput.value.trim() : "";
+          if (composerInput) composerInput.value = "";
+          run5sThinkingDemo(customText);
+        });
+      }
+      document.querySelectorAll(".demo-chip-btn[data-demo-prompt]").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          run5sThinkingDemo(chip.dataset.demoPrompt);
+        });
+      });
+      const chatComposerInput = document.getElementById("chat-composer-input");
+      if (chatComposerInput) {
+        chatComposerInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" && chatComposerInput.value.trim()) {
+            const text = chatComposerInput.value.trim();
+            chatComposerInput.value = "";
+            run5sThinkingDemo(text);
+          }
+        });
+      }
 
       // Composer + Popover (Attach files / Teach a task)
       const composerPlusBtn = document.getElementById("composer-plus-btn");
