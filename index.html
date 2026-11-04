@@ -1228,7 +1228,9 @@
 
     /* ================= CREATE / EDIT BOT MODAL ================= */
     .bot-editor-modal {
-      width: 392px;
+      width: 540px;
+      max-width: 95vw;
+      max-height: 90dvh;
       background: #1a1a1c;
       border: 1px solid rgba(255, 255, 255, 0.11);
       border-radius: 16px;
@@ -1266,24 +1268,26 @@
     }
 
     .bot-editor-body {
-      padding: 22px 20px 18px;
+      padding: 16px 18px 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow-y: auto;
+      flex: 1;
     }
 
     .bot-preview-hero {
-      width: 104px;
-      height: 82px;
+      width: 112px;
+      height: 76px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
 
     .bot-name-input {
       width: 100%;
-      height: 36px;
+      height: 35px;
       background: #141416;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 8px;
@@ -1292,56 +1296,104 @@
       font-size: 13px;
       font-family: inherit;
       outline: none;
-      margin-bottom: 18px;
+      margin-bottom: 12px;
       user-select: text;
     }
     .bot-name-input:focus {
       border-color: rgba(255, 255, 255, 0.28);
     }
 
-    /* 14 Tentacle Types Grid (5 + 5 + 4) */
-    .tentacle-picker-grid {
+    /* Tentacle Category Tabs */
+    .tentacle-cat-tabs {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 5px;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 10px;
     }
 
-    .tentacle-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
+    .tentacle-cat-btn {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #141416;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      color: #9ca3af;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.12s;
+    }
+    .tentacle-cat-btn:hover {
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+    .tentacle-cat-btn.active {
+      background: rgba(34, 211, 238, 0.15);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    /* 4-Column Tentacle Gallery Grid (matching Reference Sheets 1-12, 13-24, 25-48) */
+    .tentacle-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 7px;
+      width: 100%;
+      max-height: 248px;
+      overflow-y: auto;
+      padding: 6px;
+      background: #131316;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      margin-bottom: 14px;
     }
 
     .tentacle-option-btn {
-      width: 38px;
-      height: 34px;
+      min-height: 62px;
       border-radius: 9px;
-      background: transparent;
-      border: 1.5px solid transparent;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1.5px solid rgba(255, 255, 255, 0.06);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 3px;
       cursor: pointer;
-      padding: 2px;
+      padding: 5px 4px 4px;
       transition: transform 0.12s, border-color 0.12s, background 0.12s;
     }
     .tentacle-option-btn:hover {
-      transform: scale(1.08);
-      background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.22);
     }
     .tentacle-option-btn.selected {
-      border-color: rgba(255, 255, 255, 0.48);
-      background: rgba(255, 255, 255, 0.07);
+      border-color: #22d3ee;
+      background: rgba(34, 211, 238, 0.12);
+      box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.28);
+    }
+    .tentacle-option-label {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #cbd5e1;
+      text-align: center;
+      line-height: 1.15;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .tentacle-option-btn.selected .tentacle-option-label {
+      color: #22d3ee;
     }
 
-    /* 11 Color Swatches Grid (6 + 5) */
+    /* 12 Color Swatches Grid (Default Style Original + 11 Solid Colors in 6 + 6) */
     .color-picker-grid {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
       align-items: center;
     }
 
@@ -1349,7 +1401,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 11px;
+      flex-wrap: wrap;
     }
 
     .color-swatch-btn {
@@ -1360,6 +1413,17 @@
       cursor: pointer;
       position: relative;
       transition: transform 0.12s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+    }
+    .color-swatch-btn.default-swatch {
+      background: conic-gradient(from 0deg, #ef4444, #f59e0b, #84cc16, #10b981, #22d3ee, #3b82f6, #a855f7, #ec4899, #ef4444);
+      border: 1.5px solid rgba(255, 255, 255, 0.65);
+      font-weight: 800;
     }
     .color-swatch-btn:hover {
       transform: scale(1.1);
@@ -1369,7 +1433,7 @@
       position: absolute;
       inset: -4px;
       border-radius: 50%;
-      border: 1.5px solid rgba(255, 255, 255, 0.55);
+      border: 1.5px solid rgba(255, 255, 255, 0.68);
     }
 
     .bot-editor-footer {
@@ -3357,11 +3421,17 @@
         </div>
         <div id="main-ai-lock-banner" class="main-ai-lock-banner hidden">
           <span>👑</span>
-          <span>Main AI Orchestrator — Name & Octopus Icon customizable (Core Main AI cannot be removed)</span>
+          <span>Main AI Orchestrator — Name &amp; Tentacle Icon customizable (Core Main AI cannot be removed)</span>
         </div>
         <div id="bot-editor-preview" class="bot-preview-hero"></div>
         <div id="bot-editor-style-label" style="font-size: 11px; color: #8e8e98; margin-top: -6px; margin-bottom: 8px; text-align: center;">CephaSI Sovereign (Main AI)</div>
         <input id="bot-editor-name-input" type="text" class="bot-name-input" placeholder="Name your Bot" />
+        <div id="tentacle-cat-tabs" class="tentacle-cat-tabs">
+          <button type="button" class="tentacle-cat-btn active" data-tcat="all">All (49)</button>
+          <button type="button" class="tentacle-cat-btn" data-tcat="core">Core &amp; Classic (12)</button>
+          <button type="button" class="tentacle-cat-btn" data-tcat="thematic">Thematic &amp; Material (12)</button>
+          <button type="button" class="tentacle-cat-btn" data-tcat="elemental">Elemental &amp; Types (24)</button>
+        </div>
         <div id="tentacle-picker-grid" class="tentacle-picker-grid"></div>
         <div id="color-picker-grid" class="color-picker-grid"></div>
       </div>
@@ -3518,9 +3588,10 @@
 
   <script>
     // =========================================================================
-    // 1. 11 COLOR SWATCHES (6 + 5 Grid)
+    // 1. 12 COLOR SWATCHES (Default Style Original + 11 Custom Colors in 6 + 6)
     // =========================================================================
     const BOT_COLORS = [
+      { id: -1, name: "Default (Style Original)", hex: "default", isDefault: true },
       { id: 0, name: "CephaSI Cyan", hex: "#22d3ee" },
       { id: 1, name: "Coconut Brown", hex: "#b46e42" },
       { id: 2, name: "Pacific Crimson", hex: "#e14d43" },
@@ -3535,115 +3606,97 @@
     ];
 
     // =========================================================================
-    // 2. 14 ILLUSTRATED OCTOPUS SPECIES & CROWNED CEPHASI LOGO (5 + 5 + 4 Grid)
+    // 2. 48 ILLUSTRATED S-CURVE TENTACLE STYLES + CROWNED CEPHASI MAIN AI (0..48)
     // =========================================================================
-    const TENTACLE_STYLES = [
-      "CephaSI Sovereign (Main AI)",
-      "Giant Pacific Octopus",
-      "Blue-Ringed Octopus",
-      "Mimic Octopus",
-      "Common Octopus",
-      "Dumbo Octopus",
-      "Coconut Octopus",
-      "Flapjack Octopus",
-      "Glass Octopus",
-      "Seven-Arm Octopus",
-      "Reef Octopus",
-      "Blanket Octopus",
-      "Argonaut Octopus",
-      "Kelp-Crest Reef Octopus"
+    const TENTACLE_CATALOG = [
+      // 0: Flagship Crowned Main AI
+      { id: 0, cat: "core", name: "CephaSI Sovereign (Main AI)", short: "👑 CephaSI Main", top1: "#38bdf8", top2: "#1d4ed8", belly: "#67e8f9", accent: "#e0f2fe" },
+
+      // Core & Classic Styles (1–12, matching Reference Sheet 1)
+      { id: 1, cat: "core", name: "Octopus", short: "1. Octopus", top1: "#c24d38", top2: "#88291c", belly: "#eab88b", accent: "#d97757" },
+      { id: 2, cat: "core", name: "Sci-Fi / Bio-Mechanical", short: "2. Sci-Fi", top1: "#254e66", top2: "#0f2330", belly: "#38bdf8", accent: "#7dd3fc" },
+      { id: 3, cat: "core", name: "Spiky", short: "3. Spiky", top1: "#4c2878", top2: "#22103b", belly: "#a855f7", accent: "#f0abfc" },
+      { id: 4, cat: "core", name: "Eldritch", short: "4. Eldritch", top1: "#1a1026", top2: "#09050f", belly: "#581c87", accent: "#c084fc" },
+      { id: 5, cat: "core", name: "Bioluminescent", short: "5. Bioluminescent", top1: "#0c4a60", top2: "#05202b", belly: "#22d3ee", accent: "#a5f3fc" },
+      { id: 6, cat: "core", name: "Cartoon", short: "6. Cartoon", top1: "#84cc16", top2: "#65a30d", belly: "#a855f7", accent: "#e879f9" },
+      { id: 7, cat: "core", name: "Steampunk", short: "7. Steampunk", top1: "#b87d32", top2: "#704214", belly: "#d97706", accent: "#fde047" },
+      { id: 8, cat: "core", name: "Cosmic", short: "8. Cosmic", top1: "#3b176b", top2: "#15092b", belly: "#ec4899", accent: "#38bdf8" },
+      { id: 9, cat: "core", name: "Flora", short: "9. Flora", top1: "#4d7c0f", top2: "#365314", belly: "#78502b", accent: "#84cc16" },
+      { id: 10, cat: "core", name: "Molten", short: "10. Molten", top1: "#292524", top2: "#141210", belly: "#f97316", accent: "#fde047" },
+      { id: 11, cat: "core", name: "Skeletal", short: "11. Skeletal", top1: "#e7e5e4", top2: "#a8a29e", belly: "#44403c", accent: "#f5f5f4" },
+      { id: 12, cat: "core", name: "Cybernetic", short: "12. Cybernetic", top1: "#f1f5f9", top2: "#94a3b8", belly: "#ec4899", accent: "#f472b6" },
+
+      // Thematic & Material Styles (13–24, matching Reference Sheet 2)
+      { id: 13, cat: "thematic", name: "Crystal / Gilded", short: "13. Crystal/Gilded", top1: "#c084fc", top2: "#7e22ce", belly: "#fbbf24", accent: "#f5f3ff" },
+      { id: 14, cat: "thematic", name: "Candy", short: "14. Candy", top1: "#ef4444", top2: "#dc2626", belly: "#ffffff", accent: "#f472b6" },
+      { id: 15, cat: "thematic", name: "Glacial", short: "15. Glacial", top1: "#7dd3fc", top2: "#0284c7", belly: "#e0f2fe", accent: "#ffffff" },
+      { id: 16, cat: "thematic", name: "Void", short: "16. Void", top1: "#140921", top2: "#050208", belly: "#4c1d95", accent: "#a855f7" },
+      { id: 17, cat: "thematic", name: "Neon Grid", short: "17. Neon Grid", top1: "#180b30", top2: "#090414", belly: "#f43f5e", accent: "#22d3ee" },
+      { id: 18, cat: "thematic", name: "Clockwork", short: "18. Clockwork", top1: "#ca8a04", top2: "#713f12", belly: "#eab308", accent: "#fef08a" },
+      { id: 19, cat: "thematic", name: "Fossil", short: "19. Fossil", top1: "#d6c5a9", top2: "#8c785c", belly: "#a8967a", accent: "#f5efe6" },
+      { id: 20, cat: "thematic", name: "Toxic Slime", short: "20. Toxic Slime", top1: "#84cc16", top2: "#4d7c0f", belly: "#bef264", accent: "#f97316" },
+      { id: 21, cat: "thematic", name: "Feathered", short: "21. Feathered", top1: "#0284c7", top2: "#0369a1", belly: "#f59e0b", accent: "#38bdf8" },
+      { id: 22, cat: "thematic", name: "Volcanic", short: "22. Volcanic", top1: "#1f1d1d", top2: "#0c0a09", belly: "#ea580c", accent: "#facc15" },
+      { id: 23, cat: "thematic", name: "Scrap Metal", short: "23. Scrap Metal", top1: "#57534e", top2: "#292524", belly: "#9a3412", accent: "#a8a29e" },
+      { id: 24, cat: "thematic", name: "Fairy Flora", short: "24. Fairy Flora", top1: "#f472b6", top2: "#a855f7", belly: "#fbcfe8", accent: "#fde047" },
+
+      // Elemental & Type-Inspired Styles (25–48)
+      { id: 25, cat: "elemental", name: "Air", short: "25. Air", top1: "#bae6fd", top2: "#38bdf8", belly: "#f8fafc", accent: "#ffffff" },
+      { id: 26, cat: "elemental", name: "Water", short: "26. Water", top1: "#0ea5e9", top2: "#0369a1", belly: "#7dd3fc", accent: "#f0f9ff" },
+      { id: 27, cat: "elemental", name: "Earth", short: "27. Earth", top1: "#92400e", top2: "#451a03", belly: "#78716c", accent: "#10b981" },
+      { id: 28, cat: "elemental", name: "Fire", short: "28. Fire", top1: "#ef4444", top2: "#b91c1c", belly: "#f97316", accent: "#fde047" },
+      { id: 29, cat: "elemental", name: "Dark", short: "29. Dark", top1: "#1e1b4b", top2: "#09090b", belly: "#7f1d1d", accent: "#c084fc" },
+      { id: 30, cat: "elemental", name: "Light", short: "30. Light", top1: "#fef08a", top2: "#f59e0b", belly: "#ffffff", accent: "#fde047" },
+      { id: 31, cat: "elemental", name: "Metal", short: "31. Metal", top1: "#e2e8f0", top2: "#475569", belly: "#94a3b8", accent: "#ffffff" },
+      { id: 32, cat: "elemental", name: "Electric", short: "32. Electric", top1: "#facc15", top2: "#ca8a04", belly: "#38bdf8", accent: "#fef9c3" },
+      { id: 33, cat: "elemental", name: "Grass", short: "33. Grass", top1: "#16a34a", top2: "#14532d", belly: "#84cc16", accent: "#bbf7d0" },
+      { id: 34, cat: "elemental", name: "Psychic", short: "34. Psychic", top1: "#d946ef", top2: "#7e22ce", belly: "#f472b6", accent: "#fde047" },
+      { id: 35, cat: "elemental", name: "Dragon", short: "35. Dragon", top1: "#1d4ed8", top2: "#0f766e", belly: "#fbbf24", accent: "#f97316" },
+      { id: 36, cat: "elemental", name: "Ghost", short: "36. Ghost", top1: "#4338ca", top2: "#1e1b4b", belly: "#a855f7", accent: "#22d3ee" },
+      { id: 37, cat: "elemental", name: "Rock", short: "37. Rock", top1: "#78716c", top2: "#44403c", belly: "#a8a29e", accent: "#d97706" },
+      { id: 38, cat: "elemental", name: "Bug", short: "38. Bug", top1: "#65a30d", top2: "#15803d", belly: "#eab308", accent: "#bef264" },
+      { id: 39, cat: "elemental", name: "Poison", short: "39. Poison", top1: "#7e22ce", top2: "#4c1d95", belly: "#84cc16", accent: "#e879f9" },
+      { id: 40, cat: "elemental", name: "Flying", short: "40. Flying", top1: "#38bdf8", top2: "#2563eb", belly: "#e0f2fe", accent: "#ffffff" },
+      { id: 41, cat: "elemental", name: "Fighting", short: "41. Fighting", top1: "#dc2626", top2: "#7f1d1d", belly: "#f5f5f4", accent: "#fbbf24" },
+      { id: 42, cat: "elemental", name: "Fairy", short: "42. Fairy", top1: "#f472b6", top2: "#db2777", belly: "#fde047", accent: "#fbcfe8" },
+      { id: 43, cat: "elemental", name: "Normal", short: "43. Normal", top1: "#d6d3d1", top2: "#78716c", belly: "#f5f5f4", accent: "#fde68a" },
+      { id: 44, cat: "elemental", name: "Cyber", short: "44. Cyber", top1: "#064e3b", top2: "#022c22", belly: "#10b981", accent: "#34d399" },
+      { id: 45, cat: "elemental", name: "Bubble", short: "45. Bubble", top1: "#67e8f9", top2: "#3b82f6", belly: "#f472b6", accent: "#ffffff" },
+      { id: 46, cat: "elemental", name: "Magnetic", short: "46. Magnetic", top1: "#ef4444", top2: "#2563eb", belly: "#cbd5e1", accent: "#fde047" },
+      { id: 47, cat: "elemental", name: "Sand", short: "47. Sand", top1: "#eab308", top2: "#a16207", belly: "#fde68a", accent: "#fef9c3" },
+      { id: 48, cat: "elemental", name: "Stellar", short: "48. Stellar", top1: "#1e3a8a", top2: "#0f172a", belly: "#f59e0b", accent: "#38bdf8" }
     ];
 
+    const TENTACLE_STYLES = TENTACLE_CATALOG.map((t) => t.name);
+
     function renderTentacleSVG(tentacleId, colorHex, size = 32) {
-      const id = Number(tentacleId) % 14;
-      const fill = id === 13 ? "#f97316" : (colorHex || "#22d3ee");
+      const rawId = Number(tentacleId);
+      const id = Number.isFinite(rawId) && rawId >= 0 && rawId < TENTACLE_CATALOG.length ? rawId : 1;
+      const spec = TENTACLE_CATALOG[id] || TENTACLE_CATALOG[1];
+      const isDefaultColor = !colorHex || colorHex === "default";
+      const top1 = isDefaultColor ? spec.top1 : colorHex;
+      const top2 = isDefaultColor ? spec.top2 : colorHex;
+      const belly = spec.belly;
+      const accent = spec.accent;
       const outline = "#121216";
       const w = size;
       const h = Math.round(size * 0.9);
-      const uid = `g_${id}_${Math.random().toString(36).slice(2, 7)}`;
+      const uid = `t_${id}_${Math.random().toString(36).slice(2, 7)}`;
 
-      // Cute, happy, expressive eye & smile styles across the 12 Octopus species
-      const eyesHappyKawaiiSparkle = `
-        <path d="M21.8 17.4 Q24.5 16.0 27.2 17.2 M32.8 17.2 Q35.5 16.0 38.2 17.4" stroke="${outline}" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-        <ellipse cx="24.6" cy="21.5" rx="3.3" ry="3.6" fill="#ffffff" stroke="${outline}" stroke-width="1.25"/>
-        <ellipse cx="35.4" cy="21.5" rx="3.3" ry="3.6" fill="#ffffff" stroke="${outline}" stroke-width="1.25"/>
-        <ellipse cx="25.0" cy="21.7" rx="2.35" ry="2.6" fill="#18181b"/>
-        <ellipse cx="35.0" cy="21.7" rx="2.35" ry="2.6" fill="#18181b"/>
-        <circle cx="24.1" cy="20.5" r="1.05" fill="#ffffff"/>
-        <circle cx="26.0" cy="22.7" r="0.52" fill="#ffffff"/>
-        <circle cx="34.1" cy="20.5" r="1.05" fill="#ffffff"/>
-        <circle cx="36.0" cy="22.7" r="0.52" fill="#ffffff"/>
-        <ellipse cx="20.8" cy="24.5" rx="1.9" ry="1.15" fill="#ff7eb3" fill-opacity="0.68"/>
-        <ellipse cx="39.2" cy="24.5" rx="1.9" ry="1.15" fill="#ff7eb3" fill-opacity="0.68"/>
-        <path d="M27.6 24.8 Q30 27.2 32.4 24.8" stroke="${outline}" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-      `;
-      const eyesBeamingJoyArcs = `
-        <path d="M21.6 22.0 Q24.6 18.0 27.6 22.0" stroke="${outline}" stroke-width="2.1" stroke-linecap="round" fill="none"/>
-        <path d="M32.4 22.0 Q35.4 18.0 38.4 22.0" stroke="${outline}" stroke-width="2.1" stroke-linecap="round" fill="none"/>
-        <path d="M21.2 21.3 L20.2 20.4 M38.8 21.3 L39.8 20.4" stroke="${outline}" stroke-width="1.3" stroke-linecap="round"/>
-        <ellipse cx="20.6" cy="24.2" rx="2.1" ry="1.25" fill="#ff7eb3" fill-opacity="0.72"/>
-        <ellipse cx="39.4" cy="24.2" rx="2.1" ry="1.25" fill="#ff7eb3" fill-opacity="0.72"/>
-        <path d="M27.2 24.2 Q30 24.5 32.8 24.2 C32.8 27.3, 27.2 27.3, 27.2 24.2 Z" fill="#991b1b" stroke="${outline}" stroke-width="1.2" stroke-linejoin="round"/>
-        <path d="M28.3 26.1 Q30 25.1 31.7 26.1" fill="#fb7185"/>
-      `;
-      const eyesPlayfulWink = `
-        <path d="M21.8 17.4 Q24.5 16.0 27.2 17.2 M32.8 17.2 Q35.5 16.0 38.2 17.4" stroke="${outline}" stroke-width="1.25" stroke-linecap="round" fill="none"/>
-        <ellipse cx="24.6" cy="21.5" rx="3.2" ry="3.5" fill="#ffffff" stroke="${outline}" stroke-width="1.25"/>
-        <ellipse cx="25.0" cy="21.7" rx="2.3" ry="2.5" fill="#18181b"/>
-        <circle cx="24.1" cy="20.5" r="1.0" fill="#ffffff"/>
-        <circle cx="25.9" cy="22.6" r="0.5" fill="#ffffff"/>
-        <path d="M32.4 21.8 Q35.4 18.2 38.4 21.8" stroke="${outline}" stroke-width="2.1" stroke-linecap="round" fill="none"/>
-        <path d="M38.6 21.0 L39.8 20.1" stroke="${outline}" stroke-width="1.3" stroke-linecap="round"/>
-        <ellipse cx="20.8" cy="24.5" rx="1.9" ry="1.15" fill="#ff7eb3" fill-opacity="0.68"/>
-        <ellipse cx="39.2" cy="24.5" rx="1.9" ry="1.15" fill="#ff7eb3" fill-opacity="0.68"/>
-        <path d="M27.5 24.8 Q30 27.1 32.5 24.8" stroke="${outline}" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-      `;
-      const eyesGoldenSunnySmile = `
-        <path d="M22.0 17.3 Q24.6 15.9 27.2 17.2 M32.8 17.2 Q35.4 15.9 38.0 17.3" stroke="${outline}" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-        <ellipse cx="24.6" cy="21.5" rx="3.3" ry="3.5" fill="#fef08a" stroke="${outline}" stroke-width="1.25"/>
-        <ellipse cx="35.4" cy="21.5" rx="3.3" ry="3.5" fill="#fef08a" stroke="${outline}" stroke-width="1.25"/>
-        <circle cx="25.0" cy="21.6" r="2.1" fill="#18181b"/>
-        <circle cx="35.0" cy="21.6" r="2.1" fill="#18181b"/>
-        <circle cx="24.2" cy="20.6" r="0.95" fill="#ffffff"/>
-        <circle cx="25.8" cy="22.5" r="0.48" fill="#ffffff"/>
-        <circle cx="34.2" cy="20.6" r="0.95" fill="#ffffff"/>
-        <circle cx="35.8" cy="22.5" r="0.48" fill="#ffffff"/>
-        <ellipse cx="20.8" cy="24.4" rx="1.9" ry="1.15" fill="#ff7eb3" fill-opacity="0.68"/>
-        <ellipse cx="39.2" cy="24.4" rx="1.9" ry="1.15" fill="#ff7eb3" fill-opacity="0.68"/>
-        <path d="M27.3 25.0 Q28.6 26.6 30 25.2 Q31.4 26.6 32.7 25.0" stroke="${outline}" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      `;
-      const eyesSweetDreamySmile = `
-        <circle cx="24.4" cy="22.0" r="3.5" fill="#ffffff" stroke="${outline}" stroke-width="1.25"/>
-        <circle cx="35.6" cy="22.0" r="3.5" fill="#ffffff" stroke="${outline}" stroke-width="1.25"/>
-        <circle cx="24.8" cy="22.1" r="2.45" fill="#18181b"/>
-        <circle cx="35.2" cy="22.1" r="2.45" fill="#18181b"/>
-        <circle cx="23.8" cy="20.9" r="1.1" fill="#ffffff"/>
-        <circle cx="25.8" cy="23.1" r="0.55" fill="#ffffff"/>
-        <circle cx="23.7" cy="22.9" r="0.38" fill="#ffffff"/>
-        <circle cx="34.2" cy="20.9" r="1.1" fill="#ffffff"/>
-        <circle cx="36.2" cy="23.1" r="0.55" fill="#ffffff"/>
-        <circle cx="34.1" cy="22.9" r="0.38" fill="#ffffff"/>
-        <ellipse cx="20.2" cy="24.8" rx="2.1" ry="1.25" fill="#ff7eb3" fill-opacity="0.72"/>
-        <ellipse cx="39.8" cy="24.8" rx="2.1" ry="1.25" fill="#ff7eb3" fill-opacity="0.72"/>
-        <path d="M27.8 25.2 Q30 27.3 32.2 25.2" stroke="${outline}" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-      `;
-
-      const shapes = {
-        // 0: CephaSI Sovereign (Main AI Logo — Crowned Neon-Cyan/Blue Octopus with Cute Happy Glowing Eyes & Orb Tips)
-        0: `
+      // 0: CephaSI Sovereign (Main AI Logo — Crowned Neon-Cyan/Blue Octopus with Cute Happy Glowing Eyes & Orb Tips)
+      if (id === 0) {
+        const mainFill = isDefaultColor ? "#22d3ee" : colorHex;
+        return `<svg width="${w}" height="${h}" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="${uid}" x1="6" y1="4" x2="54" y2="48" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stop-color="#38bdf8"/>
-              <stop offset="50%" stop-color="${fill}"/>
+              <stop offset="50%" stop-color="${mainFill}"/>
               <stop offset="100%" stop-color="#1d4ed8"/>
             </linearGradient>
           </defs>
-          <!-- 3-Point Geometric Sovereign Crown -->
           <path d="M21.5 11.5 L20 4.8 L25.8 8.5 L30 2.5 L34.2 8.5 L40 4.8 L38.5 11.5 Z" fill="rgba(34,211,238,0.18)" stroke="url(#${uid})" stroke-width="1.6" stroke-linejoin="round"/>
           <path d="M21.5 11.5 L30 6.2 L38.5 11.5 M25.8 8.5 L30 11.5 L34.2 8.5" stroke="url(#${uid})" stroke-width="1.1" fill="none"/>
-          <!-- Sculpted Sovereign Octopus Head -->
           <path d="M20.2 20.5 C19.2 11.8, 40.8 11.8, 39.8 20.5 C39.3 24.8, 36.8 27.8, 34 29.5 L30 27.2 L26 29.5 C23.2 27.8, 20.7 24.8, 20.2 20.5 Z" fill="rgba(14,165,233,0.18)" stroke="url(#${uid})" stroke-width="2"/>
-          <!-- Cute Glowing Cyan-White Sparkle Eyes & Happy Smile -->
           <ellipse cx="25.2" cy="20.6" rx="2.7" ry="2.9" fill="#082f49" stroke="#38bdf8" stroke-width="1.2"/>
           <ellipse cx="34.8" cy="20.6" rx="2.7" ry="2.9" fill="#082f49" stroke="#38bdf8" stroke-width="1.2"/>
           <circle cx="24.5" cy="19.7" r="1.0" fill="#e0f2fe"/>
@@ -3653,7 +3706,6 @@
           <ellipse cx="22.0" cy="23.2" rx="1.5" ry="0.9" fill="#38bdf8" fill-opacity="0.45"/>
           <ellipse cx="38.0" cy="23.2" rx="1.5" ry="0.9" fill="#38bdf8" fill-opacity="0.45"/>
           <path d="M27.8 23.8 Q30 25.9 32.2 23.8" stroke="#67e8f9" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          <!-- 8 Symmetrical Spiraling Ribbon Tentacles -->
           <path d="M22 25 C16 24, 15 15, 11 16 C8 17, 8.5 21, 11.5 21" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
           <path d="M23 27.5 C14 28, 7 23, 5.5 28.5 C4.5 32, 8.5 34.5, 11.5 32.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
           <path d="M25 29 C17 33, 9 36, 11 41.5 C12.5 44.5, 17.5 43.5, 18.5 40.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
@@ -3662,7 +3714,6 @@
           <path d="M37 27.5 C46 28, 53 23, 54.5 28.5 C55.5 32, 51.5 34.5, 48.5 32.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
           <path d="M35 29 C43 33, 51 36, 49 41.5 C47.5 44.5, 42.5 43.5, 41.5 40.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
           <path d="M32 28.5 C35 36, 41 43, 37 47 C34 49, 31 45.5, 32.5 42.5" stroke="url(#${uid})" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <!-- Glowing Bioluminescent Orb Nodes at Every Tentacle Tip -->
           <circle cx="11.5" cy="21" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
           <circle cx="11.5" cy="32.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
           <circle cx="18.5" cy="40.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
@@ -3671,132 +3722,393 @@
           <circle cx="48.5" cy="32.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
           <circle cx="41.5" cy="40.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
           <circle cx="32.5" cy="42.5" r="1.6" fill="#e0f2fe" stroke="#22d3ee" stroke-width="0.9"/>
-        `,
+        </svg>`;
+      }
 
-        // 1: Giant Pacific Octopus (Large bulbous dome, 8 sweeping curled arms with sucker dots, big happy kawaii sparkle eyes)
-        1: `
-          <path d="M18 18 C17 6, 43 6, 42 18 C42 23, 40 26, 38 28 C44 26, 49 18, 52 20 C54 22, 49 30, 42 32 C49 32, 56 26, 56 31 C56 36, 47 39, 40 37 C46 40, 52 43, 48 46 C44 48, 37 43, 33 38 C35 43, 37 48, 33 48 C29 48, 29 42, 30 38 C27 43, 21 48, 17 46 C13 44, 18 40, 23 37 C15 39, 5 36, 5 31 C5 26, 12 32, 19 32 C12 30, 6 22, 8 20 C11 18, 16 26, 22 28 C20 26, 18 23, 18 18 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M22 11 C24 8.5, 29 8, 32 9" stroke="rgba(255,255,255,0.45)" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <circle cx="11" cy="34" r="1.1" fill="#fde68a"/><circle cx="15" cy="35.5" r="1.1" fill="#fde68a"/>
-          <circle cx="49" cy="34" r="1.1" fill="#fde68a"/><circle cx="45" cy="35.5" r="1.1" fill="#fde68a"/>
-          ${eyesHappyKawaiiSparkle}
-        `,
+      // Base S-Curve Tentacle Body + Underside Rim + Curled Right Spiral Tip (matching Reference Sheets 1-24)
+      const sCurveBody = `M 5.5 36.5 C 5 22, 14 11, 22.5 13 C 30 14.5, 32 30, 39.5 31 C 45 31.5, 49.5 23, 49 16.5 C 48.5 11.5, 43 11.5, 42.5 16 C 42 19.5, 45.5 21, 46.8 18.2 C 47.5 16.8, 45.8 15.2, 44.8 16.2 C 45.8 13.8, 49.5 14.8, 48.8 18.8 C 48 22.8, 41 22.5, 40.5 16.2 C 40 9.5, 50.5 7.5, 53.5 15.5 C 56.5 23.5, 49.5 41.5, 38.5 41.5 C 28.5 41.5, 26.5 24, 20 23.5 C 14.5 23, 12.5 33, 9.5 38.5 C 7.5 40, 5.8 38.8, 5.5 36.5 Z`;
+      const sCurveBelly = `M 9.2 38 C 12.2 32.5, 14.5 23, 20.2 23.5 C 26.8 24, 28.5 41.2, 38.5 41.2 C 48.2 41.2, 54.5 26, 53.2 17`;
+      const dorsalHighlight = `M 8.5 30 C 10.5 19, 16 14, 22 15.2 C 28 16.5, 31 31, 38.5 32.8`;
 
-        // 2: Blue-Ringed Octopus (Spotted with glowing electric-blue rings on dome & arms, playful happy wink eyes)
-        2: `
-          <path d="M19 18 C19 8, 41 8, 41 18 C41 23, 39 26, 37 28 C43 27, 49 22, 51 25 C52 28, 46 32, 40 33 C47 34, 53 33, 52 37 C51 40, 44 40, 38 37 C43 41, 46 46, 42 47 C38 48, 35 42, 32 38 C31 43, 29 48, 26 47 C23 46, 25 41, 27 37 C22 41, 15 44, 12 41 C10 38, 16 35, 21 33 C14 33, 8 29, 9 25 C10 22, 17 27, 23 28 C21 26, 19 23, 19 18 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <!-- Glowing Blue Rings -->
-          <circle cx="25" cy="13" r="2.1" fill="#facc15" stroke="#0284c7" stroke-width="1.3"/>
-          <circle cx="33" cy="12" r="2.3" fill="#facc15" stroke="#0284c7" stroke-width="1.3"/>
-          <circle cx="37" cy="15.5" r="1.9" fill="#facc15" stroke="#0284c7" stroke-width="1.2"/>
-          <circle cx="22" cy="15.5" r="1.8" fill="#facc15" stroke="#0284c7" stroke-width="1.2"/>
-          <circle cx="15" cy="30" r="1.7" fill="#facc15" stroke="#0284c7" stroke-width="1.2"/>
-          <circle cx="45" cy="30" r="1.7" fill="#facc15" stroke="#0284c7" stroke-width="1.2"/>
-          <circle cx="21" cy="39" r="1.7" fill="#facc15" stroke="#0284c7" stroke-width="1.2"/>
-          <circle cx="39" cy="39" r="1.7" fill="#facc15" stroke="#0284c7" stroke-width="1.2"/>
-          ${eyesPlayfulWink}
-        `,
+      const standardSuckers = (suckerFill, suckerStroke = outline) => `
+        <circle cx="10.8" cy="35.5" r="2.1" fill="${suckerFill}" stroke="${suckerStroke}" stroke-width="1"/>
+        <circle cx="14.2" cy="29.2" r="2.0" fill="${suckerFill}" stroke="${suckerStroke}" stroke-width="1"/>
+        <circle cx="19.5" cy="24.8" r="2.0" fill="${suckerFill}" stroke="${suckerStroke}" stroke-width="1"/>
+        <circle cx="25.2" cy="27.8" r="2.0" fill="${suckerFill}" stroke="${suckerStroke}" stroke-width="1"/>
+        <circle cx="29.8" cy="34.8" r="2.1" fill="${suckerFill}" stroke="${suckerStroke}" stroke-width="1"/>
+        <circle cx="35.8" cy="39.8" r="2.1" fill="${suckerFill}" stroke="${suckerStroke}" stroke-width="1"/>
+        <circle cx="42.2" cy="39.2" r="1.9" fill="${suckerFill}" stroke="${suckerStroke}" stroke-width="1"/>
+        <circle cx="47.8" cy="34.2" r="1.7" fill="${suckerFill}" stroke="${suckerStroke}" stroke-width="0.9"/>
+        <circle cx="51.5" cy="27.2" r="1.5" fill="${suckerFill}" stroke="${suckerStroke}" stroke-width="0.9"/>
+      `;
 
-        // 3: Mimic Octopus (Golden-sunny sparkling eyes with cute :3 smile, undulating S-curve tentacles)
-        3: `
-          <path d="M20 17 C20 7, 40 7, 40 17 C40 22, 38 26, 36 28 C43 26, 48 19, 51 22 C54 25, 47 31, 40 33 C48 33, 55 31, 54 36 C53 40, 45 39, 38 37 C43 41, 46 47, 41 47 C36 47, 35 41, 32 37 C29 41, 27 47, 22 47 C17 47, 20 41, 24 37 C17 39, 7 40, 6 36 C5 31, 12 33, 20 33 C13 31, 6 25, 9 22 C12 19, 17 26, 24 28 C22 26, 20 22, 20 17 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M23 11 C25 9, 29 8.5, 32 9.5" stroke="rgba(255,255,255,0.4)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-          ${eyesGoldenSunnySmile}
-        `,
+      let extras = "";
+      switch (id) {
+        case 1: // 1. Octopus (Classic rust-red dorsal with warm cream-tan suction cups & skin spots)
+          extras = `
+            <path d="${sCurveBelly}" stroke="${belly}" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+            ${standardSuckers(belly)}
+            <circle cx="16" cy="17.5" r="1.4" fill="rgba(0,0,0,0.25)"/>
+            <circle cx="20.5" cy="18.2" r="1.1" fill="rgba(0,0,0,0.25)"/>
+            <circle cx="34.5" cy="34.5" r="1.3" fill="rgba(0,0,0,0.25)"/>
+          `;
+          break;
+        case 2: // 2. Sci-Fi / Bio-Mechanical (Segmented steel plates, glowing cyan conduits & mechanical joints)
+          extras = `
+            <path d="${sCurveBelly}" stroke="#0ea5e9" stroke-width="2.4" stroke-dasharray="3 2" fill="none"/>
+            <path d="M11 26 L16 30 M18 13.5 L20 23.5 M27 18 L25 27 M34 28 L32 39 M42 31 L44 40 M49 23 L54 24" stroke="${outline}" stroke-width="1.6"/>
+            <path d="${dorsalHighlight}" stroke="${belly}" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <circle cx="15" cy="21" r="1.5" fill="${belly}"/><circle cx="29" cy="26" r="1.5" fill="${belly}"/><circle cx="41" cy="35" r="1.5" fill="${belly}"/>
+          `;
+          break;
+        case 3: // 3. Spiky (Sharp dorsal/ventral thorns & glowing purple-pink pores)
+          extras = `
+            <path d="M9 22 L5 17 L12 18 M17 13 L17 6 L21 12 M26 16 L30 10 L29 19 M36 29 L39 23 L40 31 M49 11 L53 6 L52 13 M35 41 L35 47 L39 41 M46 37 L51 42 L49 34" fill="${top1}" stroke="${outline}" stroke-width="1.3" stroke-linejoin="round"/>
+            <circle cx="14" cy="23" r="1.4" fill="${accent}"/><circle cx="21" cy="18" r="1.6" fill="${accent}"/>
+            <circle cx="29" cy="26" r="1.3" fill="${accent}"/><circle cx="38" cy="36" r="1.5" fill="${accent}"/>
+          `;
+          break;
+        case 4: // 4. Eldritch (Multi-tendril dark cosmic horror with glowing eldritch eyes)
+          extras = `
+            <path d="M12 34 C6 38, 3 44, 8 46 M22 24 C19 32, 15 39, 20 43 M28 16 C32 8, 38 7, 37 12 M44 38 C49 44, 56 43, 55 37" stroke="${top1}" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+            <ellipse cx="15" cy="22" rx="2.3" ry="1.5" fill="#fde047" stroke="${outline}" stroke-width="0.9"/><circle cx="15" cy="22" r="0.8" fill="#7e22ce"/>
+            <ellipse cx="23" cy="18" rx="2.1" ry="1.4" fill="#c084fc" stroke="${outline}" stroke-width="0.9"/><circle cx="23" cy="18" r="0.7" fill="#111"/>
+            <ellipse cx="36" cy="35" rx="2.2" ry="1.4" fill="#fde047" stroke="${outline}" stroke-width="0.9"/><circle cx="36" cy="35" r="0.8" fill="#7e22ce"/>
+          `;
+          break;
+        case 5: // 5. Bioluminescent (Translucent cyan dorsal fin membrane + glowing aqua nodes & lure)
+          extras = `
+            <path d="M7 26 Q10 10 16 11 Q20 6 25 13 Q31 11 33 21" fill="rgba(34,211,238,0.38)" stroke="#22d3ee" stroke-width="1.3"/>
+            <path d="M11 21 L14 12 M18 16 L20 9 M24 17 L27 12" stroke="#67e8f9" stroke-width="1.1"/>
+            <circle cx="12" cy="29" r="1.6" fill="#a5f3fc"/><circle cx="19" cy="19" r="1.8" fill="#a5f3fc"/>
+            <circle cx="28" cy="26" r="1.5" fill="#a5f3fc"/><circle cx="38" cy="36" r="1.7" fill="#a5f3fc"/>
+            <circle cx="46" cy="24" r="2.2" fill="#22d3ee" stroke="#e0f2fe" stroke-width="1"/>
+          `;
+          break;
+        case 6: // 6. Cartoon (Bright lime-green with bold purple suction cups & glossy white comic highlights)
+          extras = `
+            <path d="${sCurveBelly}" stroke="${belly}" stroke-width="4.2" stroke-linecap="round" fill="none"/>
+            ${standardSuckers(belly)}
+            <path d="M11 22 C14 15, 19 14, 23 16" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+          `;
+          break;
+        case 7: // 7. Steampunk (Brass plates, golden cogwheels, pressure gauge dial & steam pipe)
+          extras = `
+            <path d="M13 14 L11 7 L15 7 L16 13 Z" fill="#92400e" stroke="${outline}" stroke-width="1.2"/>
+            <circle cx="11" cy="4.5" r="1.8" fill="rgba(255,255,255,0.55)"/><circle cx="14.5" cy="3.5" r="2.2" fill="rgba(255,255,255,0.45)"/>
+            <circle cx="20" cy="18.5" r="4.5" fill="#fef3c7" stroke="${outline}" stroke-width="1.3"/>
+            <path d="M20 18.5 L22.2 16.5 M20 14.5 L20 15.5 M16 18.5 L17 18.5" stroke="#dc2626" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="33" cy="33" r="3.6" fill="#f59e0b" stroke="${outline}" stroke-width="1.2"/>
+            <circle cx="33" cy="33" r="1.3" fill="#451a03"/>
+            ${standardSuckers("#d97706")}
+          `;
+          break;
+        case 8: // 8. Cosmic (Swirling magenta-cyan nebula ribbon & twinkling 4-point stars)
+          extras = `
+            <path d="${dorsalHighlight}" stroke="#ec4899" stroke-width="3.2" stroke-linecap="round" stroke-opacity="0.7" fill="none"/>
+            <path d="${sCurveBelly}" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.75" fill="none"/>
+            <path d="M17 18 L18 15 L19 18 L22 19 L19 20 L18 23 L17 20 L14 19 Z" fill="#ffffff"/>
+            <path d="M38 35 L38.7 33 L39.4 35 L41.4 35.7 L39.4 36.4 L38.7 38.4 L38 36.4 L36 35.7 Z" fill="#fde047"/>
+            <circle cx="11" cy="29" r="1" fill="#ffffff"/><circle cx="28" cy="24" r="1.1" fill="#67e8f9"/><circle cx="48" cy="28" r="1" fill="#f472b6"/>
+          `;
+          break;
+        case 9: // 9. Flora (Twisted woodland bark, wrapping vines & sprouting green leaves)
+          extras = `
+            <path d="${sCurveBelly}" stroke="#5c3d24" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+            <path d="M10 31 C15 20, 23 19, 31 32 C37 40, 46 36, 51 22" stroke="#84cc16" stroke-width="1.8" fill="none"/>
+            <path d="M15 13 C13 7, 19 6, 20 12 Z M26 17 C29 11, 35 13, 30 19 Z M39 30 C42 24, 47 26, 43 32 Z M22 25 C19 31, 25 33, 25 27 Z" fill="#84cc16" stroke="${outline}" stroke-width="1.1"/>
+          `;
+          break;
+        case 10: // 10. Molten (Cracked obsidian crust with blazing orange-yellow lava veins & embers)
+          extras = `
+            <path d="M8 35 L13 24 L19 16 L24 21 L30 29 L36 37 L44 35 L50 23 L48 15" stroke="#f97316" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M9 34 L13 24 L19 16 L24 21 L30 29 L36 37 L44 35" stroke="#fde047" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M14 24 L11 19 M20 17 L23 13 M34 34 L38 31 M44 35 L47 39" stroke="#facc15" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="15" cy="9" r="1.2" fill="#f97316"/><circle cx="36" cy="24" r="1.1" fill="#fde047"/>
+          `;
+          break;
+        case 11: // 11. Skeletal (Articulated bone vertebrae, rib processes & dark tattered ectoplasm)
+          extras = `
+            <path d="M10 35 L13 43 M18 24 L18 33 M26 27 L25 36 M35 40 L35 47 M44 39 L46 46" stroke="#3f3f46" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M10 26 L15 31 M14 19 L19 24 M20 14 L22 23 M26 17 L24 25 M31 23 L28 31 M36 29 L33 38 M42 31 L41 40 M48 26 L53 29" stroke="${outline}" stroke-width="2"/>
+            <path d="M13 15 L11 9 M19 12 L19 6 M25 14 L27 9" stroke="#e7e5e4" stroke-width="1.8" stroke-linecap="round"/>
+          `;
+          break;
+        case 12: // 12. Cybernetic (Sleek white/chrome casing with neon-pink circuits & fiber-optic tip wires)
+          extras = `
+            <path d="M9 33 L15 21 L23 18 L31 31 L40 36 L49 26" stroke="#ec4899" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="15" cy="21" r="1.8" fill="#f472b6" stroke="${outline}" stroke-width="0.9"/>
+            <circle cx="23" cy="18" r="1.8" fill="#f472b6" stroke="${outline}" stroke-width="0.9"/>
+            <circle cx="31" cy="31" r="1.8" fill="#f472b6" stroke="${outline}" stroke-width="0.9"/>
+            <circle cx="40" cy="36" r="1.8" fill="#f472b6" stroke="${outline}" stroke-width="0.9"/>
+            <path d="M49 12 L54 6 M51 14 L57 9 M52 17 L58 14" stroke="#ec4899" stroke-width="1.4" stroke-linecap="round"/>
+          `;
+          break;
+        case 13: // 13. Crystal / Gilded (Faceted amethyst gemstone prisms with ornate gold filigree trim)
+          extras = `
+            <path d="M9 34 L14 19 L22 15 L28 24 L36 37 L46 34 L51 20" stroke="#f5f3ff" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
+            <path d="M14 19 L19 24 M22 15 L20 24 M28 24 L35 39" stroke="rgba(255,255,255,0.55)" stroke-width="1.1"/>
+            <path d="${sCurveBelly}" stroke="#fbbf24" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+            ${standardSuckers("#fbbf24", "#92400e")}
+          `;
+          break;
+        case 14: // 14. Candy (Red & white peppermint stripes, white icing drips & rainbow jellybean suckers)
+          extras = `
+            <path d="M9 28 L15 34 M13 18 L20 24 M19 13 L25 22 M26 16 L31 28 M32 25 L36 39 M39 31 L43 41 M46 28 L52 33 M49 19 L54 22" stroke="#ffffff" stroke-width="4.2" stroke-linecap="round"/>
+            <path d="M14 25 L14 31 M20 24 L20 29 M36 41 L36 46 M43 40 L43 45" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="11" cy="35" r="2" fill="#38bdf8" stroke="${outline}" stroke-width="0.9"/>
+            <circle cx="18" cy="25" r="2" fill="#facc15" stroke="${outline}" stroke-width="0.9"/>
+            <circle cx="28" cy="33" r="2" fill="#4ade80" stroke="${outline}" stroke-width="0.9"/>
+            <circle cx="36" cy="40" r="2" fill="#ec4899" stroke="${outline}" stroke-width="0.9"/>
+            <circle cx="44" cy="38" r="2" fill="#a855f7" stroke="${outline}" stroke-width="0.9"/>
+          `;
+          break;
+        case 15: // 15. Glacial (Translucent frost-blue ice with jagged hanging icicles & snow crest)
+          extras = `
+            <path d="${dorsalHighlight}" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M12 34 L14 44 L16 31 M19 24 L21 34 L23 25 M27 29 L29 41 L31 33 M36 40 L38 48 L40 40 M44 38 L46 46 L48 35" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.1" stroke-linejoin="round"/>
+          `;
+          break;
+        case 16: // 16. Void (Swirling pitch-black & dark violet shadow-smoke with abyssal wisps)
+          extras = `
+            <path d="M5 32 C2 24, 8 12, 16 9 M23 12 C30 6, 36 14, 34 22 M33 39 C39 47, 50 45, 54 35 M49 11 C55 6, 59 14, 55 21" stroke="#581c87" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <path d="${dorsalHighlight}" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+          `;
+          break;
+        case 17: // 17. Neon Grid (Synthwave dark body with glowing magenta & cyan wireframe grid & pixels)
+          extras = `
+            <path d="${dorsalHighlight}" stroke="#22d3ee" stroke-width="1.6" fill="none"/>
+            <path d="${sCurveBelly}" stroke="#f43f5e" stroke-width="2" fill="none"/>
+            <path d="M10 29 L15 33 M14 21 L20 24 M20 14 L23 23 M27 18 L26 27 M32 26 L31 36 M38 31 L38 41 M45 29 L48 37 M49 20 L54 22" stroke="#ec4899" stroke-width="1.3"/>
+            <rect x="13" y="8" width="2.6" height="2.6" fill="#22d3ee"/><rect x="33" y="20" width="2.6" height="2.6" fill="#f43f5e"/><rect x="46" y="40" width="2.6" height="2.6" fill="#a855f7"/>
+          `;
+          break;
+        case 18: // 18. Clockwork (Ornate bronze-gold clockface gearwheel & exposed escapement cogs)
+          extras = `
+            <circle cx="18" cy="19" r="5.5" fill="#fef08a" stroke="${outline}" stroke-width="1.4"/>
+            <circle cx="18" cy="19" r="1.6" fill="#713f12"/>
+            <path d="M18 13.5 L18 24.5 M12.5 19 L23.5 19 M14 15 L22 23 M22 15 L14 23" stroke="#713f12" stroke-width="1.1"/>
+            <circle cx="31" cy="31" r="3.8" fill="#eab308" stroke="${outline}" stroke-width="1.2"/>
+            <circle cx="40" cy="36" r="3.4" fill="#ca8a04" stroke="${outline}" stroke-width="1.2"/>
+            ${standardSuckers("#eab308")}
+          `;
+          break;
+        case 19: // 19. Fossil (Weathered sandstone prehistoric ribcage & ammonite spiral tail)
+          extras = `
+            <path d="M9 27 C13 24, 16 27, 14 33 M14 19 C18 17, 21 20, 19 26 M20 14 C24 14, 26 19, 23 24 M27 18 C30 19, 31 25, 27 29 M33 26 C36 28, 36 35, 32 38 M39 31 C42 33, 42 39, 38 41 M45 29 C48 31, 49 36, 45 38" stroke="${outline}" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M12 13 L10 8 M18 11 L18 6 M24 12 L26 7" stroke="#d6c5a9" stroke-width="2" stroke-linecap="round"/>
+          `;
+          break;
+        case 20: // 20. Toxic Slime (Radioactive neon-green ooze with orange core blobs, drips & bubbles)
+          extras = `
+            <ellipse cx="18" cy="18" rx="3.2" ry="2" fill="#f97316" fill-opacity="0.75"/>
+            <ellipse cx="36" cy="35" rx="3.5" ry="2.1" fill="#f97316" fill-opacity="0.75"/>
+            <path d="M13 33 L13 44 M20 24 L20 33 M28 31 L28 41 M38 41 L38 48 M47 35 L47 44" stroke="#84cc16" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="15" cy="8" r="1.8" fill="#bef264"/><circle cx="26" cy="10" r="1.3" fill="#bef264"/><circle cx="37" cy="22" r="1.6" fill="#bef264"/>
+          `;
+          break;
+        case 21: // 21. Feathered (Layered cerulean-blue & golden-amber avian plumage)
+          extras = `
+            <path d="${sCurveBelly}" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <path d="M8 28 Q13 18 19 20 Q24 14 29 22 Q35 26 41 34 Q47 30 51 20" stroke="#38bdf8" stroke-width="2.4" fill="none"/>
+            <path d="M10 22 L6 16 M15 16 L13 10 M21 13 L21 7 M27 16 L29 10" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/>
+          `;
+          break;
+        case 22: // 22. Volcanic (Charred basalt rock plates with fiery orange-red magma cracks)
+          extras = `
+            <path d="M8 34 L14 22 L21 16 L28 26 L37 37 L46 33 L51 20" stroke="#ea580c" stroke-width="2.6" stroke-dasharray="5 2" fill="none"/>
+            ${standardSuckers("#ea580c")}
+            <circle cx="15" cy="9" r="2.2" fill="#57534e"/><circle cx="19" cy="7" r="2.8" fill="#44403c"/>
+          `;
+          break;
+        case 23: // 23. Scrap Metal (Rusted iron & riveted steel plates with hanging chain links)
+          extras = `
+            <path d="M14 14 L18 24 M26 16 L24 27 M35 29 L33 41 M45 29 L49 36" stroke="${outline}" stroke-width="2"/>
+            <path d="M20 25 Q27 38 35 40" stroke="#78716c" stroke-width="2.2" stroke-dasharray="3 2" fill="none"/>
+            <circle cx="12" cy="26" r="1.2" fill="#d6d3d1"/><circle cx="22" cy="18" r="1.2" fill="#d6d3d1"/><circle cx="31" cy="31" r="1.2" fill="#d6d3d1"/><circle cx="41" cy="36" r="1.2" fill="#d6d3d1"/>
+          `;
+          break;
+        case 24: // 24. Fairy Flora (Pastel rose-lilac vine with blooming pink cherry blossoms & sparkles)
+          extras = `
+            ${standardSuckers("#fbcfe8")}
+            <circle cx="17" cy="15" r="3.6" fill="#fbcfe8" stroke="#db2777" stroke-width="1.1"/><circle cx="17" cy="15" r="1.3" fill="#fde047"/>
+            <circle cx="26" cy="19" r="3.2" fill="#f9a8d4" stroke="#db2777" stroke-width="1.1"/><circle cx="26" cy="19" r="1.1" fill="#fde047"/>
+            <circle cx="39" cy="35" r="3.4" fill="#fbcfe8" stroke="#db2777" stroke-width="1.1"/><circle cx="39" cy="35" r="1.2" fill="#fde047"/>
+          `;
+          break;
+        case 25: // 25. Air (Swirling wind currents & cloud slipstreams)
+          extras = `
+            <path d="M6 24 Q16 8 28 16 T50 14" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <path d="M12 36 Q24 22 36 38 T55 24" stroke="#e0f2fe" stroke-width="1.8" stroke-dasharray="5 3" fill="none"/>
+          `;
+          break;
+        case 26: // 26. Water (Cresting ocean wave & white seafoam droplets)
+          extras = `
+            <path d="${dorsalHighlight}" stroke="#e0f2fe" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+            ${standardSuckers("#bae6fd")}
+            <circle cx="16" cy="9" r="1.5" fill="#e0f2fe"/><circle cx="22" cy="8" r="1.1" fill="#ffffff"/><circle cx="36" cy="24" r="1.4" fill="#bae6fd"/>
+          `;
+          break;
+        case 27: // 27. Earth (Granite boulder strata & emerald crystal geodes)
+          extras = `
+            <path d="M14 13 L16 7 L19 13 Z M27 17 L31 11 L32 19 Z M39 31 L43 25 L44 33 Z" fill="#10b981" stroke="${outline}" stroke-width="1"/>
+            ${standardSuckers("#a8a29e")}
+          `;
+          break;
+        case 28: // 28. Fire (Blazing scarlet-to-gold flame tongues)
+          extras = `
+            <path d="M8 24 Q10 14 14 18 Q17 6 22 13 Q27 7 29 17 Q35 19 38 29" fill="#fde047" fill-opacity="0.75" stroke="#f97316" stroke-width="1.3"/>
+            <path d="${dorsalHighlight}" stroke="#fef08a" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          `;
+          break;
+        case 29: // 29. Dark (Umbral shadow spikes & crimson eclipse ring)
+          extras = `
+            <circle cx="19" cy="18" r="3.4" fill="#09090b" stroke="#ef4444" stroke-width="1.4"/>
+            <path d="${sCurveBelly}" stroke="#ef4444" stroke-width="2" stroke-dasharray="3 3" fill="none"/>
+          `;
+          break;
+        case 30: // 30. Light (Celestial gold halo & radiant sunburst rays)
+          extras = `
+            <ellipse cx="20" cy="8" rx="6" ry="1.8" fill="none" stroke="#fde047" stroke-width="1.6"/>
+            <path d="${dorsalHighlight}" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+            ${standardSuckers("#ffffff", "#ca8a04")}
+          `;
+          break;
+        case 31: // 31. Metal (Polished chrome armor plates, specular sheen & hex bolts)
+          extras = `
+            <path d="M13 16 L18 24 M24 15 L23 25 M32 25 L30 36 M41 31 L42 41" stroke="#334155" stroke-width="1.8"/>
+            <path d="${dorsalHighlight}" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+            ${standardSuckers("#cbd5e1")}
+          `;
+          break;
+        case 32: // 32. Electric (Crackling high-voltage lightning bolts)
+          extras = `
+            <path d="M7 28 L13 19 L11 14 L19 16 L23 9 L26 18 L34 22 L32 30 L41 34 L48 22" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M9 30 L15 21 L21 17 L29 25 L38 35 L47 26" stroke="#ffffff" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
+          `;
+          break;
+        case 33: // 33. Grass (Leaf-blade ribs & sunlit chlorophyll veins)
+          extras = `
+            <path d="${dorsalHighlight}" stroke="#bef264" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M13 13 L11 7 L17 11 Z M23 14 L25 7 L28 15 Z M35 28 L39 22 L41 30 Z" fill="#84cc16" stroke="${outline}" stroke-width="1"/>
+            ${standardSuckers("#bef264")}
+          `;
+          break;
+        case 34: // 34. Psychic (Concentric telekinetic psi rings & glowing third-eye orbs)
+          extras = `
+            <circle cx="19" cy="18" r="3.6" fill="none" stroke="#fde047" stroke-width="1.3"/>
+            <circle cx="19" cy="18" r="1.5" fill="#fde047"/>
+            <circle cx="37" cy="35" r="3.4" fill="none" stroke="#67e8f9" stroke-width="1.3"/>
+            <circle cx="37" cy="35" r="1.4" fill="#67e8f9"/>
+          `;
+          break;
+        case 35: // 35. Dragon (Golden belly scutes & dorsal dragon horns)
+          extras = `
+            <path d="M11 19 L8 12 L15 15 M19 13 L19 6 L24 13 M28 18 L31 11 L32 21" fill="#fbbf24" stroke="${outline}" stroke-width="1.1"/>
+            <path d="${sCurveBelly}" stroke="#fbbf24" stroke-width="3.6" stroke-dasharray="4 2" fill="none"/>
+          `;
+          break;
+        case 36: // 36. Ghost (Spectral phantom mist & eerie cyan spirit-fire)
+          extras = `
+            <circle cx="15" cy="10" r="2" fill="#22d3ee" fill-opacity="0.8"/>
+            <circle cx="35" cy="22" r="2.2" fill="#a855f7" fill-opacity="0.8"/>
+            <path d="${dorsalHighlight}" stroke="#c084fc" stroke-width="2" stroke-dasharray="3 3" fill="none"/>
+          `;
+          break;
+        case 37: // 37. Rock (Angular cragstone facets & monolithic blocks)
+          extras = `
+            <path d="M9 32 L15 17 L24 16 L31 28 L40 37 L49 27" stroke="#292524" stroke-width="1.8" stroke-linejoin="round" fill="none"/>
+            ${standardSuckers("#d6d3d1")}
+          `;
+          break;
+        case 38: // 38. Bug (Segmented chitin carapace & twin insectoid antennae)
+          extras = `
+            <path d="M13 18 L18 24 M21 13 L21 23 M28 19 L26 28 M34 28 L33 38 M42 31 L43 40" stroke="${outline}" stroke-width="1.7"/>
+            <path d="M48 11 C52 5, 57 5, 58 9 M45 12 C47 6, 52 4, 54 7" stroke="#eab308" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            ${standardSuckers("#eab308")}
+          `;
+          break;
+        case 39: // 39. Poison (Venomous purple-green sludge bubbles & toxic drips)
+          extras = `
+            <circle cx="16" cy="18" r="2.3" fill="#84cc16" stroke="${outline}" stroke-width="0.9"/>
+            <circle cx="24" cy="20" r="1.7" fill="#bef264" stroke="${outline}" stroke-width="0.9"/>
+            <circle cx="36" cy="35" r="2.4" fill="#84cc16" stroke="${outline}" stroke-width="0.9"/>
+            <path d="M19 24 L19 32 M36 41 L36 47" stroke="#a855f7" stroke-width="2.4" stroke-linecap="round"/>
+          `;
+          break;
+        case 40: // 40. Flying (Feathered sky-wing pinions & updraft trails)
+          extras = `
+            <path d="M10 20 C14 9, 24 8, 28 16 C22 16, 16 18, 10 20 Z" fill="#ffffff" stroke="#0284c7" stroke-width="1.1"/>
+            ${standardSuckers("#ffffff", "#0284c7")}
+          `;
+          break;
+        case 41: // 41. Fighting (White martial-arts hand wraps & brawler bandages)
+          extras = `
+            <path d="M11 24 L17 29 M17 23 L11 29 M21 14 L25 23 M25 14 L21 23 M33 28 L38 38 M38 28 L33 38" stroke="#f5f5f4" stroke-width="2.6" stroke-linecap="round"/>
+          `;
+          break;
+        case 42: // 42. Fairy (Pastel starlight ribbons & twinkling 4-point sparkles)
+          extras = `
+            <path d="${dorsalHighlight}" stroke="#fde047" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            ${standardSuckers("#fde047", "#db2777")}
+            <path d="M16 9 L17 6 L18 9 L21 10 L18 11 L17 14 L16 11 L13 10 Z" fill="#fde047"/>
+          `;
+          break;
+        case 43: // 43. Normal (Clean classic taupe-cream contour & warm ivory suckers)
+          extras = `
+            <path d="${dorsalHighlight}" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            ${standardSuckers("#f5f5f4")}
+          `;
+          break;
+        case 44: // 44. Cyber (Matrix neon-emerald data streams & digital nodes)
+          extras = `
+            <path d="M9 33 L15 19 L24 18 L32 32 L42 36 L50 24" stroke="#10b981" stroke-width="2" stroke-dasharray="3 2" fill="none"/>
+            <rect x="14" y="17" width="3.2" height="3.2" fill="#34d399"/><rect x="23" y="16" width="3.2" height="3.2" fill="#34d399"/><rect x="31" y="30" width="3.2" height="3.2" fill="#34d399"/>
+          `;
+          break;
+        case 45: // 45. Bubble (Clustered iridescent aqua-pink soap spheres)
+          extras = `
+            <circle cx="14" cy="22" r="3.6" fill="rgba(255,255,255,0.35)" stroke="#ffffff" stroke-width="1.1"/>
+            <circle cx="22" cy="18" r="3.2" fill="rgba(244,114,182,0.35)" stroke="#ffffff" stroke-width="1.1"/>
+            <circle cx="31" cy="29" r="3.4" fill="rgba(103,232,249,0.35)" stroke="#ffffff" stroke-width="1.1"/>
+            <circle cx="39" cy="36" r="3.5" fill="rgba(244,114,182,0.35)" stroke="#ffffff" stroke-width="1.1"/>
+            <circle cx="18" cy="9" r="2.1" fill="rgba(103,232,249,0.45)" stroke="#ffffff" stroke-width="1"/>
+          `;
+          break;
+        case 46: // 46. Magnetic (Crimson-red & cobalt-blue polarized magnet with silver flux lines)
+          extras = `
+            <path d="M5.5 36.5 C5 29, 8 24, 12 22 L16 28 C13 31, 11 35, 9.5 38.5 Z" fill="#cbd5e1"/>
+            <path d="M14 10 Q20 4 26 10 M33 25 Q39 19 45 25" stroke="#fde047" stroke-width="1.5" stroke-dasharray="2 2" fill="none"/>
+            ${standardSuckers("#cbd5e1")}
+          `;
+          break;
+        case 47: // 47. Sand (Rippled golden desert-dune ridges & swirling sand grains)
+          extras = `
+            <path d="M9 29 Q16 23 22 25 M15 17 Q22 14 28 19 M29 29 Q36 27 42 33 M35 37 Q42 35 49 31" stroke="#fef08a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+            ${standardSuckers("#fde68a")}
+          `;
+          break;
+        case 48: // 48. Stellar (Astral constellation lines & supernova gold/cyan stars)
+          extras = `
+            <path d="M11 31 L17 18 L25 20 L33 32 L42 36 L49 23" stroke="#ffffff" stroke-width="1.2" stroke-dasharray="2 2" fill="none"/>
+            <circle cx="11" cy="31" r="1.8" fill="#fde047"/><circle cx="17" cy="18" r="2.1" fill="#38bdf8"/>
+            <circle cx="25" cy="20" r="1.8" fill="#fde047"/><circle cx="33" cy="32" r="2.0" fill="#f472b6"/>
+            <circle cx="42" cy="36" r="2.1" fill="#fde047"/><circle cx="49" cy="23" r="1.8" fill="#38bdf8"/>
+          `;
+          break;
+      }
 
-        // 4: Common Octopus (Classic rounded dome, 8 symmetrical curled tentacles, beaming joy crescent ^ ^ eyes)
-        4: `
-          <path d="M18 18 C18 7, 42 7, 42 18 C42 23, 40 27, 37 29 C44 28, 50 23, 52 26 C54 29, 47 34, 40 34 C47 36, 54 36, 52 41 C50 45, 42 42, 37 38 C41 42, 43 48, 38 48 C34 48, 33 42, 31 38 C29 42, 27 48, 22 48 C17 48, 19 42, 23 38 C18 42, 10 45, 8 41 C6 36, 13 36, 20 34 C13 34, 6 29, 8 26 C10 23, 16 28, 23 29 C20 27, 18 23, 18 18 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M22 11.5 C24.5 9, 29 8.5, 32.5 9.5" stroke="rgba(255,255,255,0.45)" stroke-width="2" stroke-linecap="round" fill="none"/>
-          ${eyesBeamingJoyArcs}
-        `,
-
-        // 5: Dumbo Octopus (Ear-like side fins on head, stubby umbrella tentacles, big dewy sweet dreamy eyes + smile)
-        5: `
-          <!-- Ear Fins -->
-          <path d="M19 19 C12 16, 10 21, 13 25 C15 27, 18 25, 20 23 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5"/>
-          <path d="M41 19 C48 16, 50 21, 47 25 C45 27, 42 25, 40 23 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5"/>
-          <!-- Main Body & Stubby Skirt -->
-          <path d="M18 19 C18 8, 42 8, 42 19 C42 26, 41 31, 45 34 C49 36, 50 39, 45 40 C42 40, 39 39, 43 43 C45 45, 41 47, 36 45 C33 43, 32 45, 30 45 C28 45, 27 43, 24 45 C19 47, 15 45, 17 43 C21 39, 18 40, 15 40 C10 39, 11 36, 15 34 C19 31, 18 26, 18 19 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M23 12 C25 9.5, 29 9, 32 10" stroke="rgba(255,255,255,0.4)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-          ${eyesSweetDreamySmile}
-        `,
-
-        // 6: Coconut Octopus (Wearing a ridged spiral brown seashell/coconut helmet on its head, happy kawaii eyes)
-        6: `
-          <!-- Spiral Seashell Helmet -->
-          <path d="M20 19 C19 11, 27 7, 35 7 C40 7, 44 4, 45 8 C46 12, 45 19, 41 24 Z" fill="#7c4a2d" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M23 15 C28 11, 36 11, 42 15 M27 11 C32 9, 38 9, 43 11" stroke="${outline}" stroke-width="1.3" fill="none"/>
-          <!-- Octopus Face & Curled Sucker Tentacles -->
-          <path d="M19 21 C19 14, 38 14, 39 22 C39 26, 38 29, 37 31 C43 29, 47 22, 49 25 C51 28, 47 36, 41 38 C46 39, 49 43, 44 45 C40 47, 35 43, 32 40 C30 44, 26 47, 21 45 C16 43, 18 39, 21 38 C14 36, 9 28, 11 25 C13 22, 17 29, 22 31 C20 29, 19 25, 19 21 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <circle cx="12" cy="32" r="1.1" fill="#fde68a"/><circle cx="15" cy="36" r="1.1" fill="#fde68a"/>
-          <circle cx="48" cy="32" r="1.1" fill="#fde68a"/><circle cx="45" cy="36" r="1.1" fill="#fde68a"/>
-          ${eyesHappyKawaiiSparkle}
-        `,
-
-        // 7: Flapjack Octopus (Chubby pancake dome with 6 short rounded lobes, beaming joy crescent ^ ^ eyes)
-        7: `
-          <path d="M17 20 C17 7, 43 7, 43 20 C43 26, 42 30, 46 32 C50 33, 50 37, 45 38 C49 40, 48 44, 42 44 C38 44, 36 42, 35 45 C34 48, 26 48, 25 45 C24 42, 22 44, 18 44 C12 44, 11 40, 15 38 C10 37, 10 33, 14 32 C18 30, 17 26, 17 20 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M22 12 C24.5 9.5, 29 9, 32 10" stroke="rgba(255,255,255,0.45)" stroke-width="2" stroke-linecap="round" fill="none"/>
-          ${eyesBeamingJoyArcs}
-        `,
-
-        // 8: Glass Octopus (Translucent icy-crystal dome with glossy sheen, slender flowing tentacles, sweet dreamy eyes)
-        8: `
-          <path d="M19 18 C19 6, 41 6, 41 18 C41 24, 39 28, 37 30 C43 31, 50 30, 51 33 C52 36, 44 37, 38 35 C44 38, 51 42, 48 45 C45 47, 38 42, 34 38 C35 43, 36 48, 32 48 C29 48, 29 42, 29 38 C25 42, 18 47, 15 45 C12 42, 18 38, 23 35 C16 37, 8 36, 9 33 C10 30, 17 31, 23 30 C21 28, 19 24, 19 18 Z" fill="${fill}" fill-opacity="0.88" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <ellipse cx="25" cy="13" rx="3.5" ry="2.2" transform="rotate(-25 25 13)" fill="rgba(255,255,255,0.65)"/>
-          <path d="M34 11 C37 13, 38 17, 37 20" stroke="rgba(255,255,255,0.45)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-          ${eyesSweetDreamySmile}
-        `,
-
-        // 9: Seven-Arm Octopus (Tall oval mantle, 7 radiating curled tentacles, playful wink eyes)
-        9: `
-          <path d="M18 18 C18 6, 42 6, 42 18 C42 23, 40 27, 37 29 C44 27, 50 21, 52 24 C54 27, 47 32, 40 34 C47 35, 54 36, 52 40 C50 44, 42 42, 36 38 C41 42, 43 48, 38 48 C34 48, 32 43, 30 39 C28 43, 25 48, 20 48 C15 48, 18 42, 23 38 C17 42, 10 44, 8 40 C6 36, 13 35, 20 34 C13 32, 6 27, 8 24 C10 21, 16 27, 23 29 C20 27, 18 23, 18 18 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M22 11 C24.5 8.5, 29 8, 32 9" stroke="rgba(255,255,255,0.45)" stroke-width="2" stroke-linecap="round" fill="none"/>
-          ${eyesPlayfulWink}
-        `,
-
-        // 10: Reef Octopus (Compact rounded coral head, tightly curled sucker tentacles, happy kawaii sparkle eyes)
-        10: `
-          <path d="M18 19 C18 8, 42 8, 42 19 C42 24, 40 28, 37 30 C43 29, 48 23, 50 26 C52 29, 47 35, 41 36 C46 38, 50 42, 46 45 C42 48, 36 44, 33 39 C32 44, 28 48, 25 45 C22 43, 24 39, 22 39 C18 44, 13 47, 10 43 C8 39, 14 37, 19 36 C13 35, 8 29, 10 26 C12 23, 17 29, 23 30 C20 28, 18 24, 18 19 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M22 12 C24.5 9.5, 29 9, 32 10" stroke="rgba(255,255,255,0.45)" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <circle cx="12" cy="33" r="1" fill="#fde68a"/><circle cx="48" cy="33" r="1" fill="#fde68a"/>
-          ${eyesHappyKawaiiSparkle}
-        `,
-
-        // 11: Blanket Octopus (Dramatic cape webbing stretched between upper & lower arms, golden sunny smile eyes)
-        11: `
-          <!-- Cape / Blanket Webbing Membrane -->
-          <path d="M10 22 Q14 29 6 35 Q14 39 14 45 L26 37 L34 37 L46 45 Q46 39 54 35 Q46 29 50 22 L38 28 L22 28 Z" fill="${fill}" fill-opacity="0.52" stroke="${outline}" stroke-width="1.3" stroke-linejoin="round"/>
-          <!-- Main Octopus Head & 4 Primary Arms -->
-          <path d="M19 18 C19 7, 41 7, 41 18 C41 23, 39 27, 37 29 C43 26, 48 21, 50 22 C46 26, 42 30, 38 32 C45 33, 52 34, 54 35 C47 36, 41 36, 36 35 C41 39, 45 43, 46 45 C40 43, 34 39, 30 35 C26 39, 20 43, 14 45 C15 43, 19 39, 24 35 C19 36, 13 36, 6 35 C8 34, 15 33, 22 32 C18 30, 14 26, 10 22 C12 21, 17 26, 23 29 C21 27, 19 23, 19 18 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M22 11.5 C24 9, 28 8.5, 31 9.5" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-          ${eyesGoldenSunnySmile}
-        `,
-
-        // 12: Argonaut Octopus (Clustered spot texture on upper-right dome, curled sucker tentacles, beaming joy crescent eyes)
-        12: `
-          <path d="M18 19 C18 7, 42 7, 42 19 C42 24, 40 28, 37 30 C44 28, 49 21, 51 25 C53 29, 48 36, 41 38 C46 40, 48 45, 43 46 C38 47, 34 43, 31 39 C28 43, 23 47, 17 46 C12 45, 14 40, 19 38 C12 36, 7 29, 9 25 C11 21, 16 28, 23 30 C20 28, 18 24, 18 19 Z" fill="${fill}" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          <!-- Argonaut Crown Spots -->
-          <circle cx="35.5" cy="12.5" r="1.4" fill="rgba(0,0,0,0.28)"/>
-          <circle cx="38.2" cy="15" r="1.2" fill="rgba(0,0,0,0.28)"/>
-          <circle cx="34.5" cy="16" r="1" fill="rgba(0,0,0,0.28)"/>
-          <circle cx="37.5" cy="18.2" r="1.1" fill="rgba(0,0,0,0.28)"/>
-          <circle cx="11" cy="31" r="1.1" fill="#fde68a"/><circle cx="13" cy="35" r="1.1" fill="#fde68a"/>
-          <circle cx="49" cy="31" r="1.1" fill="#fde68a"/><circle cx="47" cy="35" r="1.1" fill="#fde68a"/>
-          ${eyesBeamingJoyArcs}
-        `,
-
-        // 13: Kelp-Crest Reef Octopus (Vibrant orange reef octopus with emerald kelp leaf crest & sweet dreamy eyes)
-        13: `
-          <path d="M29 10 C28 5, 24 4, 22 5" stroke="#a16207" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-          <path d="M30 10 C34 4, 43 5, 45 11 C40 13, 33 12, 30 10 Z" fill="#10b981" stroke="${outline}" stroke-width="1.3"/>
-          <path d="M18 20 C18 9, 42 9, 42 20 C42 25, 40 28, 37 30 C44 29, 50 24, 51 28 C52 32, 46 36, 40 37 C45 40, 47 45, 42 46 C38 47, 34 42, 31 38 C28 42, 23 47, 18 46 C13 45, 15 40, 20 37 C14 36, 8 32, 9 28 C10 24, 16 29, 23 30 C20 28, 18 25, 18 20 Z" fill="#f97316" stroke="${outline}" stroke-width="1.5" stroke-linejoin="round"/>
-          ${eyesSweetDreamySmile}
-        `
-      };
-
-      return `<svg width="${w}" height="${h}" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">${shapes[id]}</svg>`;
+      return `<svg width="${w}" height="${h}" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="${uid}" x1="5" y1="10" x2="55" y2="42" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="${top1}"/>
+            <stop offset="100%" stop-color="${top2}"/>
+          </linearGradient>
+        </defs>
+        <path d="${sCurveBody}" fill="url(#${uid})" stroke="${outline}" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="${dorsalHighlight}" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        ${extras}
+      </svg>`;
     }
 
     // =========================================================================
@@ -3812,7 +4124,7 @@
         pinned: true,
         starred: true,
         tentacleId: 0,
-        colorId: 0,
+        colorId: -1,
         preview: "Got it. Comment #2 goes under 4.8 Network Architecture Team. That's also wher..."
       },
       {
@@ -3821,8 +4133,8 @@
         group: "pinned",
         pinned: true,
         starred: false,
-        tentacleId: 7,
-        colorId: 9,
+        tentacleId: 24, // Fairy Flora
+        colorId: -1,
         preview: "I also updated the reports so Teal 22995 won't show up again. More generally, th..."
       },
       {
@@ -3831,8 +4143,8 @@
         group: "pinned",
         pinned: true,
         starred: false,
-        tentacleId: 2,
-        colorId: 7,
+        tentacleId: 17, // Neon Grid
+        colorId: -1,
         preview: "Yes. If you mean the bot map, that's the Bot Fleet Audit & Access Map (V2 + V3), ..."
       },
       // OC - General
@@ -3841,8 +4153,8 @@
         name: "Atlas",
         group: "OC - General",
         pinned: false,
-        tentacleId: 8,
-        colorId: 7,
+        tentacleId: 8, // Cosmic
+        colorId: -1,
         preview: "I applied the update. My docs..."
       },
       {
@@ -3850,8 +4162,8 @@
         name: "Oracle",
         group: "OC - General",
         pinned: false,
-        tentacleId: 3,
-        colorId: 7,
+        tentacleId: 13, // Crystal / Gilded
+        colorId: -1,
         preview: "I updated my profile the way ..."
       },
       // Important - Droplets
@@ -3860,8 +4172,8 @@
         name: "Carrier/Portal",
         group: "Important - Droplets",
         pinned: false,
-        tentacleId: 4,
-        colorId: 5,
+        tentacleId: 5, // Bioluminescent
+        colorId: -1,
         preview: "Level Parking LLC is in NetSui...",
         searchSnippet: "Level Parking LLC is in NetSuite as customer 754980, and it's active. Its modern, ..."
       },
@@ -3870,8 +4182,8 @@
         name: "Doctor",
         group: "Important - Droplets",
         pinned: false,
-        tentacleId: 1,
-        colorId: 2,
+        tentacleId: 1, // Octopus
+        colorId: -1,
         preview: "The California routers need o...",
         searchSnippet: "The California routers need one extra step that natgw01 didn't. The commands fo..."
       },
@@ -3880,8 +4192,8 @@
         name: "Sentry",
         group: "Important - Droplets",
         pinned: false,
-        tentacleId: 11,
-        colorId: 8,
+        tentacleId: 3, // Spiky
+        colorId: -1,
         preview: "Both changes are on my profil...",
         searchSnippet: "Both changes are on my profile now. I'll read manifest.md before saving and regis..."
       },
@@ -3890,8 +4202,8 @@
         name: "Curator",
         group: "Important - Droplets",
         pinned: false,
-        tentacleId: 6,
-        colorId: 6,
+        tentacleId: 18, // Clockwork
+        colorId: -1,
         preview: "I've updated my profile and to..."
       },
       {
@@ -3899,8 +4211,8 @@
         name: "jAWS",
         group: "Important - Droplets",
         pinned: false,
-        tentacleId: 3,
-        colorId: 4,
+        tentacleId: 10, // Molten
+        colorId: -1,
         preview: "Done. The new lines are in my..."
       },
       {
@@ -3908,8 +4220,8 @@
         name: "Slacky",
         group: "Important - Droplets",
         pinned: false,
-        tentacleId: 10,
-        colorId: 3,
+        tentacleId: 6, // Cartoon
+        colorId: -1,
         preview: "I updated my profile with the ..."
       },
       // Unassigned
@@ -3919,8 +4231,8 @@
         group: "Unassigned",
         pinned: false,
         unread: true,
-        tentacleId: 9,
-        colorId: 7,
+        tentacleId: 32, // Electric
+        colorId: -1,
         preview: "Nothing in Zabbix needs ac...",
         searchSnippet: "The SCHNEIDER-IPSEC tunnel on fw01.ptp1.prod.usw2.aws.or.us went down at 2:..."
       },
@@ -3929,8 +4241,8 @@
         name: "Dojo",
         group: "Unassigned",
         pinned: false,
-        tentacleId: 3,
-        colorId: 7,
+        tentacleId: 41, // Fighting
+        colorId: -1,
         preview: "The weekly audit routine is se...",
         searchSnippet: "The weekly audit routine is set up and runs Mondays around 8 AM MT, give or tak..."
       },
@@ -3939,8 +4251,8 @@
         name: "Ledger",
         group: "Unassigned",
         pinned: false,
-        tentacleId: 10,
-        colorId: 7,
+        tentacleId: 7, // Steampunk
+        colorId: -1,
         preview: "I've updated my profile. From ..."
       },
       {
@@ -3948,8 +4260,8 @@
         name: "Onboard",
         group: "Unassigned",
         pinned: false,
-        tentacleId: 5,
-        colorId: 7,
+        tentacleId: 2, // Sci-Fi / Bio-Mechanical
+        colorId: -1,
         preview: "My profile is updated. I now re..."
       },
       {
@@ -3957,8 +4269,8 @@
         name: "Gatekeeper (Jira)",
         group: "Unassigned",
         pinned: false,
-        tentacleId: 12,
-        colorId: 7,
+        tentacleId: 31, // Metal
+        colorId: -1,
         preview: "I updated my profile and confi..."
       },
       {
@@ -3966,8 +4278,8 @@
         name: "Architect",
         group: "Unassigned",
         pinned: false,
-        tentacleId: 4,
-        colorId: 7,
+        tentacleId: 48, // Stellar
+        colorId: -1,
         preview: "I updated my profile the way ..."
       },
       {
@@ -3975,8 +4287,8 @@
         name: "Builder",
         group: "Unassigned",
         pinned: false,
-        tentacleId: 2,
-        colorId: 7,
+        tentacleId: 12, // Cybernetic
+        colorId: -1,
         preview: "CephaSI asked me to update ..."
       }
     ];
@@ -3993,8 +4305,9 @@
       voiceCallActive: false,
       editorMode: "create", // 'create' | 'edit'
       editorTargetBotId: null,
-      editorTentacleId: 0,
-      editorColorId: 5,
+      editorTentacleId: 1,
+      editorColorId: -1,
+      editorCategory: "all", // 'all' | 'core' | 'thematic' | 'elemental'
       editorName: ""
     };
 
@@ -4008,8 +4321,9 @@
     }
 
     function getColorHex(colorId) {
+      if (colorId === -1 || colorId === "default" || colorId == null) return "default";
       const c = BOT_COLORS.find((x) => x.id === Number(colorId));
-      return c ? c.hex : "#10b981";
+      return c ? c.hex : "default";
     }
 
     // =========================================================================
@@ -4648,10 +4962,11 @@
     }
 
     // =========================================================================
-    // 6. CREATE / EDIT BOT MODAL (14 TENTACLES & 11 COLORS)
+    // 6. CREATE / EDIT BOT MODAL (48 TENTACLE STYLES + MAIN AI & 12 COLORS)
     // =========================================================================
     function openBotEditor(mode = "create", targetBotId = null) {
       state.editorMode = mode;
+      state.editorCategory = "all";
       const modal = document.getElementById("modal-bot-editor");
       const titleEl = document.getElementById("bot-editor-title");
       const nameInput = document.getElementById("bot-editor-name-input");
@@ -4667,7 +4982,7 @@
         const isMain = Boolean(bot.isMainAI || bot.id === "cephasi");
         state.editorTargetBotId = bot.id;
         state.editorTentacleId = bot.tentacleId;
-        state.editorColorId = bot.colorId;
+        state.editorColorId = bot.colorId !== undefined ? bot.colorId : -1;
         state.editorName = bot.name;
         titleEl.textContent = isMain ? "Customize Main AI" : "Edit / Rename Bot";
         nameInput.value = bot.name;
@@ -4686,8 +5001,8 @@
         }
       } else {
         state.editorTargetBotId = null;
-        state.editorTentacleId = 1; // Giant Pacific Octopus default for new bots (0 is Crowned CephaSI Sovereign)
-        state.editorColorId = 5; // Emerald green default like Screenshot 2
+        state.editorTentacleId = 1; // 1. Octopus default for new bots (0 is Crowned CephaSI Sovereign)
+        state.editorColorId = -1; // Default (Style Original) multi-color palette from reference sheets
         state.editorName = "";
         titleEl.textContent = "Create New Bot";
         nameInput.value = "";
@@ -4707,38 +5022,51 @@
       const previewEl = document.getElementById("bot-editor-preview");
       const styleLabelEl = document.getElementById("bot-editor-style-label");
       const colorHex = getColorHex(state.editorColorId);
-      const colorObj = BOT_COLORS.find((c) => c.id === Number(state.editorColorId)) || BOT_COLORS[5];
-      previewEl.innerHTML = renderTentacleSVG(state.editorTentacleId, colorHex, 86);
+      const colorObj = BOT_COLORS.find((c) => c.id === Number(state.editorColorId)) || BOT_COLORS[0];
+      const spec = TENTACLE_CATALOG[state.editorTentacleId] || TENTACLE_CATALOG[1];
+      previewEl.innerHTML = renderTentacleSVG(state.editorTentacleId, colorHex, 92);
       if (styleLabelEl) {
-        styleLabelEl.textContent = `${TENTACLE_STYLES[state.editorTentacleId]} · ${colorObj.name}`;
+        const catLabel =
+          spec.id === 0
+            ? "Flagship Main AI"
+            : spec.cat === "core"
+            ? "Core & Classic"
+            : spec.cat === "thematic"
+            ? "Thematic & Material"
+            : "Elemental & Type";
+        styleLabelEl.textContent = `${spec.name} (${catLabel}) · ${colorObj.name}`;
       }
 
-      // 14 Tentacle Types in 5 + 5 + 4 rows
-      const rowSplits = [
-        [0, 1, 2, 3, 4],
-        [5, 6, 7, 8, 9],
-        [10, 11, 12, 13]
-      ];
+      // Category Tabs
+      document.querySelectorAll("#tentacle-cat-tabs .tentacle-cat-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tcat === state.editorCategory);
+        btn.onclick = () => {
+          state.editorCategory = btn.dataset.tcat;
+          renderBotEditorPickers();
+        };
+      });
+
+      const visibleTentacles =
+        state.editorCategory === "all"
+          ? TENTACLE_CATALOG
+          : TENTACLE_CATALOG.filter((t) => t.cat === state.editorCategory && t.id !== 0);
+
       const tentacleGrid = document.getElementById("tentacle-picker-grid");
-      tentacleGrid.innerHTML = rowSplits
-        .map((row) => {
-          const btns = row
-            .map((tId) => {
-              const isSelected = Number(state.editorTentacleId) === tId;
-              const svg = renderTentacleSVG(tId, colorHex, 30);
-              return `
-                <button
-                  type="button"
-                  class="tentacle-option-btn ${isSelected ? "selected" : ""}"
-                  data-tentacle-id="${tId}"
-                  title="${TENTACLE_STYLES[tId]}"
-                >
-                  ${svg}
-                </button>
-              `;
-            })
-            .join("");
-          return `<div class="tentacle-row">${btns}</div>`;
+      tentacleGrid.innerHTML = visibleTentacles
+        .map((t) => {
+          const isSelected = Number(state.editorTentacleId) === t.id;
+          const svg = renderTentacleSVG(t.id, colorHex, 40);
+          return `
+            <button
+              type="button"
+              class="tentacle-option-btn ${isSelected ? "selected" : ""}"
+              data-tentacle-id="${t.id}"
+              title="${t.name}"
+            >
+              ${svg}
+              <span class="tentacle-option-label">${t.short}</span>
+            </button>
+          `;
         })
         .join("");
 
@@ -4749,10 +5077,10 @@
         });
       });
 
-      // 11 Color Swatches in 6 + 5 rows
+      // 12 Color Swatches in 6 + 6 rows (Default Style Original + 11 Custom Colors)
       const colorRows = [
         BOT_COLORS.slice(0, 6),
-        BOT_COLORS.slice(6, 11)
+        BOT_COLORS.slice(6, 12)
       ];
       const colorGrid = document.getElementById("color-picker-grid");
       colorGrid.innerHTML = colorRows
@@ -4760,6 +5088,16 @@
           const swatches = row
             .map((c) => {
               const isSelected = Number(state.editorColorId) === c.id;
+              if (c.isDefault) {
+                return `
+                  <button
+                    type="button"
+                    class="color-swatch-btn default-swatch ${isSelected ? "selected" : ""}"
+                    data-color-id="${c.id}"
+                    title="${c.name}"
+                  >✦</button>
+                `;
+              }
               return `
                 <button
                   type="button"

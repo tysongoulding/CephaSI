@@ -31,10 +31,13 @@
 
 ---
 
-### 2. 🐙 13 Expressive Kawaii Octopus Species & 11 Color Swatches
-Choose from **Crowned CephaSI Sovereign** plus **12 real-world octopus species** (`Giant Pacific`, `Blue-Ringed`, `Mimic`, `Common`, `Dumbo`, `Coconut`, `Flapjack`, `Glass`, `Seven-Arm`, `Reef`, `Blanket`, and `Argonaut`), each illustrated with cute, happy kawaii eyes, rosy cheeks, and warm smiles:
+### 2. 🦑 48 Illustrated Tentacle Styles + Crowned Main AI & `Default` Multi-Color Swatch
+Choose from **Crowned CephaSI Sovereign (`0`)** plus **48 S-curved Tentacle Styles** across three categories—each with its own **Default (Style Original)** multi-color palette (`✦` rainbow swatch) plus 11 custom color tints:
+- **Core & Classic (1–12)**: `Octopus`, `Sci-Fi / Bio-Mechanical`, `Spiky`, `Eldritch`, `Bioluminescent`, `Cartoon`, `Steampunk`, `Cosmic`, `Flora`, `Molten`, `Skeletal`, `Cybernetic`
+- **Thematic & Material (13–24)**: `Crystal / Gilded`, `Candy`, `Glacial`, `Void`, `Neon Grid`, `Clockwork`, `Fossil`, `Toxic Slime`, `Feathered`, `Volcanic`, `Scrap Metal`, `Fairy Flora`
+- **Elemental & Type-Inspired (25–48)**: `Air`, `Water`, `Earth`, `Fire`, `Dark`, `Light`, `Metal`, `Electric`, `Grass`, `Psychic`, `Dragon`, `Ghost`, `Rock`, `Bug`, `Poison`, `Flying`, `Fighting`, `Fairy`, `Normal`, `Cyber`, `Bubble`, `Magnetic`, `Sand`, `Stellar`
 
-![13 Happy Octopus Species Modal](./docs/screenshots/02-octopus-species-avatars.png)
+![48 Tentacle Styles Modal](./docs/screenshots/02-octopus-species-avatars.png)
 
 ---
 

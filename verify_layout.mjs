@@ -50,16 +50,24 @@ async function runVerification() {
   // Switch back to CephaSI for subsequent views
   await page.click('.pinned-bot-card[data-bot-id="cephasi"]');
 
-  // 2. View 2: Create New Bot Modal — 14 Tentacle Types & 11 Color Swatches (Screenshot 2)
+  // 2. View 2: Create New Bot Modal — 48 Tentacle Styles (+1 Main AI = 49) & 12 Color Swatches (Default + 11 Colors)
   await page.click("#btn-open-create");
   await page.waitForSelector("#modal-bot-editor:not(.hidden)");
   const tentacleCount = await page.locator("#tentacle-picker-grid .tentacle-option-btn").count();
   const colorCount = await page.locator("#color-picker-grid .color-swatch-btn").count();
-  assert.equal(tentacleCount, 14, "Must render exactly 14 SVG tentacle avatar designs");
-  assert.equal(colorCount, 11, "Must render exactly 11 color swatches");
+  assert.equal(tentacleCount, 49, "Must render all 49 SVG avatar designs (Main AI + 48 Tentacle Styles)");
+  assert.equal(colorCount, 12, "Must render 12 color swatches (Default Style Original + 11 Colors)");
+  // Verify category filters
+  await page.click('#tentacle-cat-tabs .tentacle-cat-btn[data-tcat="core"]');
+  assert.equal(await page.locator("#tentacle-picker-grid .tentacle-option-btn").count(), 12, "Core & Classic must have 12 tentacle styles");
+  await page.click('#tentacle-cat-tabs .tentacle-cat-btn[data-tcat="thematic"]');
+  assert.equal(await page.locator("#tentacle-picker-grid .tentacle-option-btn").count(), 12, "Thematic & Material must have 12 tentacle styles");
+  await page.click('#tentacle-cat-tabs .tentacle-cat-btn[data-tcat="elemental"]');
+  assert.equal(await page.locator("#tentacle-picker-grid .tentacle-option-btn").count(), 24, "Elemental & Types must have 24 tentacle styles");
+  await page.click('#tentacle-cat-tabs .tentacle-cat-btn[data-tcat="all"]');
   await page.screenshot({ path: path.join(SCRATCH_DIR, "view_02_create_new_bot_modal.png") });
   await page.click("#btn-close-bot-editor");
-  console.log("✔ View 02 verified: Create New Bot modal (14 tentacles, 11 colors).");
+  console.log("✔ View 02 verified: Create New Bot modal (48 tentacle styles + Main AI, Default + 11 colors).");
 
   // 3. View 3: Search Modal (Screenshot 3)
   await page.click("#btn-open-search");
