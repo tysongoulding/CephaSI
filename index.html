@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CephaSI — Bot Fleet Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Lato:wght@400;700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Source+Sans+3:wght@400;500;600;700&family=Ubuntu+Mono:wght@400;700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
   <style>
     :root {
       --bg-sidebar: #0d0d0d;
@@ -22,8 +28,8 @@
       --text-muted: #6e6e77;
       --accent-blue: #3b82f6;
       --accent-orange: #f59e0b;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      --font-sans: "Ubuntu", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: "Ubuntu Mono", "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
     }
 
     * {
@@ -40,9 +46,13 @@
       background-color: var(--bg-main);
       color: var(--text-primary);
       font-family: var(--font-sans);
-      font-size: 13px;
-      line-height: 1.45;
+      font-size: 14.5px;
+      line-height: 1.54;
       -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select, textarea, svg text, .cephaconnect-page {
+      font-family: var(--font-sans);
     }
 
     /* Custom Scrollbar */
@@ -72,8 +82,8 @@
 
     /* ================= LEFT SIDEBAR ================= */
     .left-sidebar {
-      width: 260px;
-      min-width: 260px;
+      width: 268px;
+      min-width: 268px;
       height: 100dvh;
       background: var(--bg-sidebar);
       border-right: 1px solid var(--border-subtle);
@@ -87,13 +97,13 @@
       align-items: center;
       justify-content: space-between;
       gap: 6px;
-      padding: 10px 12px 6px;
+      padding: 11px 12px 7px;
     }
 
     .sidebar-brand-lockup {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
       cursor: pointer;
       padding: 3px 6px 3px 2px;
       border-radius: 9px;
@@ -104,8 +114,8 @@
       background: rgba(34, 211, 238, 0.06);
     }
     .sidebar-brand-logo {
-      width: 34px;
-      height: 31px;
+      width: 40px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -119,7 +129,7 @@
       min-width: 0;
     }
     .sidebar-brand-title {
-      font-size: 15px;
+      font-size: 16.5px;
       font-weight: 700;
       letter-spacing: 0.01em;
       line-height: 1.05;
@@ -134,7 +144,7 @@
       text-shadow: 0 0 10px rgba(25, 230, 255, 0.85), 0 0 20px rgba(6, 182, 212, 0.5);
     }
     .sidebar-brand-sub {
-      font-size: 4.8px;
+      font-size: 5.2px;
       font-weight: 700;
       letter-spacing: 0.2em;
       color: #4e6d8c;
@@ -157,7 +167,7 @@
       background: rgba(6, 182, 212, 0.12);
       border: 1px solid rgba(34, 211, 238, 0.32);
       color: #67e8f9;
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 600;
       text-align: center;
       line-height: 1.3;
@@ -173,7 +183,7 @@
       background: rgba(6, 182, 212, 0.14);
       border: 1px solid rgba(34, 211, 238, 0.35);
       color: #22d3ee;
-      font-size: 8.5px;
+      font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
@@ -181,12 +191,12 @@
     }
 
     .icon-circle-btn {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: #1a1a1d;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      color: #b4b4be;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      color: #c2c2cc;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -201,7 +211,7 @@
       transform: scale(0.95);
     }
 
-    /* Pinned Bots Row */
+    /* Pinned Bots Row (Matching GrokBot Large Pinned Icons & Typography) */
     .pinned-bots-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -214,7 +224,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 10px 4px 8px;
+      padding: 8px 4px 8px;
       border-radius: 14px;
       cursor: pointer;
       transition: background 0.15s;
@@ -229,8 +239,8 @@
 
     .pinned-avatar-wrap {
       position: relative;
-      width: 52px;
-      height: 44px;
+      width: 62px;
+      height: 54px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -239,10 +249,11 @@
 
     .star-badge {
       position: absolute;
-      right: 0px;
-      bottom: -1px;
-      width: 16px;
-      height: 16px;
+      right: -1px;
+      bottom: -2px;
+      width: 19px;
+      height: 19px;
+      font-size: 11px;
       border-radius: 50%;
       background: #f59e0b;
       color: #fff;
@@ -254,11 +265,11 @@
     }
 
     .pinned-bot-name {
-      font-size: 11.5px;
+      font-size: 13px;
       font-weight: 500;
-      color: #d4d4dc;
+      color: #dedee6;
       text-align: center;
-      max-width: 74px;
+      max-width: 78px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -276,11 +287,11 @@
     }
 
     .bot-group-header {
-      font-size: 11px;
+      font-size: 12.5px;
       font-weight: 500;
-      color: var(--text-muted);
-      padding: 6px 8px 4px;
-      margin-top: 2px;
+      color: #84848f;
+      padding: 9px 10px 5px;
+      margin-top: 3px;
       border-radius: 7px;
       letter-spacing: 0.01em;
       cursor: pointer;
@@ -296,7 +307,7 @@
     }
     .bot-group-header .sec-more-dots {
       opacity: 0;
-      font-size: 12px;
+      font-size: 13px;
       color: #8e8e98;
       transition: opacity 0.14s;
     }
@@ -327,7 +338,7 @@
       gap: 11px;
       padding: 8px 11px;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 500;
       color: #ededf2;
       cursor: pointer;
@@ -391,7 +402,7 @@
       color: #f4f4f6;
       padding: 8px 16px;
       border-radius: 999px;
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 500;
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
       pointer-events: none;
@@ -401,12 +412,12 @@
     .bot-list-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 5px 9px;
-      border-radius: 10px;
+      gap: 11px;
+      padding: 7px 10px;
+      border-radius: 12px;
       cursor: pointer;
       transition: background 0.12s;
-      margin-bottom: 1px;
+      margin-bottom: 2px;
     }
     .bot-list-item:hover {
       background: rgba(255, 255, 255, 0.045);
@@ -416,9 +427,9 @@
     }
 
     .bot-item-avatar {
-      width: 28px;
-      height: 28px;
-      min-width: 28px;
+      width: 38px;
+      height: 36px;
+      min-width: 38px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -430,9 +441,9 @@
     }
 
     .bot-item-name {
-      font-size: 12.5px;
+      font-size: 14px;
       font-weight: 600;
-      color: #ededf0;
+      color: #f2f2f6;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -440,16 +451,16 @@
     }
 
     .bot-item-preview {
-      font-size: 11.5px;
-      color: var(--text-muted);
+      font-size: 12.8px;
+      color: #82828d;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      line-height: 1.3;
-      margin-top: 1px;
+      line-height: 1.32;
+      margin-top: 1.5px;
     }
     .bot-list-item.active .bot-item-preview {
-      color: #9898a3;
+      color: #a4a4b0;
     }
 
     /* ================= TENTACLE FLEET STATUS STATES (WORKING / BLUE DOT / ORANGE DOT) ================= */
@@ -635,9 +646,9 @@
 
     /* Sidebar Bottom User Bar */
     .sidebar-footer {
-      height: 50px;
-      min-height: 50px;
-      padding: 0 10px;
+      height: 54px;
+      min-height: 54px;
+      padding: 0 12px;
       border-top: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
@@ -648,8 +659,8 @@
     .user-trigger-btn {
       display: flex;
       align-items: center;
-      gap: 9px;
-      padding: 5px 8px 5px 5px;
+      gap: 10px;
+      padding: 5px 9px 5px 5px;
       border-radius: 9px;
       cursor: pointer;
       background: transparent;
@@ -663,8 +674,8 @@
     }
 
     .user-avatar-img {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: linear-gradient(135deg, #3b4252, #1e293b);
       border: 1px solid rgba(255, 255, 255, 0.18);
@@ -676,9 +687,9 @@
     }
 
     .user-name-label {
-      font-size: 12.5px;
-      font-weight: 500;
-      color: #e4e4e9;
+      font-size: 14px;
+      font-weight: 600;
+      color: #f0f0f5;
     }
 
     /* ================= CENTER CHAT AREA ================= */
@@ -694,8 +705,8 @@
 
     /* Top Header Bar */
     .chat-top-header {
-      height: 48px;
-      min-height: 48px;
+      height: 50px;
+      min-height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -707,13 +718,13 @@
     .top-bot-pill {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 5px 13px 5px 10px;
+      gap: 8px;
+      padding: 6px 15px 6px 11px;
       border-radius: 999px;
       background: #1b1b1e;
       border: 1px solid rgba(255, 255, 255, 0.08);
       color: #f2f2f5;
-      font-size: 12.5px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: background 0.15s, border-color 0.15s;
@@ -725,8 +736,8 @@
     }
 
     .top-pill-avatar {
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -766,64 +777,78 @@
 
     .chat-stream-inner {
       width: 100%;
-      max-width: 650px;
+      max-width: 680px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .chat-card {
       background: var(--bg-card);
       border: 1px solid var(--border-card);
-      border-radius: 14px;
-      padding: 14px 16px;
-      color: #e8e8ed;
-      font-size: 13px;
-      line-height: 1.52;
+      border-radius: 16px;
+      padding: 16px 18px;
+      color: #ededf2;
+      font-size: 14.5px;
+      line-height: 1.56;
       user-select: text;
     }
 
     .chat-card-faded-top {
       opacity: 0.55;
-      padding: 8px 16px 10px;
-      font-size: 12.5px;
+      padding: 10px 18px 12px;
+      font-size: 14px;
       color: var(--text-secondary);
     }
 
     .chat-card p + p {
-      margin-top: 10px;
+      margin-top: 11px;
     }
 
     .chat-card ol, .chat-card ul {
-      padding-left: 20px;
-      margin-top: 8px;
+      padding-left: 22px;
+      margin-top: 9px;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 8px;
     }
 
     .chat-card li {
-      color: #dcdce3;
+      color: #e2e2ea;
     }
 
     .chat-card strong {
       color: #ffffff;
-      font-weight: 600;
+      font-weight: 700;
     }
 
+    .chat-card code,
     .inline-code {
       font-family: var(--font-mono);
-      font-size: 11.5px;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 1.5px 5px;
-      border-radius: 4px;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.085);
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: #e8e8f0;
+    }
+
+    .chat-code-block {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      background: #141416;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 10px 0;
       color: #e4e4ec;
+      overflow-x: auto;
     }
 
     .inline-doc-chip {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       font-weight: 600;
       color: #ffffff;
     }
@@ -831,14 +856,14 @@
     .bot-mention-chip {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      padding: 1px 7px 1px 5px;
+      gap: 5px;
+      padding: 1.5px 8px 1.5px 6px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: #f2f2f7;
       font-weight: 600;
-      font-size: 12px;
+      font-size: 13.5px;
       cursor: pointer;
       vertical-align: baseline;
       transition: background 0.14s, border-color 0.14s;
@@ -852,9 +877,9 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      padding: 1px 7px;
+      padding: 1.5px 8px;
       border-radius: 999px;
-      font-size: 10.5px;
+      font-size: 11.5px;
       font-weight: 600;
       background: rgba(59, 130, 246, 0.15);
       color: #60a5fa;
@@ -870,21 +895,21 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 13px;
-      height: 13px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       background: conic-gradient(#ea4335 0deg 90deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg 360deg);
       color: #111;
-      font-size: 8px;
+      font-size: 8.5px;
       font-weight: 800;
       vertical-align: middle;
     }
 
     /* Prompt Option Cards */
     .prompt-question-title {
-      color: #a8a8b3;
+      color: #b4b4c0;
       font-weight: 600;
-      font-size: 12.5px;
+      font-size: 14px;
       margin-bottom: 10px;
     }
 
@@ -893,21 +918,21 @@
       align-items: flex-start;
       gap: 10px;
       padding: 6px 0;
-      color: #8c8c96;
-      font-size: 12.5px;
+      color: #9898a4;
+      font-size: 14px;
     }
 
     .option-badge {
-      width: 19px;
-      height: 19px;
-      min-width: 19px;
-      border-radius: 5px;
+      width: 21px;
+      height: 21px;
+      min-width: 21px;
+      border-radius: 6px;
       background: rgba(255, 255, 255, 0.07);
-      color: #9e9ea8;
+      color: #a8a8b3;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
     }
 
@@ -929,7 +954,7 @@
       align-items: flex-end;
       gap: 4px;
       margin: 2px 4px;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-muted);
     }
 
@@ -937,29 +962,29 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      color: #8e8e98;
-      font-size: 11.5px;
+      color: #9494a0;
+      font-size: 12.5px;
     }
 
     .chat-pill-compact {
       align-self: flex-start;
       background: var(--bg-card);
       border: 1px solid var(--border-card);
-      border-radius: 12px;
-      padding: 9px 14px;
+      border-radius: 13px;
+      padding: 10px 15px;
       color: #e4e4ec;
-      font-size: 12.5px;
+      font-size: 14px;
     }
 
     .user-bubble-right {
       align-self: flex-end;
       background: #252529;
       border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 16px;
-      padding: 9px 15px;
-      color: #f2f2f7;
-      font-size: 13px;
-      max-width: 420px;
+      border-radius: 18px;
+      padding: 10px 16px;
+      color: #f4f4f8;
+      font-size: 14.5px;
+      max-width: 440px;
       margin: 4px 0;
     }
 
@@ -968,7 +993,7 @@
       align-items: center;
       gap: 10px;
       color: #71717a;
-      font-size: 13px;
+      font-size: 14px;
       padding: 2px 6px;
     }
     .message-reaction-bar span {
@@ -1387,29 +1412,29 @@
 
     .chat-composer-pill {
       width: 100%;
-      max-width: 650px;
-      height: 42px;
+      max-width: 680px;
+      height: 48px;
       background: #1b1b1e;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.085);
       border-radius: 999px;
       display: flex;
       align-items: center;
-      padding: 0 7px 0 8px;
-      gap: 8px;
+      padding: 0 8px 0 10px;
+      gap: 9px;
     }
 
     .composer-plus-btn {
-      width: 26px;
-      height: 26px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.07);
       border: none;
-      color: #a0a0ab;
+      color: #a8a8b3;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 1;
     }
     .composer-plus-btn:hover {
@@ -1423,20 +1448,20 @@
       border: none;
       outline: none;
       color: var(--text-primary);
-      font-size: 13px;
+      font-size: 14.5px;
       font-family: inherit;
     }
     .composer-input::placeholder {
-      color: #676770;
+      color: #70707a;
     }
 
     .composer-mic-btn {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: transparent;
       border: none;
-      color: #8c8c96;
+      color: #90909a;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1447,8 +1472,8 @@
     }
 
     .composer-wave-btn {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       border: none;
       background: #ffffff;
@@ -1472,7 +1497,7 @@
       position: absolute;
       left: 0;
       bottom: calc(100% + 8px);
-      width: 158px;
+      width: 164px;
       background: #1c1c1f;
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
@@ -1488,10 +1513,10 @@
       display: flex;
       align-items: center;
       gap: 9px;
-      padding: 7px 10px;
+      padding: 8px 11px;
       border-radius: 8px;
       color: #e4e4ec;
-      font-size: 12.5px;
+      font-size: 13.5px;
       font-weight: 500;
       cursor: pointer;
       transition: background 0.12s;
@@ -1511,7 +1536,7 @@
       border-radius: 8px;
       padding: 5px 10px;
       color: #e4e4ec;
-      font-size: 11.5px;
+      font-size: 12px;
       white-space: nowrap;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
       display: inline-flex;
@@ -1530,7 +1555,7 @@
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.12);
       font-family: var(--font-sans);
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 600;
       color: #f4f4f6;
     }
@@ -1628,12 +1653,12 @@
       gap: 6px;
       margin: 14px 0 4px;
       color: #8c8c96;
-      font-size: 11.5px;
+      font-size: 12px;
     }
 
     .unread-dot {
-      width: 6px;
-      height: 6px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #3b82f6;
       flex-shrink: 0;
@@ -1641,8 +1666,8 @@
 
     /* ================= RIGHT INSPECTOR DRAWER ================= */
     .right-inspector {
-      width: 330px;
-      min-width: 330px;
+      width: 336px;
+      min-width: 336px;
       height: 100dvh;
       background: var(--bg-inspector);
       border-left: 1px solid var(--border-subtle);
@@ -1671,8 +1696,8 @@
     }
 
     .inspector-avatar-large {
-      width: 68px;
-      height: 58px;
+      width: 76px;
+      height: 66px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1691,8 +1716,8 @@
     }
 
     .inspector-bot-name {
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 16.5px;
+      font-weight: 700;
       color: #ffffff;
       cursor: pointer;
     }
@@ -1706,12 +1731,12 @@
     }
 
     .inspector-tab-btn {
-      padding: 4px 11px;
+      padding: 5px 12px;
       border-radius: 999px;
       background: transparent;
       border: none;
       color: #8a8a94;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
       cursor: pointer;
       font-family: inherit;
@@ -1723,6 +1748,75 @@
     .inspector-tab-btn.active {
       background: #232328;
       color: #ffffff;
+    }
+
+    /* Settings Major Font Style Selector */
+    .settings-font-select {
+      background: #232328;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 5px 11px;
+      color: #f2f2f7;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.14s, background 0.14s;
+    }
+    .settings-font-select:hover,
+    .settings-font-select:focus {
+      background: #2b2b32;
+      border-color: rgba(34, 211, 238, 0.45);
+    }
+    .font-style-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      padding: 10px 14px 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(0, 0, 0, 0.14);
+    }
+    .font-style-option-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      padding: 8px 10px;
+      border-radius: 9px;
+      background: #1b1b20;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #d4d4dc;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.14s ease;
+    }
+    .font-style-option-btn:hover {
+      background: #25252c;
+      border-color: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+    }
+    .font-style-option-btn.active {
+      background: rgba(34, 211, 238, 0.12);
+      border-color: rgba(34, 211, 238, 0.55);
+      color: #ffffff;
+      box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.25);
+    }
+    .font-style-option-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .font-style-option-sample {
+      font-size: 11px;
+      color: #8e8e98;
+    }
+    .font-style-option-btn.active .font-style-option-sample {
+      color: #67e8f9;
     }
 
     .inspector-body {
@@ -4497,7 +4591,7 @@
           M 21.8 20.8 C 23.5 17.2, 28.8 18.0, 30.3 23.2 C 30.9 25.2, 30.0 27.8, 28.4 30.2
           M 42.2 20.8 C 40.5 17.2, 35.2 18.0, 33.7 23.2 C 33.1 25.2, 34.0 27.8, 35.6 30.2
         `;
-        return `<svg class="tentacle-svg${activeClass}" data-tstyle="0" data-tfx="sovereign" style="--t-glow: ${mainFill};" width="${w}" height="${h}" viewBox="0 0 64 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        return `<svg class="tentacle-svg${activeClass}" data-tstyle="0" data-tfx="sovereign" style="--t-glow: ${mainFill};" width="${w}" height="${h}" viewBox="2 1 60 53" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="${uid}" x1="4" y1="48" x2="58" y2="6" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stop-color="${leftTone}"/>
@@ -4922,7 +5016,7 @@
           break;
       }
 
-      return `<svg class="tentacle-svg${activeClass}" data-tstyle="${id}" data-tfx="${fxType}" style="--t-glow: ${top1};" width="${w}" height="${h}" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      return `<svg class="tentacle-svg${activeClass}" data-tstyle="${id}" data-tfx="${fxType}" style="--t-glow: ${top1};" width="${w}" height="${h}" viewBox="3 5 53 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="${uid}" x1="5" y1="10" x2="55" y2="42" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stop-color="${top1}"/>
@@ -5129,12 +5223,119 @@
     ];
 
     // =========================================================================
-    // 4. APPLICATION STATE
+    // 4. APPLICATION STATE & MAJOR FONT STYLES CATALOG (DEFAULT: UBUNTU)
     // =========================================================================
+    const FONT_STYLE_CATALOG = [
+      {
+        id: "ubuntu",
+        name: "Ubuntu (Default)",
+        category: "Humanist Sans",
+        stack: '"Ubuntu", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        mono: '"Ubuntu Mono", "JetBrains Mono", monospace'
+      },
+      {
+        id: "inter",
+        name: "Inter",
+        category: "Neo-Grotesque",
+        stack: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        mono: '"JetBrains Mono", "Ubuntu Mono", monospace'
+      },
+      {
+        id: "roboto",
+        name: "Roboto",
+        category: "Geometric Neo-Grotesque",
+        stack: '"Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        mono: '"Ubuntu Mono", "JetBrains Mono", monospace'
+      },
+      {
+        id: "open-sans",
+        name: "Open Sans",
+        category: "Humanist Sans",
+        stack: '"Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        mono: '"Ubuntu Mono", "JetBrains Mono", monospace'
+      },
+      {
+        id: "poppins",
+        name: "Poppins",
+        category: "Geometric Sans",
+        stack: '"Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        mono: '"JetBrains Mono", "Ubuntu Mono", monospace'
+      },
+      {
+        id: "montserrat",
+        name: "Montserrat",
+        category: "Geometric Display",
+        stack: '"Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        mono: '"JetBrains Mono", "Ubuntu Mono", monospace'
+      },
+      {
+        id: "lato",
+        name: "Lato",
+        category: "Warm Sans",
+        stack: '"Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        mono: '"Ubuntu Mono", "JetBrains Mono", monospace'
+      },
+      {
+        id: "source-sans",
+        name: "Source Sans 3",
+        category: "Editorial Sans",
+        stack: '"Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        mono: '"JetBrains Mono", "Ubuntu Mono", monospace'
+      },
+      {
+        id: "fira-sans",
+        name: "Fira Sans",
+        category: "Technical Humanist",
+        stack: '"Fira Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        mono: '"Ubuntu Mono", "JetBrains Mono", monospace'
+      },
+      {
+        id: "jetbrains-mono",
+        name: "JetBrains Mono",
+        category: "Developer Monospace",
+        stack: '"JetBrains Mono", "Ubuntu Mono", monospace',
+        mono: '"JetBrains Mono", "Ubuntu Mono", monospace'
+      },
+      {
+        id: "merriweather",
+        name: "Merriweather",
+        category: "Classic Serif",
+        stack: '"Merriweather", Georgia, "Times New Roman", serif',
+        mono: '"Ubuntu Mono", "JetBrains Mono", monospace'
+      },
+      {
+        id: "system-ui",
+        name: "System UI",
+        category: "OS Native",
+        stack: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif',
+        mono: '"SFMono-Regular", Consolas, "Ubuntu Mono", monospace'
+      }
+    ];
+
+    function getSavedFontFamilyId() {
+      try {
+        const saved = localStorage.getItem("cephasi_font_family");
+        if (saved && FONT_STYLE_CATALOG.some((f) => f.id === saved)) return saved;
+      } catch (_) {}
+      return "ubuntu";
+    }
+
+    function applyFontFamily(fontId) {
+      const spec = FONT_STYLE_CATALOG.find((f) => f.id === fontId) || FONT_STYLE_CATALOG[0];
+      state.fontFamilyId = spec.id;
+      document.documentElement.style.setProperty("--font-sans", spec.stack);
+      document.documentElement.style.setProperty("--font-mono", spec.mono);
+      document.body.style.fontFamily = spec.stack;
+      try {
+        localStorage.setItem("cephasi_font_family", spec.id);
+      } catch (_) {}
+    }
+
     const state = {
       bots: JSON.parse(JSON.stringify(INITIAL_BOTS)),
       sections: ["OC - General", "Important - Droplets", "Unassigned"],
       activeBotId: "cephasi",
+      fontFamilyId: getSavedFontFamilyId(),
       inspectorOpen: false,
       inspectorTab: "Library",
       settingsTab: "General",
@@ -5816,7 +6017,7 @@
         brandLogoEl.innerHTML = renderTentacleSVG(
           primaryBot.tentacleId,
           getColorHex(primaryBot.colorId),
-          34,
+          40,
           isPrimaryWorking
         );
       }
@@ -5837,7 +6038,7 @@
           const isWorking = Boolean(
             bot.working || (state.thinkingState.active && state.thinkingState.botId === bot.id)
           );
-          const svg = renderTentacleSVG(bot.tentacleId, getColorHex(bot.colorId), 48, isWorking);
+          const svg = renderTentacleSVG(bot.tentacleId, getColorHex(bot.colorId), 62, isWorking);
           const starHtml = bot.starred
             ? `<div class="star-badge" title="Main AI Orchestrator (Core Main AI)">★</div>`
             : "";
@@ -5898,7 +6099,7 @@
               const isWorking = Boolean(
                 bot.working || (state.thinkingState.active && state.thinkingState.botId === bot.id)
               );
-              const svg = renderTentacleSVG(bot.tentacleId, getColorHex(bot.colorId), 28, isWorking);
+              const svg = renderTentacleSVG(bot.tentacleId, getColorHex(bot.colorId), 38, isWorking);
 
               let statusRightHtml = "";
               if (isWorking) {
@@ -5992,7 +6193,7 @@
       const composerInput = document.getElementById("chat-composer-input");
       const waveBtn = document.getElementById("composer-wave-btn");
 
-      pillIcon.innerHTML = renderTentacleSVG(activeBot.tentacleId, getColorHex(activeBot.colorId), 18);
+      pillIcon.innerHTML = renderTentacleSVG(activeBot.tentacleId, getColorHex(activeBot.colorId), 22);
       pillName.textContent = activeBot.name;
       composerInput.placeholder = `Message ${activeBot.name}`;
 
@@ -6007,15 +6208,15 @@
       const activeBot = getBotById(state.activeBotId);
       const primaryBot = getBotById("cephasi");
       const primaryName = primaryBot.name;
-      const primaryMiniIcon = renderTentacleSVG(primaryBot.tentacleId, getColorHex(primaryBot.colorId), 14);
+      const primaryMiniIcon = renderTentacleSVG(primaryBot.tentacleId, getColorHex(primaryBot.colorId), 16);
       const dashboardBot = getBotById("dashboard");
-      const dashboardMiniIcon = renderTentacleSVG(dashboardBot.tentacleId, getColorHex(dashboardBot.colorId), 14);
+      const dashboardMiniIcon = renderTentacleSVG(dashboardBot.tentacleId, getColorHex(dashboardBot.colorId), 16);
       const carrierBot = getBotById("carrier-portal");
-      const carrierMiniIcon = renderTentacleSVG(carrierBot.tentacleId, getColorHex(carrierBot.colorId), 13);
+      const carrierMiniIcon = renderTentacleSVG(carrierBot.tentacleId, getColorHex(carrierBot.colorId), 15);
       const naviBot = getBotById("navi");
-      const naviMiniIcon = renderTentacleSVG(naviBot.tentacleId, getColorHex(naviBot.colorId), 13);
+      const naviMiniIcon = renderTentacleSVG(naviBot.tentacleId, getColorHex(naviBot.colorId), 15);
       const gatekeeperBot = getBotById("gatekeeper");
-      const gatekeeperMiniIcon = renderTentacleSVG(gatekeeperBot.tentacleId, getColorHex(gatekeeperBot.colorId), 13);
+      const gatekeeperMiniIcon = renderTentacleSVG(gatekeeperBot.tentacleId, getColorHex(gatekeeperBot.colorId), 15);
 
       const streamEl = document.getElementById("chat-stream");
 
@@ -6109,21 +6310,45 @@
           </div>
         `;
       } else if (activeBot.id === "doctor") {
-        // Doctor thread matching user screenshot (California routers SNMP v3 ACL + thinking demo)
+        // Doctor thread matching user GrokBot reference screenshot (California Cisco / MikroTiks / FortiGates / Zabbix cleanup + SNMP v3 ACL)
         streamEl.innerHTML = `
           <div class="chat-stream-inner" data-thread="doctor">
             <div class="chat-card">
-              <p>The California routers need one extra step that <code>natgw01</code> didn't. The commands for the two California routers are:</p>
+              <p style="color:#9ca3af;">California Cisco (all 22 are the same: CAT01-06, 09-16, 23, 24 and CSR19-24)</p>
+              <ul>
+                <li>The v3 user <code>optconnect-snmp</code> (SHA with AES256) already exists, so the passphrases you'll need are in your records.</li>
+                <li>Neither the v3 user nor the group has an access-list, and <code>SNMP_ACCESS</code> doesn't exist on any of them.</li>
+                <li>v2c uses a community starting <code>publ...</code> with no ACL, so any source the security group allows can read them.</li>
+                <li>Steps for each: create <code>SNMP_ACCESS</code>, add it to the v3 group and user, switch Zabbix to v3, then remove v2c.</li>
+                <li>Their Unimus backups are about 18 days old because no schedule is set.</li>
+              </ul>
+              <p><strong>MikroTiks</strong> (already on v3 in Zabbix)</p>
+              <ul>
+                <li>All 4 allow v3 from 0.0.0.0/0. Limit <code>addresses</code> to 172.31.100.23.</li>
+                <li>rt05.iaac01 probably still has the default <code>public</code> community active. Disable it.</li>
+              </ul>
+              <p><strong>FortiGates</strong> (already on v3 in Zabbix)</p>
+              <ul>
+                <li><strong>fw01:</strong> remove its 3 v2c communities, and remove or upgrade the <code>prtg</code> user, which has no encryption.</li>
+                <li><strong>fw02:</strong> SNMP times out. Check SNMP admin access on the interface and the trusted hosts. Add it to Unimus.</li>
+                <li><strong>fw03:</strong> remove its v2c community, which has no host limit.</li>
+                <li><strong>fw04 and fw05:</strong> fine on SNMP. Add them to Unimus.</li>
+              </ul>
+              <p><strong>Zabbix cleanup:</strong> about 21 disabled hosts (CAT19/20, the old CSRs, the WLO and TMO-DIRECT hosts, and the duplicate "Mikrotik") could be deleted if they're retired.</p>
+            </div>
+
+            <div class="chat-card">
+              <p>The California routers need one extra step that natgw01 didn't. The commands for each one would be:</p>
               <pre class="chat-code-block">configure terminal
 ip access-list standard SNMP_ACCESS
  permit host 172.31.100.23
 exit
-snmp-server group READONLY v3 priv access SNMP_ACCESS
-snmp-server user zabbix READONLY v3 auth sha &lt;AUTH_PASS&gt; priv aes 128 &lt;PRIV_PASS&gt;
+snmp-server group net-eng v3 priv access SNMP_ACCESS
+snmp-server user optconnect-snmp net-eng v3 auth sha &lt;authpass&gt;
 end
-write memory</pre>
-              <p>On <code>natgw01</code>, the <code>SNMP_ACCESS</code> list was already in place with <code>172.31.100.23</code> in it, so you only needed the group and user lines. On the California routers, <code>SNMP_ACCESS</code> only permits <code>10.220.41.4</code> right now, so Zabbix at <code>172.31.100.23</code> would be blocked by the ACL unless you add that <code>permit host 172.31.100.23</code> line first.</p>
-              <p>Replace <code>&lt;AUTH_PASS&gt;</code> and <code>&lt;PRIV_PASS&gt;</code> with the passwords you want to use, and configure the same credentials on the Zabbix host entries.</p>
+copy running-config startup-config</pre>
+              <p>Switch Zabbix to v3 and check the host shows available, then remove v2c with <code>no snmp-server community &lt;publ...&gt; RO</code>. Unlike natgw01, these communities have no ACL, so leave <code>SNMP_ACCESS</code> off that line.</p>
+              <p>Two side notes. The SSH account can't run <code>show run</code>, so I read communities from <code>show snmp group</code> and Unimus backups. And rt05.vzw1 needs its SSH fixed before I can check it. If you want, I can save this as a checklist report in 01-Reports.</p>
             </div>
             ${renderDynamicThinkingAndExchanges(activeBot)}
           </div>
@@ -6431,7 +6656,7 @@ write memory</pre>
       document.getElementById("inspector-avatar").innerHTML = renderTentacleSVG(
         activeBot.tentacleId,
         getColorHex(activeBot.colorId),
-        64
+        74
       );
       document.getElementById("inspector-bot-name").textContent = activeBot.name;
       const mainAiBadge = document.getElementById("inspector-main-ai-badge");
@@ -6570,6 +6795,7 @@ write memory</pre>
     }
 
     function renderAll() {
+      applyFontFamily(state.fontFamilyId);
       renderSidebar();
       renderTopHeaderAndComposer();
       renderChatStream();
@@ -6850,7 +7076,27 @@ write memory</pre>
       const tab = state.settingsTab;
 
       if (tab === "General") {
-        // Screenshot 7: General
+        // Screenshot 7: General + Major Font Style Selector (Default: Ubuntu)
+        const fontOptionsHtml = FONT_STYLE_CATALOG.map(
+          (f) => `<option value="${f.id}" ${f.id === state.fontFamilyId ? "selected" : ""}>${f.name}</option>`
+        ).join("");
+        const fontGridHtml = FONT_STYLE_CATALOG.map(
+          (f) => `
+            <button
+              type="button"
+              class="font-style-option-btn ${f.id === state.fontFamilyId ? "active" : ""}"
+              data-font-id="${f.id}"
+              style="font-family: ${f.stack.replace(/"/g, "'")};"
+            >
+              <span class="font-style-option-name">
+                <span>${f.name.replace(" (Default)", "")}</span>
+                ${f.id === state.fontFamilyId ? '<span style="color:#22d3ee;">✓</span>' : ""}
+              </span>
+              <span class="font-style-option-sample">${f.category} · Aa Bb 123</span>
+            </button>
+          `
+        ).join("");
+
         body.innerHTML = `
           <div class="settings-pane-title">General</div>
 
@@ -6888,6 +7134,18 @@ write memory</pre>
               <div class="settings-select-pill">Bot color <span>⌄</span></div>
             </div>
             <div class="settings-row">
+              <div>
+                <div class="settings-row-title">Font Style</div>
+                <div class="settings-row-sub">Choose Ubuntu (Default) or any major font family across the workspace</div>
+              </div>
+              <select id="settings-font-select" class="settings-font-select" aria-label="Font Style">
+                ${fontOptionsHtml}
+              </select>
+            </div>
+            <div class="font-style-grid" id="settings-font-style-grid">
+              ${fontGridHtml}
+            </div>
+            <div class="settings-row">
               <div class="settings-row-title">Language</div>
               <div class="settings-select-pill">Follow System <span>⌄</span></div>
             </div>
@@ -6917,6 +7175,24 @@ write memory</pre>
             </div>
           </div>
         `;
+
+        const fontSelectEl = document.getElementById("settings-font-select");
+        if (fontSelectEl) {
+          fontSelectEl.addEventListener("change", (e) => {
+            applyFontFamily(e.target.value);
+            renderSettingsTab();
+            const chosen = FONT_STYLE_CATALOG.find((f) => f.id === e.target.value);
+            if (chosen) showToast(`Font style set to ${chosen.name}`);
+          });
+        }
+        body.querySelectorAll(".font-style-option-btn[data-font-id]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            applyFontFamily(btn.dataset.fontId);
+            renderSettingsTab();
+            const chosen = FONT_STYLE_CATALOG.find((f) => f.id === btn.dataset.fontId);
+            if (chosen) showToast(`Font style set to ${chosen.name}`);
+          });
+        });
       } else if (tab === "Computer") {
         // Screenshot 8: Computer (CephaSI)
         body.innerHTML = `

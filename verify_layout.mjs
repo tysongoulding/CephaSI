@@ -441,8 +441,49 @@ async function runVerification() {
   await page.screenshot({ path: path.join(SCRATCH_DIR, "view_31_tentacle_working_blue_orange_dots.png") });
   console.log("✔ View 31 verified: Working Tentacle Movement (.is-working) + Blue Dot (.unread-dot.blue-dot) + Orange Dot (.blocked-dot.orange-dot) & HITL Banner.");
 
+  // 32. View 32: Ubuntu Font Default + GrokBot Icon/Font Proportions + Major Font Style Selector in Settings
+  await page.click('.bot-list-item[data-bot-id="doctor"]');
+  const metrics = await page.evaluate(() => {
+    const bodyFont = getComputedStyle(document.body).fontFamily;
+    const chatCardFontSize = getComputedStyle(document.querySelector(".chat-card")).fontSize;
+    const botItemNameFontSize = getComputedStyle(document.querySelector(".bot-item-name")).fontSize;
+    const pinnedSvgWidth = document.querySelector(".pinned-avatar-wrap svg")?.getAttribute("width");
+    const listSvgWidth = document.querySelector(".bot-item-avatar svg")?.getAttribute("width");
+    return { bodyFont, chatCardFontSize, botItemNameFontSize, pinnedSvgWidth, listSvgWidth };
+  });
+
+  assert(metrics.bodyFont.includes("Ubuntu"), `Default font family must be Ubuntu, got: ${metrics.bodyFont}`);
+  assert.equal(metrics.chatCardFontSize, "14.5px", "Chat card font size must match GrokBot (14.5px)");
+  assert.equal(metrics.botItemNameFontSize, "14px", "Sidebar bot name font size must match GrokBot (14px)");
+  assert.equal(metrics.pinnedSvgWidth, "62", "Pinned bot icon width must match GrokBot (62px)");
+  assert.equal(metrics.listSvgWidth, "38", "Sidebar bot list icon width must match GrokBot (38px)");
+
+  await page.screenshot({ path: path.join(SCRATCH_DIR, "view_32a_ubuntu_grokbot_icon_font_sizes.png") });
+
+  // Open Settings -> General and verify the 12 major font styles selector
+  await page.click("#btn-user-menu");
+  await page.waitForSelector("#user-popover:not(.hidden)");
+  await page.click("#btn-open-settings");
+  await page.waitForSelector("#modal-settings:not(.hidden)");
+  await page.click('.settings-nav-btn[data-settings-tab="General"]');
+
+  const fontOptionsCount = await page.locator("#settings-font-style-grid .font-style-option-btn").count();
+  assert.equal(fontOptionsCount, 12, "Settings -> General must display 12 major font style options");
+
+  // Test switching to Poppins and back to Ubuntu
+  await page.click('.font-style-option-btn[data-font-id="poppins"]');
+  const poppinsApplied = await page.evaluate(() => getComputedStyle(document.body).fontFamily.includes("Poppins"));
+  assert(poppinsApplied, "Clicking Poppins in Settings must update document.body font-family to Poppins");
+
+  await page.click('.font-style-option-btn[data-font-id="ubuntu"]');
+  const ubuntuRestored = await page.evaluate(() => getComputedStyle(document.body).fontFamily.includes("Ubuntu"));
+  assert(ubuntuRestored, "Clicking Ubuntu in Settings must restore document.body font-family to Ubuntu");
+
+  await page.screenshot({ path: path.join(SCRATCH_DIR, "view_32b_settings_font_styles.png") });
+  console.log("✔ View 32 verified: Ubuntu Font Default + GrokBot Icon/Font Sizes (62px/38px icons, 14.5px chat) + 12 Major Font Styles in Settings.");
+
   await browser.close();
-  console.log("\nALL 31 E2E VERIFICATION CHECKS PASSED SUCCESSFULLY!");
+  console.log("\nALL 32 E2E VERIFICATION CHECKS PASSED SUCCESSFULLY!");
 }
 
 runVerification().catch((err) => {
