@@ -80,15 +80,17 @@ async function runVerification() {
   await page.evaluate(() => document.getElementById("modal-search").classList.add("hidden"));
   console.log("✔ View 03 verified: Search modal.");
 
-  // 4. View 4: Right Inspector — Library Tab (Screenshot 4)
+  // 4. View 4: Right Inspector — Artifacts Tab (Screenshot 4)
   await page.click("#btn-toggle-inspector");
   await page.waitForSelector("#right-inspector:not(.hidden)");
-  await page.click('.inspector-tab-btn[data-inspector-tab="Library"]');
+  await page.click('.inspector-tab-btn[data-inspector-tab="Artifacts"]');
+  const inspectorTabsText = await page.textContent(".inspector-tabs");
+  assert(inspectorTabsText.includes("Artifacts") && !inspectorTabsText.includes("Library"), "Inspector tab must be named 'Artifacts'");
   const libText = await page.textContent("#inspector-tab-content");
-  assert(libText.includes("Bot Fleet Audit & Access Map (V2 + V3)"), "Library tab must show This week items");
-  assert(libText.includes("BEAR row 60 with updated Explain why and 2.1"), "Library tab must show Older items");
+  assert(libText.includes("Bot Fleet Audit & Access Map (V2 + V3)"), "Artifacts tab must show This week items");
+  assert(libText.includes("BEAR row 60 with updated Explain why and 2.1"), "Artifacts tab must show Older items");
   await page.screenshot({ path: path.join(SCRATCH_DIR, "view_04_right_inspector_library.png") });
-  console.log("✔ View 04 verified: Right Inspector — Library tab.");
+  console.log("✔ View 04 verified: Right Inspector — Artifacts tab.");
 
   // 5. View 5: CephaSI Chat + Right Inspector Details Tab (Screenshot 5)
   await page.click('.inspector-tab-btn[data-inspector-tab="Details"]');

@@ -4101,7 +4101,7 @@
         </div>
         <div class="inspector-tabs">
           <button class="inspector-tab-btn" data-inspector-tab="Details">Details</button>
-          <button class="inspector-tab-btn active" data-inspector-tab="Library">Library</button>
+          <button class="inspector-tab-btn active" data-inspector-tab="Artifacts">Artifacts</button>
           <button class="inspector-tab-btn" data-inspector-tab="Computer">Computer</button>
         </div>
       </div>
@@ -5337,7 +5337,7 @@
       activeBotId: "cephasi",
       fontFamilyId: getSavedFontFamilyId(),
       inspectorOpen: false,
-      inspectorTab: "Library",
+      inspectorTab: "Artifacts",
       settingsTab: "General",
       voiceCallActive: false,
       editorMode: "create", // 'create' | 'edit'
@@ -6722,8 +6722,8 @@ copy running-config startup-config</pre>
       });
 
       const contentEl = document.getElementById("inspector-tab-content");
-      if (state.inspectorTab === "Library") {
-        // Screenshot 4: Library Tab
+      if (state.inspectorTab === "Artifacts" || state.inspectorTab === "Library") {
+        // Screenshot 4: Artifacts Tab
         contentEl.innerHTML = `
           <div class="inspector-section-label">This week</div>
           <div class="inspector-card">
